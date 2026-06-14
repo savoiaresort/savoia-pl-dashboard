@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Savoia — P&L Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#EEEBE5;min-height:100vh}
+.hdr{background:#1B2A3B;padding:18px 28px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.hdr-eye{font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:#6A8FAD;margin-bottom:5px}
+.hdr-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.hdr-title{font-size:22px;font-weight:600;color:#fff;letter-spacing:-.3px}
+.hdr-sub{font-size:11px;color:#6A8FAD;margin-top:3px}
+.yr-badges{display:flex;gap:14px;align-items:center;margin-top:6px}
+.yb{font-size:11px;color:#aabfcf;display:flex;align-items:center;gap:5px}
+.ysq{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.nav{display:flex;gap:0;margin-top:14px;overflow-x:auto}
+.nt{padding:10px 18px;font-size:12px;color:#6A8FAD;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s}
+.nt:hover{color:#cdd}
+.nt.on{color:#fff;border-bottom-color:#fff}
+.body{padding:24px 28px;max-width:1400px;margin:0 auto}
+.sec{margin-bottom:24px}
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.shb{width:3px;height:18px;background:#2B5ED6;border-radius:2px;flex-shrink:0}
+.sht{font-size:15px;font-weight:600;color:#1a1a1a}
+.card{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+/* KPI */
+.krow{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-bottom:22px}
+.kc{padding:14px 16px}
+.kc-l{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#aaa;margin-bottom:8px}
+.kc-v{font-size:22px;font-weight:700;margin-bottom:4px}
+.kc-vs{font-size:11px;color:#999;margin-bottom:4px}
+.kc-d{font-size:11px;font-weight:500}
+/* Two col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+/* Cascade */
+.cascade{padding:16px 20px}
+.cas-r{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:.5px solid #f0ece4}
+.cas-r:last-child{border:none;padding-top:12px}
+.cas-lbl{font-size:13px;color:#444;display:flex;align-items:center;gap:8px}
+.cas-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.cas-val{font-size:13px;font-weight:600}
+.cas-pct{font-size:10px;color:#aaa;margin-left:6px;font-weight:400}
+.cas-big{font-size:15px!important}
+.cas-ind{padding-left:18px}
+.cas-sub{font-size:12px!important;color:#666!important}
+/* Donut */
+.donut-wrap{padding:14px 16px}
+.cw-sm{position:relative;height:220px}
+/* Tables */
+.tw{overflow:hidden}
+.th{padding:14px 20px;border-bottom:1px solid #f0ece4;display:flex;align-items:center;justify-content:space-between}
+.tt{font-size:14px;font-weight:600;color:#1a1a1a}
+.tsubt{font-size:11px;color:#aaa}
+.tbl-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+thead th{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#aaa;padding:9px 16px;text-align:right;border-bottom:1px solid #f0ece4;font-weight:500;white-space:nowrap}
+thead th:first-child{text-align:left}
+tbody tr{border-bottom:1px solid #f7f5f0;transition:background .1s}
+tbody tr:hover{background:#faf9f7}
+tbody tr:last-child{border-bottom:none}
+td{padding:11px 16px;font-size:13px;color:#333;text-align:right;white-space:nowrap}
+td:first-child{text-align:left}
+.td-bold{font-weight:700;color:#111}
+.sep-r td{background:#f5f3ef;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:#bbb;padding:5px 16px}
+.ydc{display:flex;align-items:center;gap:8px}
+.yd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+/* Charts */
+.csec{padding:16px 20px}
+.mprow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.mp{padding:5px 12px;border:1px solid #ddd;border-radius:20px;background:transparent;font-size:12px;color:#666;cursor:pointer;transition:all .15s}
+.mp:hover{border-color:#999}
+.mp.on{background:#1B2A3B;color:#fff;border-color:#1B2A3B}
+.cw{position:relative;height:280px}
+.leg-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.li{display:flex;align-items:center;gap:5px;font-size:12px;color:#666}
+.ldot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+/* Colors */
+.pos{color:#22A06B}.neg{color:#E53935}.neu{color:#888}
+.green{color:#22A06B;font-weight:500}.red{color:#E53935;font-weight:500}.amber{color:#E09400;font-weight:500}
+.tabpanel{display:none}.tabpanel.on{display:block}
+@media(max-width:700px){.body{padding:14px 12px}.two-col{grid-template-columns:1fr}}
+/* PDF Button */
+.pdf-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(255,255,255,.12);border:0.5px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;font-size:12px;cursor:pointer;transition:background .15s;white-space:nowrap;flex-shrink:0}
+.pdf-btn:hover{background:rgba(255,255,255,.2)}
+.pdf-btn svg{flex-shrink:0}
+/* Print / PDF */
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body{background:#EEEBE5!important}
+  .hdr{position:static!important;box-shadow:none!important}
+  .nav,.pdf-btn{display:none!important}
+  .tabpanel{display:block!important}
+  .tabpanel+.tabpanel{page-break-before:always}
+  .sec{page-break-inside:avoid}
+  .two-col{grid-template-columns:1fr 1fr!important}
+  .cw,.cw-sm{height:220px!important}
+  .body{padding:16px!important;max-width:100%!important}
+  .card{box-shadow:none!important;border:1px solid #ddd!important}
+  table{min-width:0!important}
+  .tbl-scroll{overflow:visible!important}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-eye">P&amp;L Analysis · Hotel Savoia</div>
+  <div class="hdr-top">
+    <div>
+      <div class="hdr-title">Savoia — P&L Completo</div>
+      <div class="hdr-sub">Ricavi · Costi · GOP · Winter 2022/23 – 2025/26</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+      <div class="yr-badges">
+        <div class="yb"><div class="ysq" style="background:#888"></div>W23</div>
+        <div class="yb"><div class="ysq" style="background:#E09400"></div>W24</div>
+        <div class="yb"><div class="ysq" style="background:#185FA5"></div>W25</div>
+        <div class="yb"><div class="ysq" style="background:#1D9E75"></div>W26</div>
+      </div>
+      <button class="pdf-btn" onclick="exportPDF()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Scarica PDF
+      </button>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="nt on" data-tab="overview">Overview</button>
+    <button class="nt" data-tab="costi">Costi</button>
+    <button class="nt" data-tab="mensile">Mensile</button>
+    <button class="nt" data-tab="stagionale">Stagionale</button>
+    <button class="nt" data-tab="ytd">YTD Inverno</button>
+  </div>
+</div>
+
+<div class="body">
+
+<!-- OVERVIEW -->
+<div id="tab-overview" class="tabpanel on">
+  <div class="sec">
+    <div class="sh"><div class="shb"></div><div class="sht">KPI Principali W25/26 — YTD Dic–Apr</div></div>
+    <div class="krow" id="krow-ov"></div>
+  </div>
+  <div class="two-col sec">
+    <div>
+      <div class="sh"><div class="shb"></div><div class="sht">Cascata P&L W25/26 · YTD Dic–Apr</div></div>
+      <div class="card cascade" id="cascade"></div>
+    </div>
+    <div>
+      <div class="sh"><div class="shb" style="background:#E09400"></div><div class="sht">Composizione Costi W25/26</div></div>
+      <div class="card donut-wrap"><div class="cw-sm"><canvas id="donut" aria-label="Composizione costi"></canvas></div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="card tw">
+      <div class="th"><div class="tt">P&L Riepilogo 4 Stagioni — YTD Dic–Apr</div><div class="tsubt">scorri → per tutte le colonne</div></div>
+      <div class="tbl-scroll"><table id="pl-tbl"></table></div>
+    </div>
+  </div>
+</div>
+
+<!-- COSTI -->
+<div id="tab-costi" class="tabpanel">
+  <div class="sec">
+    <div class="sh"><div class="shb" style="background:#E53935"></div><div class="sht">Costi Dipartimento — W25/26 YTD Dic–Apr</div></div>
+    <div class="krow" id="krow-costi"></div>
+  </div>
+  <div class="sec">
+    <div class="sh"><div class="shb" style="background:#E53935"></div><div class="sht">Evoluzione Costi per Dipartimento · YTD Dic–Apr</div></div>
+    <div class="card csec">
+      <div class="leg-row" id="stack-leg"></div>
+      <div class="cw"><canvas id="stack-chart" aria-label="Costi stacked per anno"></canvas></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sh"><div class="shb" style="background:#E53935"></div><div class="sht">Andamento Mensile Voce di Costo</div></div>
+    <div class="card csec">
+      <div class="mprow" id="cost-pills"></div>
+      <div class="cw"><canvas id="cost-line" aria-label="Andamento costo mensile"></canvas></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="card tw">
+      <div class="th"><div class="tt">Dettaglio Costi — YTD Dic–Apr</div><div class="tsubt">€ · % su revenue</div></div>
+      <div class="tbl-scroll"><table id="cost-tbl"></table></div>
+    </div>
+  </div>
+</div>
+
+<!-- MENSILE -->
+<div id="tab-mensile" class="tabpanel">
+  <div class="card csec">
+    <div class="sh"><div class="shb"></div><div class="sht">Trend Mensile · tutte le stagioni</div></div>
+    <div class="leg-row" id="m-leg"></div>
+    <div class="mprow" id="m-pills"></div>
+    <div class="cw"><canvas id="mc" aria-label="Trend mensile"></canvas></div>
+  </div>
+</div>
+
+<!-- STAGIONALE -->
+<div id="tab-stagionale" class="tabpanel">
+  <div class="card csec">
+    <div class="sh"><div class="shb"></div><div class="sht">Inverno (Nov–Mag) vs Estate (Giu–Ott)</div></div>
+    <div class="mprow" id="s-pills"></div>
+    <div class="cw"><canvas id="sc" aria-label="Stagionale"></canvas></div>
+  </div>
+</div>
+
+<!-- YTD -->
+<div id="tab-ytd" class="tabpanel">
+  <div class="card csec">
+    <div class="sh"><div class="shb"></div><div class="sht">YTD Inverno — Confronto Dic→Apr</div></div>
+    <div class="mprow" id="y-pills"></div>
+    <div class="cw"><canvas id="yc" aria-label="YTD confronto"></canvas></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// ═══ DATA (verified from Excel) ═══
+const MN=['Nov','Dic','Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott'];
+const YRS=['22-23','23-24','24-25','25-26'];
+const YL={'22-23':'W22/23','23-24':'W23/24','24-25':'W24/25','25-26':'W25/26'};
+const COLS={'22-23':'#888','23-24':'#E09400','24-25':'#185FA5','25-26':'#1D9E75'};
+const W=[0,1,2,3,4,5,6], S=[7,8,9,10,11], YTD=[1,2,3,4,5];
+
+const D={
+'22-23':{
+  revenue:   [0,307109,368262,375594,222679,95333,0,131476,312138,449775,59399,0],
+  wages:     [30351,95214,94544,88947,70109,42445,32492,57576,74566,82204,52600,36906],
+  othercosts:[84331,248599,268647,180873,168284,49842,36436,116462,160423,177624,34645,58700],
+  gop:       [-102432,-37822,4524,105069,-16255,2505,-69470,-43656,75096,189167,-28620,-96398],
+  roomRev:   [null,171113,176027,154456,96556,23866,null,63073,152825,241586,26561,null],
+  fbRev:     [0,107216,169788,187942,102789,69984,0,61731,144064,190162,19936,0],
+  roomCosts: [15726,58308,54071,38718,31856,10295,6105,20075,30110,32849,9472,1136],
+  fbCosts:   [30433,121642,132897,115930,89075,32427,15659,77715,110838,121885,20783,12132],
+  smCosts:   [10996,10906,9367,7657,10008,9272,9711,10790,13244,13449,11724,15590],
+  engineering:[44300,97966,108385,57308,48859,26788,21598,38067,34474,32503,28050,49392],
+  admin:     [13626,20335,20597,18059,21208,12146,16148,15046,21502,26740,12739,17648],
+  undivisible:[55899,129207,138349,83024,80075,48205,47456,63903,69220,72691,52512,82631],
+  marginalP: [-46533,91385,142873,188093,63820,50710,-22014,20247,144316,261858,23892,-13768],
+  gih:       [null,2918,4135,5417,2729,1579,0,1659,3960,4818,1103,0],
+  occ:       [null,1121,1684,2027,1092,619,null,815,1723,2020,258,null],
+  adr:       [null,152.64,104.53,76.20,88.42,38.56,null,77.39,88.70,119.60,102.95,null],
+  trevpar:   [null,138.84,150.37,169.80,90.93,109.70,null,55.48,127.46,183.66,75.19,null],
+  trevpor:   [null,273.96,218.68,185.30,203.92,154.01,null,161.32,181.16,222.66,230.23,null],
+  goppar:    [null,-17.10,1.85,47.50,-6.64,2.88,null,-18.42,30.66,77.24,-36.23,null],
+  fbCos:     [15484,62926,76998,60701,52326,12196,310,47716,70356,73877,-1298,0],
+  fbWages:   [7937,46758,48123,47342,31585,18638,14449,25831,32996,39874,21684,10246],
+  roomWages: [5434,26971,32137,27212,24177,9452,3629,11829,17631,21630,8672,0]
+},
+'23-24':{
+  revenue:   [null,357563,394537,380988,259334,77159,null,75506,219847,409217,59825,null],
+  wages:     [45808,89454,94281,100635,89283,65801,23898,72434,78025,77857,69485,34805],
+  othercosts:[109166,172891,196600,128775,127732,39467,32729,112178,114585,150868,44780,15065],
+  gop:       [-154973,95219,102305,149286,40949,-31553,-58087,-110570,25893,179039,-55836,-51423],
+  roomRev:   [null,181509,194298,128599,76199,16260,null,36689,97670,201903,21712,null],
+  fbRev:     [null,146049,186999,243733,171498,60115,null,35753,111449,192883,35619,null],
+  roomCosts: [11588,38264,42948,44380,34974,16435,72,30268,28816,31125,12024,78],
+  fbCosts:   [41695,106720,137515,102043,85374,40057,5242,83263,85690,98045,32749,13085],
+  smCosts:   [10146,8080,8054,6570,7011,5468,6094,8744,8101,6135,15766,4501],
+  engineering:[60413,54812,51664,52658,53914,26037,30073,38183,34410,32897,29164,17829],
+  admin:     [22956,32156,27671,18588,20753,18648,16107,20717,26791,27416,21234,15930],
+  undivisible:[93515,95047,87389,77816,81678,50154,52274,67643,69302,66448,66164,38260],
+  marginalP: [-61458,190266,189694,227103,122628,18602,-5814,-42926,95195,245487,10328,-13163],
+  gih:       [null,3120,4483,5979,3688,1218,null,926,2912,4920,698,null],
+  occ:       [null,1100,1647,2013,1385,456,null,468,1211,1952,355,null],
+  adr:       [null,165.01,117.97,63.88,55.02,35.66,null,78.40,80.65,103.43,61.16,null],
+  trevpar:   [null,183.37,163.17,168.43,105.89,162.78,null,41.56,89.77,167.10,75.73,null],
+  trevpor:   [null,325.06,239.55,189.26,187.24,169.21,null,161.34,181.54,209.64,168.52,null],
+  goppar:    [null,48.83,42.31,66.00,16.72,-66.57,null,-60.85,10.57,73.11,-70.68,null],
+  fbCos:     [22090,49470,80205,41669,31078,5824,494,42227,45177,57732,5090,-2311],
+  fbWages:   [13505,45807,45689,53053,44156,33550,4570,29752,33908,33927,26840,15372],
+  roomWages: [4606,25011,31458,30898,27704,16081,null,22190,22987,23526,11030,null]
+},
+'24-25':{
+  revenue:   [null,381104,446709,373266,290414,105050,29883,149135,247421,452534,38694,null],
+  wages:     [34028,108510,94453,102827,85174,79490,48602,81667,84942,86461,52031,26303],
+  othercosts:[56876,214186,181565,131526,138967,51308,103482,112553,142933,134478,37796,28899],
+  gop:       [-92711,55699,168896,136973,64644,-27487,-124081,-47357,17294,229727,-53360,-57074],
+  roomRev:   [null,195411,220983,229669,121760,38681,10505,76275,117951,217429,17961,null],
+  fbRev:     [null,160197,214415,126285,159273,64137,18792,65594,119822,220038,19577,null],
+  roomCosts: [6662,43221,44388,45639,34263,23405,13793,33560,35243,33596,13923,3246],
+  fbCosts:   [27834,145790,113212,85728,88075,43446,57333,76281,105234,113291,23623,10223],
+  smCosts:   [4443,6588,4030,2943,3236,2573,2973,3774,3732,594,1972,5401],
+  engineering:[28663,72366,62562,64216,60733,38486,38939,48041,35642,31428,24144,20372],
+  admin:     [24879,44120,40031,30097,33459,23168,39019,30673,39068,30051,25302,17302],
+  undivisible:[57985,123074,106623,97256,97428,64227,80931,82488,78442,62074,51417,43075],
+  marginalP: [-34726,178773,275520,234229,162072,36739,-43150,35131,95736,291800,-1943,-13999],
+  gih:       [null,2868,4807,5785,3839,1513,215,1742,3109,5383,490,null],
+  occ:       [null,1133,1907,2011,1428,595,102,748,1269,1986,220,null],
+  adr:       [null,172.47,115.88,114.21,85.27,65.01,102.99,101.97,92.95,109.48,81.64,null],
+  trevpar:   [null,187.92,184.74,170.91,120.11,112.23,127.70,63.73,105.02,187.15,33.07,null],
+  trevpor:   [null,null,234.25,185.61,203.37,176.55,292.97,199.38,194.97,227.86,175.88,null],
+  goppar:    [null,27.47,69.85,62.72,26.73,-29.37,-530.26,-20.24,7.34,95.01,-45.61,null],
+  fbCos:     [13122,85796,60269,27862,40766,3013,38162,34620,55757,61304,-2533,null],
+  fbWages:   [8687,48848,43020,50478,40109,39351,15613,35512,40765,47714,24226,10523],
+  roomWages: [434,30925,31184,33715,27123,18642,6185,23141,25941,23119,12089,1444]
+},
+'25-26':{
+  revenue:   [null,455448,530232,448041,286373,120338,null,null,null,null,null,null],
+  wages:     [28544,100556,92349,97585,83169,65293,null,null,null,null,null,null],
+  othercosts:[78173,218671,205058,155932,142650,52531,null,null,null,null,null,null],
+  gop:       [-108396,133460,230907,192693,56725,729,null,null,null,null,null,null],
+  roomRev:   [null,224550,229220,227419,104344,34881,null,null,null,null,null,null],
+  fbRev:     [null,201933,285219,207581,171762,83127,null,null,null,null,null,null],
+  roomCosts: [8403,48475,45390,48531,37589,18483,null,null,null,null,null,null],
+  fbCosts:   [41330,150619,142808,107091,88455,40397,null,null,null,null,null,null],
+  smCosts:   [3868,1542,2419,2878,3173,1345,null,null,null,null,null,null],
+  engineering:[31874,62761,56402,62446,63106,30757,null,null,null,null,null,null],
+  admin:     [22741,37851,30416,25855,27014,25604,null,null,null,null,null,null],
+  undivisible:[58483,102154,89237,91179,93293,57706,null,null,null,null,null,null],
+  marginalP: [-49913,235614,320144,283872,150018,58435,null,null,null,null,null,null],
+  gih:       [null,3798,5763,5444,3569,1693,null,null,null,null,null,null],
+  occ:       [null,1376,2025,1922,1370,571,null,null,null,null,null,null],
+  adr:       [null,163.19,113.20,118.32,76.16,61.09,null,null,null,null,null,null],
+  trevpar:   [null,216.26,219.29,205.15,118.43,140.25,null,null,null,null,null,null],
+  trevpor:   [null,330.99,261.84,233.11,209.03,210.75,null,null,null,null,null,null],
+  goppar:    [null,63.37,95.50,88.23,23.46,0.85,null,null,null,null,null,null],
+  fbCos:     [null,82252,84047,46380,43426,3997,null,null,null,null,null,null],
+  fbWages:   [10265,51561,46728,53229,41556,34743,null,null,null,null,null,null],
+  roomWages: [1444,32040,31659,31416,28095,16400,null,null,null,null,null,null]
+}
+};
+
+const MD={
+  revenue:    {lbl:'Revenue Totale',   u:'eur', sum:true},
+  gop:        {lbl:'GOP',              u:'eur', sum:true},
+  marginalP:  {lbl:'Marginal Profit',  u:'eur', sum:true},
+  wages:      {lbl:'Salari Totali',    u:'eur', sum:true},
+  othercosts: {lbl:'Altri Costi',      u:'eur', sum:true},
+  roomRev:    {lbl:'Room Revenue',     u:'eur', sum:true},
+  fbRev:      {lbl:'F&B Revenue',      u:'eur', sum:true},
+  roomCosts:  {lbl:'Costi Camere',     u:'eur', sum:true},
+  fbCosts:    {lbl:'Costi F&B',        u:'eur', sum:true},
+  fbCos:      {lbl:'F&B Cost of Sales',u:'eur', sum:true},
+  fbWages:    {lbl:'Salari F&B',       u:'eur', sum:true},
+  roomWages:  {lbl:'Salari Camere',    u:'eur', sum:true},
+  smCosts:    {lbl:'S&M',              u:'eur', sum:true},
+  engineering:{lbl:'Engineering',      u:'eur', sum:true},
+  admin:      {lbl:'Amministrazione',  u:'eur', sum:true},
+  undivisible:{lbl:'Costi Indivisibili',u:'eur',sum:true},
+  occ:        {lbl:'Camere Vendute',   u:'num', sum:true},
+  gih:        {lbl:'Ospiti (GIH)',     u:'num', sum:true},
+  adr:        {lbl:'ADR',              u:'eur2',sum:false},
+  trevpar:    {lbl:'TREVPAR',          u:'eur2',sum:false},
+  trevpor:    {lbl:'TREVPOR',          u:'eur2',sum:false},
+  goppar:     {lbl:'GOPPAR',           u:'eur2',sum:false}
+};
+
+// ── Helpers ──
+function fmt(v,u){
+  if(v===null||v===undefined||isNaN(v))return'—';
+  if(u==='eur'){
+    const a=Math.abs(v),s=v<0?'-':'';
+    if(a>=1e6)return s+'€'+(a/1e6).toFixed(2)+'M';
+    if(a>=1e3)return s+'€'+(a/1e3).toFixed(0)+'K';
+    return s+'€'+Math.round(a);
+  }
+  if(u==='eur2')return(v<0?'-':'')+'€'+Math.abs(v).toFixed(0);
+  return Math.round(v).toLocaleString('it-IT');
+}
+function pct(a,b){return(b&&b!==0)?((a-b)/Math.abs(b)*100):null;}
+function sm(yr,k,ix){return ix.reduce((a,i)=>{const v=D[yr][k]?.[i];return(v!==null&&v!==undefined&&!isNaN(v))?a+v:a;},0);}
+function av(yr,k,ix){const vs=ix.map(i=>D[yr][k]?.[i]).filter(v=>v!==null&&v!==undefined&&!isNaN(v)&&v!==0);return vs.length?vs.reduce((a,b)=>a+b,0)/vs.length:null;}
+function pv(yr,k,ix,isSum){return isSum?sm(yr,k,ix):av(yr,k,ix);}
+function arrow(p,costMode){
+  if(p===null)return'';
+  const good=costMode?p<0:p>=0;
+  return good?`<span class="pos">▲ ${Math.abs(p).toFixed(1)}%</span>`:`<span class="neg">▼ ${Math.abs(p).toFixed(1)}%</span>`;
+}
+
+// ── Overview KPIs ──
+function renderOvKPIs(){
+  const kpis=[
+    {k:'revenue',lbl:'Revenue YTD',col:'#22A06B',cost:false},
+    {k:'gop',lbl:'GOP YTD',col:'#22A06B',cost:false},
+    {k:'marginalP',lbl:'Marginal Profit',col:'#1D9E75',cost:false},
+    {k:'wages',lbl:'Salari Totali',col:'#E53935',cost:true},
+    {k:'undivisible',lbl:'Costi Indivisibili',col:'#E53935',cost:true},
+    {k:'trevpar',lbl:'TREVPAR medio',col:'#7B61FF',cost:false},
+    {k:'trevpor',lbl:'TREVPOR medio',col:'#185FA5',cost:false}
+  ];
+  document.getElementById('krow-ov').innerHTML=kpis.map(({k,lbl,col,cost})=>{
+    const md=MD[k],v26=pv('25-26',k,YTD,md.sum),v25=pv('24-25',k,YTD,md.sum);
+    const p=pct(v26,v25);
+    return`<div class="card kc">
+      <div class="kc-l">${lbl}</div>
+      <div class="kc-v" style="color:${col}">${fmt(v26,md.u)}</div>
+      <div class="kc-vs">${v25!==null?`vs ${fmt(v25,md.u)} W25`:''}</div>
+      <div class="kc-d">${arrow(p,cost)}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Cascade ──
+function renderCascade(){
+  const y='25-26',ix=YTD;
+  const rev=sm(y,'revenue',ix),gop=sm(y,'gop',ix);
+  const rC=sm(y,'roomCosts',ix),fbC=sm(y,'fbCosts',ix);
+  const mp=sm(y,'marginalP',ix),und=sm(y,'undivisible',ix);
+  const sm_=sm(y,'smCosts',ix),eng=sm(y,'engineering',ix),adm=sm(y,'admin',ix);
+  function row(dot,lbl,val,indent,bold,showPct){
+    const p=showPct&&rev?` <span class="cas-pct">${(val/rev*100).toFixed(1)}% rev</span>`:'';
+    const cls=bold?'cas-big':'';
+    const sign=val>=0?'+':'-';
+    const vcls=val<0&&!bold?'neg':'';
+    return`<div class="cas-r${indent?' cas-ind':''}">
+      <div class="cas-lbl${indent?' cas-sub':''}">${dot?`<div class="cas-dot" style="background:${dot}"></div>`:'<div style="width:10px"></div>'} ${lbl}</div>
+      <div class="cas-val ${cls} ${vcls}">${sign}${fmt(Math.abs(val),'eur')}${p}</div>
+    </div>`;
+  }
+  document.getElementById('cascade').innerHTML=
+    row('#1D9E75','Revenue Totale',rev,false,true,true)+
+    row('#E53935','Costi Camere',-rC,false,false,true)+
+    row('#FF7B72','Costi F&B',-fbC,false,false,true)+
+    `<div class="cas-r" style="border-top:1.5px solid #e8e4dc;margin-top:4px">
+      <div class="cas-lbl"><div class="cas-dot" style="background:#1D9E75"></div><strong>Marginal Profit</strong></div>
+      <div class="cas-val cas-big ${mp<0?'neg':'pos'}">${mp>=0?'+':'-'}${fmt(Math.abs(mp),'eur')} <span class="cas-pct">${rev?(mp/rev*100).toFixed(1)+'% rev':''}</span></div>
+    </div>`+
+    row('#7B61FF','S&M',-sm_,true,false,false)+
+    row('#4A90D9','Engineering',-eng,true,false,false)+
+    row('#22A06B','Amministrazione',-adm,true,false,false)+
+    `<div class="cas-r" style="border-top:1.5px solid #e8e4dc;margin-top:4px">
+      <div class="cas-lbl"><div class="cas-dot" style="background:#22A06B"></div><strong>GOP</strong></div>
+      <div class="cas-val cas-big ${gop<0?'neg':'pos'}">${gop>=0?'+':'-'}${fmt(Math.abs(gop),'eur')} <span class="cas-pct">${rev?(gop/rev*100).toFixed(1)+'% rev':''}</span></div>
+    </div>`;
+}
+
+// ── Donut ──
+function renderDonut(){
+  const y='25-26',ix=YTD;
+  const items=[
+    {k:'roomWages',lbl:'Salari Camere',col:'#4A90D9'},
+    {k:'fbCos',lbl:'F&B Cost of Sales',col:'#E53935'},
+    {k:'fbWages',lbl:'Salari F&B',col:'#FF7B72'},
+    {k:'smCosts',lbl:'S&M',col:'#E09400'},
+    {k:'engineering',lbl:'Engineering',col:'#7B61FF'},
+    {k:'admin',lbl:'Amministrazione',col:'#22A06B'}
+  ];
+  const vals=items.map(i=>sm(y,i.k,ix));
+  new Chart(document.getElementById('donut'),{
+    type:'doughnut',
+    data:{labels:items.map(i=>i.lbl),datasets:[{data:vals,backgroundColor:items.map(i=>i.col),borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',
+      plugins:{legend:{position:'right',labels:{font:{size:10},boxWidth:10,padding:6}},
+        tooltip:{callbacks:{label:c=>{const tot=vals.reduce((a,b)=>a+b,0);return`${c.label}: ${fmt(c.raw,'eur')} (${(c.raw/tot*100).toFixed(1)}%)`}}}}}
+  });
+}
+
+// ── P&L Table ──
+function renderPLTable(){
+  const rows=[
+    {k:'revenue',lbl:'REVENUE TOTALE',bold:true},
+    {k:'roomRev',lbl:'→ Room Revenue',ind:true},
+    {k:'fbRev',lbl:'→ F&B Revenue',ind:true},
+    {sep:true},
+    {k:'roomCosts',lbl:'Costi Camere',neg:true},
+    {k:'fbCosts',lbl:'Costi F&B',neg:true},
+    {k:'marginalP',lbl:'MARGINAL PROFIT',bold:true},
+    {sep:true},
+    {k:'smCosts',lbl:'S&M',neg:true,ind:true},
+    {k:'engineering',lbl:'Engineering',neg:true,ind:true},
+    {k:'admin',lbl:'Amministrazione',neg:true,ind:true},
+    {k:'undivisible',lbl:'Costi Indivisibili TOT',neg:true},
+    {k:'gop',lbl:'GOP',bold:true},
+  ];
+  let h=`<thead><tr><th style="min-width:200px">VOCE P&L</th>${YRS.map(y=>`<th>${YL[y]}</th>`).join('')}</tr></thead><tbody>`;
+  rows.forEach(r=>{
+    if(r.sep){h+=`<tr class="sep-r"><td colspan="${1+YRS.length}"></td></tr>`;return;}
+    const md=MD[r.k];
+    h+=`<tr><td style="${r.ind?'padding-left:28px':''}"><span class="${r.bold?'td-bold':''}">${r.lbl}</span></td>`;
+    YRS.forEach(yr=>{
+      const v=pv(yr,r.k,YTD,md.sum);
+      let cls='';
+      if(r.bold)cls=v!==null?(v>=0?'green':'red'):'';
+      else if(r.neg)cls=v!==null?(v>0?'red':'green'):'';
+      h+=`<td class="${cls}${r.bold?' td-bold':''}">${fmt(v,md.u)}</td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody>';
+  document.getElementById('pl-tbl').innerHTML=h;
+}
+
+// ── Costi KPIs ──
+function renderCostiKPIs(){
+  const kpis=[
+    {k:'wages',lbl:'Salari Totali',col:'#E53935'},
+    {k:'roomCosts',lbl:'Costi Camere',col:'#4A90D9'},
+    {k:'fbCosts',lbl:'Costi F&B',col:'#FF7B72'},
+    {k:'engineering',lbl:'Engineering',col:'#7B61FF'},
+    {k:'admin',lbl:'Amministrazione',col:'#888'},
+    {k:'smCosts',lbl:'S&M',col:'#E09400'},
+    {k:'undivisible',lbl:'Indivisibili TOT',col:'#E53935'}
+  ];
+  document.getElementById('krow-costi').innerHTML=kpis.map(({k,lbl,col})=>{
+    const md=MD[k],v26=pv('25-26',k,YTD,md.sum),v25=pv('24-25',k,YTD,md.sum);
+    const p=pct(v26,v25);
+    return`<div class="card kc">
+      <div class="kc-l">${lbl}</div>
+      <div class="kc-v" style="color:${col}">${fmt(v26,md.u)}</div>
+      <div class="kc-vs">${v25!==null?`vs ${fmt(v25,md.u)} W25`:''}</div>
+      <div class="kc-d">${arrow(p,true)}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Cost Stacked Chart ──
+function renderStackChart(){
+  const gc='rgba(0,0,0,.07)',tc='rgba(0,0,0,.45)';
+  const depts=[
+    {k:'roomWages',lbl:'Salari Camere',col:'#4A90D9'},
+    {k:'fbCos',lbl:'F&B Cost of Sales',col:'#E53935'},
+    {k:'fbWages',lbl:'Salari F&B',col:'#FF7B72'},
+    {k:'smCosts',lbl:'S&M',col:'#E09400'},
+    {k:'engineering',lbl:'Engineering',col:'#7B61FF'},
+    {k:'admin',lbl:'Amministrazione',col:'#22A06B'}
+  ];
+  document.getElementById('stack-leg').innerHTML=depts.map(d=>`<div class="li"><div class="ldot" style="background:${d.col}"></div>${d.lbl}</div>`).join('');
+  new Chart(document.getElementById('stack-chart'),{
+    type:'bar',
+    data:{labels:YRS.map(y=>YL[y]),
+      datasets:depts.map(d=>({label:d.lbl,data:YRS.map(y=>sm(y,d.k,YTD)),backgroundColor:d.col+'cc',borderColor:d.col,borderWidth:1,borderRadius:3,stack:'s'}))},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false,callbacks:{label:c=>`${c.dataset.label}: ${fmt(c.raw,'eur')}`}}},
+      scales:{x:{stacked:true,ticks:{color:tc,font:{size:11}},grid:{color:gc}},
+        y:{stacked:true,ticks:{color:tc,font:{size:11},callback:v=>fmt(v,'eur')},grid:{color:gc}}}}
+  });
+}
+
+// ── Cost Line ──
+const COST_KEYS=['wages','roomCosts','roomWages','fbCosts','fbCos','fbWages','smCosts','engineering','admin','undivisible'];
+let curCK='engineering', costLChart=null;
+function renderCostPills(){
+  const c=document.getElementById('cost-pills');
+  c.innerHTML=COST_KEYS.map(k=>`<button class="mp${k===curCK?' on':''}" data-k="${k}">${MD[k].lbl}</button>`).join('');
+  c.querySelectorAll('.mp').forEach(b=>b.addEventListener('click',e=>{
+    curCK=e.currentTarget.dataset.k;
+    c.querySelectorAll('.mp').forEach(x=>x.classList.remove('on'));
+    e.currentTarget.classList.add('on');
+    if(costLChart){costLChart.destroy();costLChart=null;}
+    costLChart=renderLineChart('cost-line',curCK);
+  }));
+}
+
+// ── Cost Table ──
+function renderCostTable(){
+  const rows=[
+    {k:'revenue',lbl:'Revenue Totale',bold:true,neg:false},
+    {k:'wages',lbl:'Salari Totali',neg:true},
+    {k:'roomWages',lbl:'→ Salari Camere',neg:true,ind:true},
+    {k:'fbWages',lbl:'→ Salari F&B',neg:true,ind:true},
+    {k:'roomCosts',lbl:'Costi Camere TOT',neg:true},
+    {k:'fbCos',lbl:'→ F&B Cost of Sales',neg:true,ind:true},
+    {k:'fbCosts',lbl:'Costi F&B TOT',neg:true},
+    {k:'smCosts',lbl:'S&M',neg:true},
+    {k:'engineering',lbl:'Engineering',neg:true},
+    {k:'admin',lbl:'Amministrazione',neg:true},
+    {k:'undivisible',lbl:'Costi Indivisibili TOT',bold:true,neg:true},
+    {k:'gop',lbl:'GOP',bold:true,neg:false},
+  ];
+  let h=`<thead><tr><th style="min-width:200px">VOCE</th>${YRS.map(y=>`<th>${YL[y]} €</th><th>${YL[y]} %rev</th>`).join('')}</tr></thead><tbody>`;
+  rows.forEach(r=>{
+    const md=MD[r.k];
+    h+=`<tr><td style="${r.ind?'padding-left:28px':''}"><span class="${r.bold?'td-bold':''}">${r.lbl}</span></td>`;
+    YRS.forEach(yr=>{
+      const rev=sm(yr,'revenue',YTD),v=pv(yr,r.k,YTD,md.sum);
+      const p=rev&&v!==null?(v/rev*100):null;
+      let cls=r.bold?(v!==null&&v>=0?'green':'red'):r.neg?(v!==null&&v>0?'red':''):'' ;
+      h+=`<td class="${cls}${r.bold?' td-bold':''}">${fmt(v,md.u)}</td>`;
+      h+=`<td style="color:#bbb;font-size:11px">${p!==null?p.toFixed(1)+'%':'—'}</td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody>';
+  document.getElementById('cost-tbl').innerHTML=h;
+}
+
+// ── Generic chart renderers ──
+const gc='rgba(0,0,0,.07)',tc='rgba(0,0,0,.45)';
+function baseOpts(k){
+  const md=MD[k];
+  return{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>`${c.dataset.label||c.label}: ${fmt(c.raw,md.u)}`},
+        backgroundColor:'#fff',titleColor:'#222',bodyColor:'#555',borderColor:'rgba(0,0,0,.12)',borderWidth:1}},
+    scales:{x:{ticks:{color:tc,font:{size:11}},grid:{color:gc}},
+      y:{ticks:{color:tc,font:{size:11},callback:v=>fmt(v,md.u)},grid:{color:gc}}}};
+}
+function renderLineChart(canvasId, k){
+  const md=MD[k];
+  return new Chart(document.getElementById(canvasId),{
+    type:'line',
+    data:{labels:MN,datasets:YRS.map(yr=>({
+      label:YL[yr],
+      data:MN.map((_,i)=>{const v=D[yr][k]?.[i];return(v===null||v===undefined||isNaN(v))?null:v;}),
+      borderColor:COLS[yr],backgroundColor:COLS[yr]+'20',
+      pointRadius:3,pointHoverRadius:6,borderWidth:yr==='25-26'?2.5:1.5,
+      tension:.35,spanGaps:false,fill:yr==='25-26'
+    }))},
+    options:baseOpts(k)
+  });
+}
+
+const charts={};
+const curM={mensile:'revenue',stagionale:'revenue',ytd:'revenue'};
+const ALL_KEYS=Object.keys(MD);
+function makePills(pid,tab){
+  const c=document.getElementById(pid);
+  c.innerHTML=ALL_KEYS.map(k=>`<button class="mp${k===curM[tab]?' on':''}" data-k="${k}">${MD[k].lbl}</button>`).join('');
+  c.querySelectorAll('.mp').forEach(b=>b.addEventListener('click',e=>{
+    curM[tab]=e.currentTarget.dataset.k;
+    c.querySelectorAll('.mp').forEach(x=>x.classList.remove('on'));
+    e.currentTarget.classList.add('on');
+    renderTabChart(tab);
+  }));
+}
+function makeLeg(pid){
+  const c=document.getElementById(pid);if(!c)return;
+  c.innerHTML=YRS.map(y=>`<div class="li"><div class="ldot" style="background:${COLS[y]}"></div>${YL[y]}</div>`).join('');
+}
+function renderTabChart(tab){
+  const k=curM[tab],md=MD[k];
+  const cid=tab==='mensile'?'mc':tab==='stagionale'?'sc':'yc';
+  if(charts[tab]){charts[tab].destroy();charts[tab]=null;}
+  if(tab==='mensile'){
+    charts[tab]=renderLineChart(cid,k);return;
+  }
+  if(tab==='stagionale'){
+    const opts={...baseOpts(k)};
+    opts.plugins={...opts.plugins,legend:{display:true,position:'top',labels:{font:{size:10},usePointStyle:true,pointStyle:'rect',boxWidth:10}}};
+    charts[tab]=new Chart(document.getElementById(cid),{
+      type:'bar',data:{labels:YRS.map(y=>YL[y]),datasets:[
+        {label:'Inverno (Nov–Mag)',data:YRS.map(y=>pv(y,k,W,md.sum)),backgroundColor:YRS.map(y=>COLS[y]+'cc'),borderColor:YRS.map(y=>COLS[y]),borderWidth:1,borderRadius:4},
+        {label:'Estate (Giu–Ott)',data:YRS.map(y=>pv(y,k,S,md.sum)),backgroundColor:YRS.map(y=>COLS[y]+'44'),borderColor:YRS.map(y=>COLS[y]),borderWidth:1,borderRadius:4}
+      ]},options:opts});return;
+  }
+  charts[tab]=new Chart(document.getElementById(cid),{
+    type:'bar',data:{labels:YRS.map(y=>YL[y]),datasets:[{
+      label:'YTD Dic–Apr',data:YRS.map(y=>pv(y,k,YTD,md.sum)),
+      backgroundColor:YRS.map(y=>COLS[y]+'cc'),borderColor:YRS.map(y=>COLS[y]),borderWidth:1.5,borderRadius:6
+    }]},options:baseOpts(k)});
+}
+
+// ── Tab switching ──
+document.querySelectorAll('.nt').forEach(b=>b.addEventListener('click',e=>{
+  const tab=e.target.dataset.tab;
+  document.querySelectorAll('.nt').forEach(x=>x.classList.remove('on'));
+  e.target.classList.add('on');
+  document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('tab-'+tab).classList.add('on');
+  if(tab==='mensile'&&!charts.mensile){makeLeg('m-leg');makePills('m-pills','mensile');renderTabChart('mensile');}
+  if(tab==='stagionale'&&!charts.stagionale){makePills('s-pills','stagionale');renderTabChart('stagionale');}
+  if(tab==='ytd'&&!charts.ytd){makePills('y-pills','ytd');renderTabChart('ytd');}
+}));
+
+// ── Export PDF ──
+function exportPDF(){
+  // 1. Show all panels
+  document.querySelectorAll('.tabpanel').forEach(p=>p.style.display='block');
+  // 2. Render any lazy charts
+  if(!charts.mensile){makeLeg('m-leg');makePills('m-pills','mensile');renderTabChart('mensile');}
+  if(!charts.stagionale){makePills('s-pills','stagionale');renderTabChart('stagionale');}
+  if(!charts.ytd){makePills('y-pills','ytd');renderTabChart('ytd');}
+  // 3. Wait for charts to render, then print
+  setTimeout(()=>{
+    window.print();
+    // 4. After print dialog closes, restore active tab only
+    setTimeout(()=>{
+      document.querySelectorAll('.tabpanel').forEach(p=>p.style.display='');
+      const active=document.querySelector('.nt.on')?.dataset?.tab||'overview';
+      const el=document.getElementById('tab-'+active);
+      if(el)el.style.display='block';
+    },500);
+  },400);
+}
+
+// ── Init ──
+renderOvKPIs();
+renderCascade();
+renderDonut();
+renderPLTable();
+renderCostiKPIs();
+renderStackChart();
+renderCostPills();
+costLChart=renderLineChart('cost-line',curCK);
+renderCostTable();
+</script>
+</body>
+</html>
