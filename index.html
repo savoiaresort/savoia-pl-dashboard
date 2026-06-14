@@ -81,6 +81,37 @@ td:first-child{text-align:left}
 .pos{color:#22A06B}.neg{color:#E53935}.neu{color:#888}
 .green{color:#22A06B;font-weight:500}.red{color:#E53935;font-weight:500}.amber{color:#E09400;font-weight:500}
 .tabpanel{display:none}.tabpanel.on{display:block}
+/* AI Sections */
+.ai-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;gap:14px}
+.ai-spinner{width:36px;height:36px;border:3px solid var(--color-border-tertiary);border-top-color:#2B5ED6;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ai-load-txt{font-size:13px;color:var(--color-text-tertiary)}
+.ai-error{background:#fff5f5;border:1px solid #fecaca;border-radius:10px;padding:16px 20px;font-size:13px;color:#E53935;margin-bottom:12px}
+.ai-refresh{display:flex;align-items:center;gap:6px;padding:7px 14px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-secondary);border-radius:8px;font-size:12px;color:var(--color-text-secondary);cursor:pointer;width:fit-content;margin-bottom:16px}
+.ai-refresh:hover{background:var(--color-background-tertiary)}
+/* Analysis cards */
+.analysis-summary{background:#EEF2FF;border:1px solid #C7D2FE;border-radius:12px;padding:16px 20px;margin-bottom:20px;font-size:14px;color:#3730A3;line-height:1.6}
+.analysis-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.ac{border-radius:12px;border:1px solid;padding:14px 16px}
+.ac-pos{background:#F0FDF4;border-color:#86EFAC}.ac-neg{background:#FFF5F5;border-color:#FECACA}.ac-watch{background:#FFFBEB;border-color:#FDE68A}
+.ac-head{font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+.ac-pos .ac-head{color:#16A34A}.ac-neg .ac-head{color:#DC2626}.ac-watch .ac-head{color:#D97706}
+.ac-item{padding:8px 0;border-bottom:0.5px solid rgba(0,0,0,.06);font-size:13px}
+.ac-item:last-child{border:none}
+.ac-item-title{font-weight:600;color:#111;margin-bottom:2px;display:flex;align-items:center;gap:6px}
+.ac-item-detail{font-size:12px;color:#666;line-height:1.5}
+.ac-item-metric{font-size:11px;font-weight:500;background:rgba(0,0,0,.06);border-radius:4px;padding:1px 6px;white-space:nowrap}
+/* Suggestions */
+.sug-item{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.07);padding:16px 18px;margin-bottom:12px;display:flex;gap:16px;align-items:flex-start}
+.sug-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.sug-body{flex:1}
+.sug-title{font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:5px}
+.sug-detail{font-size:13px;color:#555;line-height:1.6;margin-bottom:8px}
+.sug-expected{font-size:12px;color:#22A06B;font-weight:500;margin-bottom:6px}
+.sug-badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500}
+.badge-high{background:#FEE2E2;color:#DC2626}.badge-med{background:#FEF3C7;color:#D97706}.badge-low{background:#D1FAE5;color:#059669}
+.badge-impact-high{background:#DBEAFE;color:#1D4ED8}.badge-impact-med{background:#EDE9FE;color:#7C3AED}.badge-impact-low{background:#F3F4F6;color:#6B7280}
 @media(max-width:700px){.body{padding:14px 12px}.two-col{grid-template-columns:1fr}}
 /* PDF Button */
 .pdf-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(255,255,255,.12);border:0.5px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;font-size:12px;cursor:pointer;transition:background .15s;white-space:nowrap;flex-shrink:0}
@@ -133,6 +164,8 @@ td:first-child{text-align:left}
     <button class="nt" data-tab="mensile">Monthly</button>
     <button class="nt" data-tab="stagionale">Seasonal</button>
     <button class="nt" data-tab="ytd">YTD Winter</button>
+    <button class="nt" data-tab="analysis">📊 Analysis</button>
+    <button class="nt" data-tab="suggestions">💡 Suggestions</button>
   </div>
 </div>
 
@@ -196,19 +229,13 @@ td:first-child{text-align:left}
     <div class="sh"><div class="shb" style="background:#E09400"></div><div class="sht">F&B Cost per Cover — Full Winter Season</div></div>
     <div class="krow" id="krow-fb"></div>
   </div>
-  <div class="two-col sec">
-    <div>
-      <div class="sh"><div class="shb" style="background:#E09400"></div><div class="sht">Food Cost per Cover (€/GIH)</div></div>
-      <div class="card csec"><div class="cw-sm"><canvas id="fb-food-chart" aria-label="Food cost per cover"></canvas></div></div>
-    </div>
-    <div>
-      <div class="sh"><div class="shb" style="background:#4A90D9"></div><div class="sht">Beverage Cost per Cover (€/GIH)</div></div>
-      <div class="card csec"><div class="cw-sm"><canvas id="fb-bev-chart" aria-label="Beverage cost per cover"></canvas></div></div>
-    </div>
+  <div class="sec">
+    <div class="sh"><div class="shb" style="background:#E09400"></div><div class="sht">Breakfast Cost per Cover — Food vs Beverage (€/GIH)</div></div>
+    <div class="card csec"><div class="cw-sm"><canvas id="fb-food-chart" aria-label="Breakfast cost per cover food vs bev"></canvas></div></div>
   </div>
   <div class="sec">
-    <div class="sh"><div class="shb" style="background:#E09400"></div><div class="sht">Total F&B Cost of Sales — Full Winter Season</div></div>
-    <div class="card csec"><div class="cw"><canvas id="fb-total-chart" aria-label="Total F&B cost"></canvas></div></div>
+    <div class="sh"><div class="shb" style="background:#E53935"></div><div class="sht">Food Cost per Cover — Breakfast vs Restaurant vs Total</div></div>
+    <div class="card csec"><div class="cw"><canvas id="fb-total-chart" aria-label="Food cost per cover comparison"></canvas></div></div>
   </div>
   <div class="sec">
     <div class="card tw">
@@ -243,6 +270,32 @@ td:first-child{text-align:left}
     <div class="sh"><div class="shb"></div><div class="sht">YTD Winter — Confronto Dic→Apr</div></div>
     <div class="mprow" id="y-pills"></div>
     <div class="cw"><canvas id="yc" aria-label="YTD confronto"></canvas></div>
+  </div>
+</div>
+
+<!-- ANALYSIS -->
+<div id="tab-analysis" class="tabpanel">
+  <div class="sec">
+    <div class="sh"><div class="shb" style="background:#2B5ED6"></div><div class="sht">Performance Analysis — W25/26 vs W24/25 · YTD Dec–Apr</div></div>
+    <div id="analysis-content">
+      <div class="ai-loading" id="analysis-loading">
+        <div class="ai-spinner"></div>
+        <div class="ai-load-txt">Analysing 4 seasons of data with AI…</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUGGESTIONS -->
+<div id="tab-suggestions" class="tabpanel">
+  <div class="sec">
+    <div class="sh"><div class="shb" style="background:#1D9E75"></div><div class="sht">Strategic Recommendations — Based on 4-Season History</div></div>
+    <div id="suggestions-content">
+      <div class="ai-loading" id="suggestions-loading">
+        <div class="ai-spinner"></div>
+        <div class="ai-load-txt">Generating recommendations with AI…</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -404,21 +457,33 @@ function arrow(p,costMode){
 
 // ═══ F&B SEASONAL DATA (from Confronto file) ═══
 const FB = {
-  '22-23': { foodCost:225863, foodCostPL:210627, bevCost:46565, bevCostPL:46769, gih:13350.5, foodPerCover:16.92, bevPerCover:3.49, fbRev:1184077 },
-  '23-24': { foodCost:175985, foodCostPL:175524, bevCost:54260, bevCostPL:54314, gih:13797,   foodPerCover:12.76, bevPerCover:3.93, fbRev:1184077 },
-  '24-25': { foodCost:179565, foodCostPL:181962, bevCost:50760, bevCostPL:51365, gih:13604.5, foodPerCover:13.20, bevPerCover:3.73, fbRev:1184077 },
-  '25-26': { foodCost:227153, foodCostPL:228292, bevCost:60198, bevCostPL:60987, gih:15808,   foodPerCover:14.37, bevPerCover:3.81, fbRev:1184077 }
+  '22-23': { foodCost:225863, foodCostPL:210627, bevCost:46565, bevCostPL:46769, gih:13350.5,
+             foodPerCover:16.92, restaurantPerCover:11.31,
+             bkfFoodCost:61976,  bkfBevCost:12502,
+             bkfFoodPerCover:4.64, bkfBevPerCover:0.94, bkfTotalPerCover:5.58 },
+  '23-24': { foodCost:175985, foodCostPL:175524, bevCost:54260, bevCostPL:54314, gih:13797,
+             foodPerCover:12.76, restaurantPerCover:8.46,
+             bkfFoodCost:50378,  bkfBevCost:10424,
+             bkfFoodPerCover:3.65, bkfBevPerCover:0.76, bkfTotalPerCover:4.41 },
+  '24-25': { foodCost:179565, foodCostPL:181962, bevCost:50760, bevCostPL:51365, gih:13604.5,
+             foodPerCover:13.20, restaurantPerCover:8.64,
+             bkfFoodCost:52263,  bkfBevCost:15582,
+             bkfFoodPerCover:3.84, bkfBevPerCover:1.15, bkfTotalPerCover:4.99 },
+  '25-26': { foodCost:227153, foodCostPL:228292, bevCost:60198, bevCostPL:60987, gih:15808,
+             foodPerCover:14.37, restaurantPerCover:9.26,
+             bkfFoodCost:66804,  bkfBevCost:15914,
+             bkfFoodPerCover:4.23, bkfBevPerCover:1.01, bkfTotalPerCover:5.24 }
 };
 
 function renderFBKPIs(){
   const cur=FB['25-26'], prev=FB['24-25'];
   const kpis=[
-    {lbl:'Food Cost/Cover W26',    val:cur.foodPerCover,  prev:prev.foodPerCover,  col:'#E09400', u:'eur2', cost:true},
-    {lbl:'Bev Cost/Cover W26',     val:cur.bevPerCover,   prev:prev.bevPerCover,   col:'#4A90D9', u:'eur2', cost:true},
-    {lbl:'Total Food Cost W26',    val:cur.foodCost,      prev:prev.foodCost,      col:'#E53935', u:'eur',  cost:true},
-    {lbl:'Total Bev Cost W26',     val:cur.bevCost,       prev:prev.bevCost,       col:'#7B61FF', u:'eur',  cost:true},
-    {lbl:'Guests In House W26',    val:cur.gih,           prev:prev.gih,           col:'#1D9E75', u:'num',  cost:false},
-    {lbl:'Food+Bev Total W26',     val:cur.foodCost+cur.bevCost, prev:prev.foodCost+prev.bevCost, col:'#E53935', u:'eur', cost:true},
+    {lbl:'Breakfast Food Cost/Cover',  val:cur.bkfFoodPerCover,    prev:prev.bkfFoodPerCover,    col:'#E09400', u:'eur2', cost:true},
+    {lbl:'Breakfast Bev Cost/Cover',   val:cur.bkfBevPerCover,     prev:prev.bkfBevPerCover,     col:'#4A90D9', u:'eur2', cost:true},
+    {lbl:'Breakfast Total Cost/Cover', val:cur.bkfTotalPerCover,   prev:prev.bkfTotalPerCover,   col:'#7B61FF', u:'eur2', cost:true},
+    {lbl:'Restaurant Food Cost/Cover', val:cur.restaurantPerCover, prev:prev.restaurantPerCover, col:'#E53935', u:'eur2', cost:true},
+    {lbl:'Total Food Cost/Cover',      val:cur.foodPerCover,       prev:prev.foodPerCover,       col:'#1D9E75', u:'eur2', cost:true},
+    {lbl:'Guests In House W26',        val:cur.gih,                prev:prev.gih,                col:'#185FA5', u:'num',  cost:false},
   ];
   document.getElementById('krow-fb').innerHTML=kpis.map(({lbl,val,prev:pv_,col,u,cost})=>{
     const p=pv_?((val-pv_)/Math.abs(pv_)*100):null;
@@ -430,60 +495,56 @@ function renderFBKPIs(){
 function renderFBCharts(){
   const gc='rgba(0,0,0,.07)',tc='rgba(0,0,0,.45)';
   const labels=YRS.map(y=>YL[y]);
-  const barOpts=(title)=>({responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: €${c.raw.toFixed(2)}`}}},
-    scales:{x:{ticks:{color:tc,font:{size:11}},grid:{color:gc}},
-      y:{ticks:{color:tc,font:{size:11},callback:v=>'€'+v.toFixed(0)},grid:{color:gc}}}});
 
-  // Food cost per cover
+  // Chart 1: Breakfast cost per cover — stacked food + bev
   new Chart(document.getElementById('fb-food-chart'),{
     type:'bar',
-    data:{labels,datasets:[{data:YRS.map(y=>FB[y].foodPerCover),
-      backgroundColor:YRS.map(y=>COLS[y]+'cc'),borderColor:YRS.map(y=>COLS[y]),borderWidth:1.5,borderRadius:5}]},
-    options:barOpts('Food Cost/Cover')
-  });
-
-  // Bev cost per cover
-  new Chart(document.getElementById('fb-bev-chart'),{
-    type:'bar',
-    data:{labels,datasets:[{data:YRS.map(y=>FB[y].bevPerCover),
-      backgroundColor:YRS.map(y=>COLS[y]+'cc'),borderColor:YRS.map(y=>COLS[y]),borderWidth:1.5,borderRadius:5}]},
-    options:barOpts('Bev Cost/Cover')
-  });
-
-  // Total F&B costs stacked
-  new Chart(document.getElementById('fb-total-chart'),{
-    type:'bar',
     data:{labels,datasets:[
-      {label:'Food Cost',data:YRS.map(y=>FB[y].foodCost),backgroundColor:YRS.map(y=>COLS[y]+'cc'),borderColor:YRS.map(y=>COLS[y]),borderWidth:1,borderRadius:4,stack:'fb'},
-      {label:'Beverage Cost',data:YRS.map(y=>FB[y].bevCost),backgroundColor:YRS.map(y=>COLS[y]+'55'),borderColor:YRS.map(y=>COLS[y]),borderWidth:1,borderRadius:4,stack:'fb'}
+      {label:'Breakfast Food/Cover',  data:YRS.map(y=>FB[y].bkfFoodPerCover), backgroundColor:'#E09400cc', borderColor:'#E09400', borderWidth:1, borderRadius:4, stack:'bkf'},
+      {label:'Breakfast Bev/Cover',   data:YRS.map(y=>FB[y].bkfBevPerCover),  backgroundColor:'#4A90D9cc', borderColor:'#4A90D9', borderWidth:1, borderRadius:4, stack:'bkf'}
     ]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:true,position:'top',labels:{font:{size:11},usePointStyle:true,pointStyle:'rect',boxWidth:10,color:tc}},
-        tooltip:{mode:'index',intersect:false,callbacks:{label:c=>`${c.dataset.label}: ${fmt(c.raw,'eur')}`}}},
+        tooltip:{mode:'index',intersect:false,callbacks:{label:c=>`${c.dataset.label}: €${c.raw.toFixed(2)}/cover`}}},
       scales:{x:{stacked:true,ticks:{color:tc,font:{size:11}},grid:{color:gc}},
-        y:{stacked:true,ticks:{color:tc,font:{size:11},callback:v=>fmt(v,'eur')},grid:{color:gc}}}}
+        y:{stacked:true,ticks:{color:tc,font:{size:11},callback:v=>'€'+v.toFixed(1)},grid:{color:gc}}}}
+  });
+
+  // Chart 2: Food cost per cover comparison (Breakfast vs Restaurant vs Total)
+  new Chart(document.getElementById('fb-total-chart'),{
+    type:'bar',
+    data:{labels,datasets:[
+      {label:'Breakfast Food/Cover',  data:YRS.map(y=>FB[y].bkfFoodPerCover),    backgroundColor:'#E09400cc', borderColor:'#E09400', borderWidth:1, borderRadius:4},
+      {label:'Restaurant Food/Cover', data:YRS.map(y=>FB[y].restaurantPerCover),  backgroundColor:'#E53935cc', borderColor:'#E53935', borderWidth:1, borderRadius:4},
+      {label:'Total Food/Cover',      data:YRS.map(y=>FB[y].foodPerCover),        backgroundColor:'#7B61FFcc', borderColor:'#7B61FF', borderWidth:1, borderRadius:4}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'top',labels:{font:{size:11},usePointStyle:true,pointStyle:'rect',boxWidth:10,color:tc}},
+        tooltip:{mode:'index',intersect:false,callbacks:{label:c=>`${c.dataset.label}: €${c.raw.toFixed(2)}/cover`}}},
+      scales:{x:{ticks:{color:tc,font:{size:11}},grid:{color:gc}},
+        y:{ticks:{color:tc,font:{size:11},callback:v=>'€'+v.toFixed(1)},grid:{color:gc}}}}
   });
 }
 
 function renderFBTable(){
   const rows=[
-    {lbl:'Guests In House (GIH)', fn:y=>FB[y].gih, u:'num'},
-    {lbl:'Food Cost Total (€)',    fn:y=>FB[y].foodCost, u:'eur'},
-    {lbl:'Food Cost / Cover',      fn:y=>FB[y].foodPerCover, u:'eur2'},
-    {lbl:'Beverage Cost Total (€)',fn:y=>FB[y].bevCost, u:'eur'},
-    {lbl:'Bev Cost / Cover',       fn:y=>FB[y].bevPerCover, u:'eur2'},
-    {lbl:'Total F&B Cost of Sales',fn:y=>FB[y].foodCost+FB[y].bevCost, u:'eur'},
-    {lbl:'Total F&B (P&L check)',  fn:y=>FB[y].foodCostPL+FB[y].bevCostPL, u:'eur'},
+    {lbl:'Guests In House (GIH)',       fn:y=>FB[y].gih,                              u:'num'},
+    {lbl:'Breakfast Food Cost/Cover',   fn:y=>FB[y].bkfFoodPerCover,                  u:'eur2'},
+    {lbl:'Breakfast Bev Cost/Cover',    fn:y=>FB[y].bkfBevPerCover,                   u:'eur2'},
+    {lbl:'Breakfast Total Cost/Cover',  fn:y=>FB[y].bkfTotalPerCover,                 u:'eur2'},
+    {lbl:'Restaurant Food Cost/Cover',  fn:y=>FB[y].restaurantPerCover,               u:'eur2'},
+    {lbl:'Total Food Cost/Cover',       fn:y=>FB[y].foodPerCover,                     u:'eur2'},
+    {lbl:'Total Food Cost (€)',         fn:y=>FB[y].foodCost,                         u:'eur'},
+    {lbl:'Total F&B Cost of Sales (€)', fn:y=>FB[y].foodCost+FB[y].bevCost,           u:'eur'},
   ];
-  let h=`<thead><tr><th style="min-width:220px">METRIC</th>${YRS.map(y=>`<th>${YL[y]}</th>`).join('')}<th>26 vs 25 %</th></tr></thead><tbody>`;
+  let h=`<thead><tr><th style="min-width:220px">METRIC</th>${YRS.map(y=>`<th>${YL[y]}</th>`).join('')}<th>W26 vs W25</th></tr></thead><tbody>`;
   rows.forEach(({lbl,fn,u})=>{
     h+=`<tr><td>${lbl}</td>`;
     const vals=YRS.map(y=>fn(y));
     vals.forEach(v=>{ h+=`<td>${fmt(v,u)}</td>`; });
     const p=vals[2]?((vals[3]-vals[2])/Math.abs(vals[2])*100):null;
     const cls=p===null?'':p>0?'red':'green';
-    h+=`<td class="${cls}">${p!==null?(p>0?'▲':'▼')+Math.abs(p).toFixed(1)+'%':'—'}</td>`;
+    h+=`<td class="${cls} td-bold">${p!==null?(p>0?'▲':'▼')+Math.abs(p).toFixed(1)+'%':'—'}</td>`;
     h+='</tr>';
   });
   h+='</tbody>';
@@ -667,22 +728,19 @@ function renderCostLineChart(k){
   const md=MD[k];
   const tc='rgba(0,0,0,.45)',gc='rgba(0,0,0,.07)';
   return new Chart(document.getElementById('cost-line'),{
-    type:'line',
+    type:'bar',
     data:{labels:MN,datasets:YRS.map(yr=>({
       label:YL[yr],
       data:MN.map((_,i)=>{const v=D[yr][k]?.[i];return(v===null||v===undefined||isNaN(v))?null:v;}),
-      borderColor:COLS[yr],backgroundColor:COLS[yr]+'20',
-      pointRadius:3,pointHoverRadius:6,borderWidth:yr==='25-26'?2.5:1.5,
-      tension:.35,spanGaps:false,fill:false
+      backgroundColor:COLS[yr]+'cc',borderColor:COLS[yr],borderWidth:1,borderRadius:3
     }))},
     options:{responsive:true,maintainAspectRatio:false,
       interaction:{mode:'index',intersect:false},
       plugins:{
         legend:{
           display:true,position:'top',
-          labels:{font:{size:11},usePointStyle:true,pointStyle:'circle',boxWidth:10,color:'#444'},
+          labels:{font:{size:11},usePointStyle:true,pointStyle:'rect',boxWidth:10,color:'#444'},
           onClick(e,item,legend){
-            // default toggle behaviour
             const i=item.datasetIndex;
             const meta=legend.chart.getDatasetMeta(i);
             meta.hidden=meta.hidden===null?!legend.chart.data.datasets[i].hidden:null;
@@ -745,16 +803,16 @@ function baseOpts(k){
 }
 function renderLineChart(canvasId, k){
   const md=MD[k];
+  const opts=baseOpts(k);
+  opts.plugins={...opts.plugins,legend:{display:true,position:'top',labels:{font:{size:10},usePointStyle:true,pointStyle:'rect',boxWidth:10}}};
   return new Chart(document.getElementById(canvasId),{
-    type:'line',
+    type:'bar',
     data:{labels:MN,datasets:YRS.map(yr=>({
       label:YL[yr],
       data:MN.map((_,i)=>{const v=D[yr][k]?.[i];return(v===null||v===undefined||isNaN(v))?null:v;}),
-      borderColor:COLS[yr],backgroundColor:COLS[yr]+'20',
-      pointRadius:3,pointHoverRadius:6,borderWidth:yr==='25-26'?2.5:1.5,
-      tension:.35,spanGaps:false,fill:yr==='25-26'
+      backgroundColor:COLS[yr]+'cc',borderColor:COLS[yr],borderWidth:1,borderRadius:3
     }))},
-    options:baseOpts(k)
+    options:opts
   });
 }
 
@@ -809,6 +867,148 @@ function renderTabChart(tab){
     }]},options:baseOpts(k)});
 }
 
+// ── AI ANALYSIS & SUGGESTIONS ──
+const KPI_CONTEXT = `
+Hotel Savoia — Mountain Resort — P&L Data Summary
+
+YTD Winter (Dec–Apr) comparison:
+METRIC              W22/23      W23/24      W24/25      W25/26      W26vsW25
+Total Revenue       €1,369K     €1,470K     €1,597K     €1,840K     +15.3%
+GOP                 €58K        €356K       €399K       €615K       +54.1%
+GOP Margin          4.2%        24.2%       25.0%       33.4%       +8.4pp
+Marginal Profit     €154K       €748K       €887K       €1,048K     +18.2%
+Total Payroll       €471K       €440K       €470K       €439K       -6.6%
+Wages % Revenue     34.4%       29.9%       29.4%       23.9%       -5.5pp
+Room Revenue        €474K       €597K       €685K       €821K       +19.8%
+F&B Revenue         €548K       €817K       €704K       €950K       +34.9%
+Room Dept. Costs    €201K       €177K       €171K       €198K       +16.0%
+F&B Dept. Costs     €497K       €492K       €470K       €529K       +12.5%
+Engineering         €342K       €249K       €278K       €275K       -1.1%
+Admin & General     €99K        €120K       €171K       €147K       -14.0%
+Sales & Marketing   €47K        €36K        €13K        €11K        -15.4%
+Undistrib. Exp.     €488K       €356K       €463K       €434K       -6.3%
+Occupancy (rooms)   6,543       6,601       7,074       7,264       +2.7%
+ADR (avg)           €92         €88         €111        €106        -3.8%
+TRevPAR (avg)       €132        €157        €155        €180        +16.1%
+TRevPOR (avg)       €207        €222        €200        €249        +24.6%
+GIH (full winter)   13,351      13,797      13,605      15,808      +16.2%
+
+F&B Cost Detail (full winter season):
+Food Cost/Cover     €16.92      €12.76      €13.20      €14.37      +8.9%
+Bev Cost/Cover      €0.94       €0.76       €1.15       €1.01       -12.2%
+Breakfast Cost      €61,976     €50,378     €52,263     €66,804     +27.8%
+Restaurant Food     €151,032    €116,754    €117,503    €146,397    +24.6%
+Wine Cost (annual)  €12,469     €19,577     €13,064     €18,251     +39.7%
+Bar Bev Cost        €17,061     €20,913     €18,049     €22,607     +25.3%
+`;
+
+async function callClaude(prompt) {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1000,
+      messages: [{role:'user', content: prompt}]
+    })
+  });
+  const data = await res.json();
+  const text = data.content?.map(b=>b.text||'').join('') || '';
+  const clean = text.replace(/```json|```/g,'').trim();
+  return JSON.parse(clean);
+}
+
+async function renderAnalysis() {
+  const el = document.getElementById('analysis-content');
+  el.innerHTML = `<div class="ai-loading"><div class="ai-spinner"></div><div class="ai-load-txt">Analysing 4 seasons of data with AI…</div></div>`;
+  try {
+    const result = await callClaude(`You are a hospitality financial analyst. Analyse this hotel P&L data and return ONLY a JSON object (no markdown) with this exact structure:
+{
+  "summary": "2-3 sentence executive summary of W25/26 performance vs W24/25",
+  "positives": [{"title":"short title","detail":"1-2 sentences with context","metric":"key number"}],
+  "negatives": [{"title":"short title","detail":"1-2 sentences with context","metric":"key number"}],
+  "watch": [{"title":"short title","detail":"1-2 sentences explaining why to monitor this","metric":"key number"}]
+}
+Include 4-5 items per category. Be specific with numbers. Focus on hotel management KPIs.
+
+Data:
+${KPI_CONTEXT}`);
+
+    const sug_btn = `<button class="ai-refresh" onclick="renderAnalysis()">🔄 Refresh Analysis</button>`;
+    let html = sug_btn;
+    html += `<div class="analysis-summary">📋 ${result.summary}</div>`;
+    html += `<div class="analysis-cols">`;
+
+    const cols = [
+      {key:'positives', label:'✅ Positives', cls:'ac-pos'},
+      {key:'negatives', label:'⚠️ Areas of Concern', cls:'ac-neg'},
+      {key:'watch',     label:'👁 Watch Closely', cls:'ac-watch'}
+    ];
+    cols.forEach(({key,label,cls})=>{
+      html += `<div class="ac ${cls}"><div class="ac-head">${label}</div>`;
+      (result[key]||[]).forEach(item=>{
+        html += `<div class="ac-item"><div class="ac-item-title">${item.title} <span class="ac-item-metric">${item.metric||''}</span></div><div class="ac-item-detail">${item.detail}</div></div>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div>`;
+    el.innerHTML = html;
+  } catch(e) {
+    document.getElementById('analysis-content').innerHTML =
+      `<div class="ai-error">⚠️ Error generating analysis: ${e.message}</div><button class="ai-refresh" onclick="renderAnalysis()">🔄 Try Again</button>`;
+  }
+}
+
+async function renderSuggestions() {
+  const el = document.getElementById('suggestions-content');
+  el.innerHTML = `<div class="ai-loading"><div class="ai-spinner"></div><div class="ai-load-txt">Generating strategic recommendations with AI…</div></div>`;
+  try {
+    const result = await callClaude(`You are a hotel management consultant specialising in mountain resorts. Based on this 4-season P&L data, generate 7-8 specific, actionable recommendations to improve GOP and bottom line. Return ONLY a JSON object (no markdown):
+{
+  "recommendations": [
+    {
+      "title": "short action title",
+      "detail": "2-3 sentences explaining what to do and why, with specific references to the data",
+      "expected": "expected financial impact or % improvement",
+      "effort": "low|medium|high",
+      "impact": "low|medium|high",
+      "area": "Revenue|Costs|F&B|Operations|Marketing|HR"
+    }
+  ]
+}
+Sort by impact (high first). Be very specific to the hotel's actual numbers. Reference trends across seasons. Focus on practical actions a hotel GM can take.
+
+Data:
+${KPI_CONTEXT}`);
+
+    const impactColor = {high:'badge-impact-high', medium:'badge-impact-med', low:'badge-impact-low'};
+    const effortColor = {high:'badge-high', medium:'badge-med', low:'badge-low'};
+    const impactBg = {high:'#1D4ED8', medium:'#7C3AED', low:'#6B7280'};
+    const numBg = {high:'#DBEAFE', medium:'#EDE9FE', low:'#F3F4F6'};
+
+    let html = `<button class="ai-refresh" onclick="renderSuggestions()">🔄 Refresh Suggestions</button>`;
+    (result.recommendations||[]).forEach((r,i)=>{
+      const imp = r.impact||'medium', eff = r.effort||'medium';
+      html += `<div class="sug-item">
+        <div class="sug-num" style="background:${numBg[imp]};color:${impactBg[imp]}">${i+1}</div>
+        <div class="sug-body">
+          <div class="sug-title">${r.title} <span class="badge" style="background:#F0FDF4;color:#166534;font-size:10px">${r.area||''}</span></div>
+          <div class="sug-detail">${r.detail}</div>
+          <div class="sug-expected">💰 ${r.expected}</div>
+          <div class="sug-badges">
+            <span class="badge ${impactColor[imp]}">Impact: ${imp}</span>
+            <span class="badge ${effortColor[eff]}">Effort: ${eff}</span>
+          </div>
+        </div>
+      </div>`;
+    });
+    el.innerHTML = html;
+  } catch(e) {
+    document.getElementById('suggestions-content').innerHTML =
+      `<div class="ai-error">⚠️ Error generating suggestions: ${e.message}</div><button class="ai-refresh" onclick="renderSuggestions()">🔄 Try Again</button>`;
+  }
+}
+
 // ── Tab switching ──
 document.querySelectorAll('.nt').forEach(b=>b.addEventListener('click',e=>{
   const tab=e.target.dataset.tab;
@@ -816,6 +1016,8 @@ document.querySelectorAll('.nt').forEach(b=>b.addEventListener('click',e=>{
   e.target.classList.add('on');
   document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('on'));
   document.getElementById('tab-'+tab).classList.add('on');
+  if(tab==='analysis'){renderAnalysis();}
+  if(tab==='suggestions'){renderSuggestions();}
   if(tab==='fb'&&!document.getElementById('fb-food-chart')._rendered){
     renderFBKPIs();renderFBCharts();renderFBTable();
     document.getElementById('fb-food-chart')._rendered=true;
