@@ -243,6 +243,17 @@ td:first-child{text-align:left}
       <div class="tbl-scroll"><table id="fb-tbl"></table></div>
     </div>
   </div>
+  <div class="sec">
+    <div class="sh"><div class="shb" style="background:#E09400"></div><div class="sht">Food Cost per Cover — By Product Category (€/GIH)</div></div>
+    <div class="card csec"><div class="cw" style="height:380px"><canvas id="fb-product-chart" aria-label="Food cost per cover by product category"></canvas></div></div>
+  </div>
+  <div class="sec">
+    <div class="card tw">
+      <div class="th"><div class="tt">Food Cost per Cover — Product Category Detail</div><div class="tsubt">€ per guest in house · full winter season</div></div>
+      <div class="tbl-scroll"><table id="fb-product-tbl"></table></div>
+    </div>
+    </div>
+  </div>
 </div>
 
 <!-- MENSILE -->
@@ -327,9 +338,12 @@ const D={
   gih:       [null,2918,4135,5417,2729,1579,0,1659,3960,4818,1103,0],
   occ:       [null,1121,1684,2027,1092,619,null,815,1723,2020,258,null],
   adr:       [null,152.64,104.53,76.20,88.42,38.56,null,77.39,88.70,119.60,102.95,null],
-  trevpar:   [null,138.84,150.37,169.80,90.93,109.70,null,55.48,127.46,183.66,75.19,null],
-  trevpor:   [null,273.96,218.68,185.30,203.92,154.01,null,161.32,181.16,222.66,230.23,null],
+  trevpar:   [null,148.8,167.1,188.7,101.0,111.7,null,55.48,127.46,183.66,75.19,null],
+  trevpor:   [null,293.5,243.0,205.9,226.6,171.1,null,161.32,181.16,222.66,230.23,null],
   goppar:    [null,-17.10,1.85,47.50,-6.64,2.88,null,-18.42,30.66,77.24,-36.23,null],
+  pkgRev:    [null,257138,316182,309878,158760,81946,null,null,null,null,null,null],
+  pkgRevpar: [null,null,null,null,null,null,null,null,null,null,null,null],
+  pkgRevpor: [null,null,null,null,null,null,null,null,null,null,null,null],
   fbCos:     [15484,62926,76998,60701,52326,12196,310,47716,70356,73877,-1298,0],
   fbWages:   [7937,46758,48123,47342,31585,18638,14449,25831,32996,39874,21684,10246],
   roomWages: [5434,26971,32137,27212,24177,9452,3629,11829,17631,21630,8672,0]
@@ -351,9 +365,12 @@ const D={
   gih:       [null,3120,4483,5979,3688,1218,null,926,2912,4920,698,null],
   occ:       [null,1100,1647,2013,1385,456,null,468,1211,1952,355,null],
   adr:       [null,165.01,117.97,63.88,55.02,35.66,null,78.40,80.65,103.43,61.16,null],
-  trevpar:   [null,183.37,163.17,168.43,105.89,162.78,null,41.56,89.77,167.10,75.73,null],
-  trevpor:   [null,325.06,239.55,189.26,187.24,169.21,null,161.34,181.54,209.64,168.52,null],
+  trevpar:   [null,202.2,179.0,184.8,117.7,180.9,null,41.56,89.77,167.10,75.73,null],
+  trevpor:   [null,363.0,266.2,210.3,208.0,188.0,null,161.34,181.54,209.64,168.52,null],
   goppar:    [null,48.83,42.31,66.00,16.72,-66.57,null,-60.85,10.57,73.11,-70.68,null],
+  pkgRev:    [null,283228,346023,350532,198178,64423,null,null,null,null,null,null],
+  pkgRevpar: [null,143.4,141.3,153.0,80.9,135.9,null,null,null,null,null,null],
+  pkgRevpor: [null,257.5,210.1,174.1,143.1,141.3,null,null,null,null,null,null],
   fbCos:     [22090,49470,80205,41669,31078,5824,494,42227,45177,57732,5090,-2311],
   fbWages:   [13505,45807,45689,53053,44156,33550,4570,29752,33908,33927,26840,15372],
   roomWages: [4606,25011,31458,30898,27704,16081,null,22190,22987,23526,11030,null]
@@ -375,9 +392,12 @@ const D={
   gih:       [null,2868,4807,5785,3839,1513,215,1742,3109,5383,490,null],
   occ:       [null,1133,1907,2011,1428,595,102,748,1269,1986,220,null],
   adr:       [null,172.47,115.88,114.21,85.27,65.01,102.99,101.97,92.95,109.48,81.64,null],
-  trevpar:   [null,187.92,184.74,170.91,120.11,112.23,127.70,63.73,105.02,187.15,33.07,null],
-  trevpor:   [null,null,234.25,185.61,203.37,176.55,292.97,199.38,194.97,227.86,175.88,null],
+  trevpar:   [null,204.9,205.3,190.0,133.5,130.7,null,63.73,105.02,187.15,33.07,null],
+  trevpor:   [null,366.7,260.3,206.3,226.1,205.6,null,199.38,194.97,227.86,175.88,null],
   goppar:    [null,27.47,69.85,62.72,26.73,-29.37,-530.26,-20.24,7.34,95.01,-45.61,null],
+  pkgRev:    [null,302281,405705,351574,252955,91522,null,null,null,null,null,null],
+  pkgRevpar: [null,149.1,167.8,161.0,104.6,97.8,null,null,null,null,null,null],
+  pkgRevpor: [null,266.8,212.7,174.8,177.1,153.8,null,null,null,null,null,null],
   fbCos:     [13122,85796,60269,27862,40766,3013,38162,34620,55757,61304,-2533,null],
   fbWages:   [8687,48848,43020,50478,40109,39351,15613,35512,40765,47714,24226,10523],
   roomWages: [434,30925,31184,33715,27123,18642,6185,23141,25941,23119,12089,1444]
@@ -399,9 +419,12 @@ const D={
   gih:       [null,3798,5763,5444,3569,1693,null,null,null,null,null,null],
   occ:       [null,1376,2025,1922,1370,571,null,null,null,null,null,null],
   adr:       [null,163.19,113.20,118.32,76.16,61.09,null,null,null,null,null,null],
-  trevpar:   [null,216.26,219.29,205.15,118.43,140.25,null,null,null,null,null,null],
-  trevpor:   [null,330.99,261.84,233.11,209.03,210.75,null,null,null,null,null,null],
+  trevpar:   [null,250.7,243.7,227.9,131.6,155.8,null,null,null,null,null,null],
+  trevpor:   [null,369.5,290.9,259.0,232.3,234.2,null,null,null,null,null,null],
   goppar:    [null,63.37,95.50,88.23,23.46,0.85,null,null,null,null,null,null],
+  pkgRev:    [null,376327,473177,411121,245612,104423,null,null,null,null,null,null],
+  pkgRevpar: [null,185.6,195.7,188.2,101.6,121.7,null,null,null,null,null,null],
+  pkgRevpor: [null,273.5,233.7,213.9,179.3,182.9,null,null,null,null,null,null],
   fbCos:     [null,82252,84047,46380,43426,3997,null,null,null,null,null,null],
   fbWages:   [10265,51561,46728,53229,41556,34743,null,null,null,null,null,null],
   roomWages: [1444,32040,31659,31416,28095,16400,null,null,null,null,null,null]
@@ -427,9 +450,11 @@ const MD={
   undivisible:{lbl:'Undistributed Exp.',u:'eur',sum:true},
   occ:        {lbl:'Rooms Occupied',   u:'num', sum:true},
   gih:        {lbl:'Guests (GIH)',     u:'num', sum:true},
-  adr:        {lbl:'ADR',              u:'eur2',sum:false},
   trevpar:    {lbl:'TREVPAR',          u:'eur2',sum:false},
   trevpor:    {lbl:'TREVPOR',          u:'eur2',sum:false},
+  pkgRev:     {lbl:'PKG Revenue',      u:'eur', sum:true},
+  pkgRevpar:  {lbl:'PKG RevPAR',       u:'eur2',sum:false},
+  pkgRevpor:  {lbl:'PKG RevPOR',       u:'eur2',sum:false},
   goppar:     {lbl:'GOPPAR',           u:'eur2',sum:false}
 };
 
@@ -453,6 +478,73 @@ function arrow(p,costMode){
   if(p===null)return'';
   const good=costMode?p<0:p>=0;
   return good?`<span class="pos">▲ ${Math.abs(p).toFixed(1)}%</span>`:`<span class="neg">▼ ${Math.abs(p).toFixed(1)}%</span>`;
+}
+
+// ═══ FOOD COST BY PRODUCT CATEGORY ═══
+const GIH={'22-23':13350.5,'23-24':13797,'24-25':13604.5,'25-26':15808};
+const FC_PROD=[
+  {lbl:'Carni / Meat',            col:'#C62828', costs:{'22-23':41055,'23-24':30484,'24-25':30821,'25-26':41182}},
+  {lbl:'Pasticceria / Pastry',    col:'#AB47BC', costs:{'22-23':33421,'23-24':27138,'24-25':26545,'25-26':35274}},
+  {lbl:'Frutta & Verdura',        col:'#43A047', costs:{'22-23':29960,'23-24':23401,'24-25':23862,'25-26':29374}},
+  {lbl:'Latticini / Dairy',       col:'#FBC02D', costs:{'22-23':27506,'23-24':21663,'24-25':24385,'25-26':27248}},
+  {lbl:'Pasta, Salse & Conserve', col:'#78909C', costs:{'22-23':25075,'23-24':25176,'24-25':24635,'25-26':26165}},
+  {lbl:'Pesce / Fish',            col:'#1565C0', costs:{'22-23':24238,'23-24':11244,'24-25':12897,'25-26':19261}},
+  {lbl:'Salumi & Uova',           col:'#E64A19', costs:{'22-23':15948,'23-24':14229,'24-25':13663,'25-26':17955}},
+  {lbl:'Panificazione / Bakery',  col:'#F57F17', costs:{'22-23':13453,'23-24':12286,'24-25':11655,'25-26':11550}},
+  {lbl:'Other',                   col:'#B0BEC5', costs:{'22-23':15207,'23-24':10364,'24-25':11102,'25-26':19144}},
+];
+
+function renderFBProductChart(){
+  const gc='rgba(0,0,0,.07)',tc='rgba(0,0,0,.45)';
+  // Horizontal bar: Y axis = categories, X axis = €/cover, 4 datasets (one per season)
+  const labels=FC_PROD.map(c=>c.lbl);
+  const datasets=YRS.map(yr=>({
+    label:YL[yr],
+    data:FC_PROD.map(cat=>+(cat.costs[yr]/GIH[yr]).toFixed(2)),
+    backgroundColor:COLS[yr]+'cc',
+    borderColor:COLS[yr],
+    borderWidth:1,
+    borderRadius:3
+  }));
+  new Chart(document.getElementById('fb-product-chart'),{
+    type:'bar',
+    data:{labels,datasets},
+    options:{
+      indexAxis:'y',
+      responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:true,position:'top',labels:{font:{size:11},usePointStyle:true,pointStyle:'rect',boxWidth:10,color:tc}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: €${c.raw.toFixed(2)}/cover`}}
+      },
+      scales:{
+        x:{ticks:{color:tc,font:{size:11},callback:v=>'€'+v.toFixed(1)},grid:{color:gc}},
+        y:{ticks:{color:tc,font:{size:11}},grid:{color:gc}}
+      }
+    }
+  });
+}
+
+function renderFBProductTable(){
+  let h=`<thead><tr><th style="min-width:210px">PRODUCT CATEGORY</th>${YRS.map(y=>`<th>${YL[y]}<br><span style="font-weight:400;font-size:10px">€/cover</span></th>`).join('')}<th>W26 vs W25</th></tr></thead><tbody>`;
+  FC_PROD.forEach(cat=>{
+    const vals=YRS.map(y=>+(cat.costs[y]/GIH[y]).toFixed(2));
+    const chg=vals[2]?((vals[3]-vals[2])/vals[2]*100):null;
+    const cls=chg===null?'':chg>5?'red':chg<-5?'green':'';
+    h+=`<tr>
+      <td><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${cat.col};margin-right:7px;vertical-align:middle"></span>${cat.lbl}</td>
+      ${vals.map((v,i)=>`<td ${i===3?'class="td-bold"':''}>${v.toFixed(2)}</td>`).join('')}
+      <td class="${cls} td-bold">${chg!==null?(chg>0?'▲':'▼')+Math.abs(chg).toFixed(1)+'%':'—'}</td>
+    </tr>`;
+  });
+  const totals=YRS.map(y=>+FC_PROD.reduce((a,c)=>a+(c.costs[y]/GIH[y]),0).toFixed(2));
+  const totChg=totals[2]?((totals[3]-totals[2])/totals[2]*100):null;
+  h+=`<tr style="border-top:2px solid #e0ddd6">
+    <td class="td-bold">TOTAL FOOD COST/COVER</td>
+    ${totals.map(v=>`<td class="td-bold">${v.toFixed(2)}</td>`).join('')}
+    <td class="td-bold ${totChg>0?'red':'green'}">${totChg!==null?(totChg>0?'▲':'▼')+Math.abs(totChg).toFixed(1)+'%':'—'}</td>
+  </tr></tbody>`;
+  document.getElementById('fb-product-tbl').innerHTML=h;
 }
 
 // ═══ F&B SEASONAL DATA (from Confronto file) ═══
@@ -560,7 +652,8 @@ function renderOvKPIs(){
     {k:'wages',lbl:'Total Payroll',col:'#E53935',cost:true},
     {k:'undivisible',lbl:'Undistributed Exp.',col:'#E53935',cost:true},
     {k:'trevpar',lbl:'TREVPAR medio',col:'#7B61FF',cost:false},
-    {k:'trevpor',lbl:'TREVPOR medio',col:'#185FA5',cost:false}
+    {k:'trevpor',lbl:'TREVPOR medio',col:'#185FA5',cost:false},
+    {k:'pkgRev', lbl:'PKG Revenue YTD',col:'#1D9E75',cost:false}
   ];
   document.getElementById('krow-ov').innerHTML=kpis.map(({k,lbl,col,cost})=>{
     const md=MD[k],v26=pv('25-26',k,YTD,md.sum),v25=pv('24-25',k,YTD,md.sum);
@@ -867,145 +960,217 @@ function renderTabChart(tab){
     }]},options:baseOpts(k)});
 }
 
-// ── AI ANALYSIS & SUGGESTIONS ──
-const KPI_CONTEXT = `
-Hotel Savoia — Mountain Resort — P&L Data Summary
+// ── DATA-DRIVEN ANALYSIS ENGINE ──
+function computeAnalysis(){
+  // YTD metrics
+  const rev26=sm('25-26','revenue',YTD), rev25=sm('24-25','revenue',YTD);
+  const gop26=sm('25-26','gop',YTD),    gop25=sm('24-25','gop',YTD);
+  const mp26=sm('25-26','marginalP',YTD),mp25=sm('24-25','marginalP',YTD);
+  const wages26=sm('25-26','wages',YTD), wages25=sm('24-25','wages',YTD);
+  const rC26=sm('25-26','roomCosts',YTD),rC25=sm('24-25','roomCosts',YTD);
+  const fbC26=sm('25-26','fbCosts',YTD), fbC25=sm('24-25','fbCosts',YTD);
+  const und26=sm('25-26','undivisible',YTD),und25=sm('24-25','undivisible',YTD);
+  const eng26=sm('25-26','engineering',YTD),eng25=sm('24-25','engineering',YTD);
+  const adm26=sm('25-26','admin',YTD),adm25=sm('24-25','admin',YTD);
+  const sm26=sm('25-26','smCosts',YTD),sm25=sm('24-25','smCosts',YTD);
+  const occ26=sm('25-26','occ',YTD),occ25=sm('24-25','occ',YTD);
+  const tp26=av('25-26','trevpar',YTD),tp25=av('24-25','trevpar',YTD);
+  const tpo26=av('25-26','trevpor',YTD),tpo25=av('24-25','trevpor',YTD);
+  const gop26m=gop26/rev26*100, gop25m=gop25/rev25*100;
+  const wagesPct26=wages26/rev26*100, wagesPct25=wages25/rev25*100;
+  const fbPct26=fbC26/rev26*100, fbPct25=fbC25/rev25*100;
+  const rPct26=rC26/rev26*100, rPct25=rC25/rev25*100;
+  const engPct26=eng26/rev26*100, engPct25=eng25/rev25*100;
+  const admPct26=adm26/rev26*100, adm25Pct=adm25/rev25*100;
+  const pct=(a,b)=>b?((a-b)/Math.abs(b)*100):0;
 
-YTD Winter (Dec–Apr) comparison:
-METRIC              W22/23      W23/24      W24/25      W25/26      W26vsW25
-Total Revenue       €1,369K     €1,470K     €1,597K     €1,840K     +15.3%
-GOP                 €58K        €356K       €399K       €615K       +54.1%
-GOP Margin          4.2%        24.2%       25.0%       33.4%       +8.4pp
-Marginal Profit     €154K       €748K       €887K       €1,048K     +18.2%
-Total Payroll       €471K       €440K       €470K       €439K       -6.6%
-Wages % Revenue     34.4%       29.9%       29.4%       23.9%       -5.5pp
-Room Revenue        €474K       €597K       €685K       €821K       +19.8%
-F&B Revenue         €548K       €817K       €704K       €950K       +34.9%
-Room Dept. Costs    €201K       €177K       €171K       €198K       +16.0%
-F&B Dept. Costs     €497K       €492K       €470K       €529K       +12.5%
-Engineering         €342K       €249K       €278K       €275K       -1.1%
-Admin & General     €99K        €120K       €171K       €147K       -14.0%
-Sales & Marketing   €47K        €36K        €13K        €11K        -15.4%
-Undistrib. Exp.     €488K       €356K       €463K       €434K       -6.3%
-Occupancy (rooms)   6,543       6,601       7,074       7,264       +2.7%
-ADR (avg)           €92         €88         €111        €106        -3.8%
-TRevPAR (avg)       €132        €157        €155        €180        +16.1%
-TRevPOR (avg)       €207        €222        €200        €249        +24.6%
-GIH (full winter)   13,351      13,797      13,605      15,808      +16.2%
+  const positives=[], negatives=[], watch=[];
 
-F&B Cost Detail (full winter season):
-Food Cost/Cover     €16.92      €12.76      €13.20      €14.37      +8.9%
-Bev Cost/Cover      €0.94       €0.76       €1.15       €1.01       -12.2%
-Breakfast Cost      €61,976     €50,378     €52,263     €66,804     +27.8%
-Restaurant Food     €151,032    €116,754    €117,503    €146,397    +24.6%
-Wine Cost (annual)  €12,469     €19,577     €13,064     €18,251     +39.7%
-Bar Bev Cost        €17,061     €20,913     €18,049     €22,607     +25.3%
-`;
+  // Revenue
+  const revChg=pct(rev26,rev25);
+  if(revChg>10) positives.push({title:'Strong Revenue Growth',metric:`+${revChg.toFixed(1)}%`,detail:`Total revenue YTD reached ${fmt(rev26,'eur')} vs ${fmt(rev25,'eur')} in W25 — an increase of ${fmt(rev26-rev25,'eur')}. Growth is driven by higher room and F&B revenues across the winter season.`});
+  else if(revChg<-5) negatives.push({title:'Revenue Decline',metric:`${revChg.toFixed(1)}%`,detail:`Revenue fell to ${fmt(rev26,'eur')} from ${fmt(rev25,'eur')} — a drop of ${fmt(rev25-rev26,'eur')}. Requires immediate review of pricing and distribution strategy.`});
 
-async function callClaude(prompt) {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 1000,
-      messages: [{role:'user', content: prompt}]
-    })
-  });
-  const data = await res.json();
-  const text = data.content?.map(b=>b.text||'').join('') || '';
-  const clean = text.replace(/```json|```/g,'').trim();
-  return JSON.parse(clean);
+  // GOP Margin
+  const gopChg=gop26m-gop25m;
+  if(gopChg>3) positives.push({title:'GOP Margin Expansion',metric:`${gop26m.toFixed(1)}% (${gopChg>0?'+':''}${gopChg.toFixed(1)}pp)`,detail:`Gross Operating Profit margin improved significantly from ${gop25m.toFixed(1)}% to ${gop26m.toFixed(1)}%. GOP reached ${fmt(gop26,'eur')} — a ${pct(gop26,gop25).toFixed(1)}% increase over prior year.`});
+  else if(gopChg<-3) negatives.push({title:'GOP Margin Contraction',metric:`${gop26m.toFixed(1)}% (${gopChg.toFixed(1)}pp)`,detail:`GOP margin dropped from ${gop25m.toFixed(1)}% to ${gop26m.toFixed(1)}%. Despite revenue changes, cost increases are eroding profitability.`});
+  else watch.push({title:'GOP Margin Stable',metric:`${gop26m.toFixed(1)}%`,detail:`Margin held steady at ${gop26m.toFixed(1)}% vs ${gop25m.toFixed(1)}% prior year. Monitor cost trends to prevent further erosion.`});
+
+  // Payroll
+  const wageChg=wagesPct26-wagesPct25;
+  if(wageChg<-2) positives.push({title:'Payroll Efficiency Improved',metric:`${wagesPct26.toFixed(1)}% of rev (${wageChg.toFixed(1)}pp)`,detail:`Total payroll as % of revenue improved from ${wagesPct25.toFixed(1)}% to ${wagesPct26.toFixed(1)}%, saving the equivalent of ${fmt(wages25-wages26,'eur')} YTD vs prior year.`});
+  else if(wageChg>2) negatives.push({title:'Payroll Cost Pressure',metric:`${wagesPct26.toFixed(1)}% of rev (+${wageChg.toFixed(1)}pp)`,detail:`Labour costs as % of revenue grew from ${wagesPct25.toFixed(1)}% to ${wagesPct26.toFixed(1)}%. Review staffing levels and scheduling efficiency.`});
+
+
+
+  // Occupancy
+  const occChg=pct(occ26,occ25);
+  if(occChg>2) positives.push({title:'Occupancy Increase',metric:`${Math.round(occ26).toLocaleString('it')} rooms (+${occChg.toFixed(1)}%)`,detail:`Rooms sold increased from ${Math.round(occ25).toLocaleString('it')} to ${Math.round(occ26).toLocaleString('it')} — ${Math.round(occ26-occ25)} additional room nights vs prior year.`});
+  else if(occChg<-3) negatives.push({title:'Occupancy Decline',metric:`${occChg.toFixed(1)}%`,detail:`Rooms sold dropped by ${Math.round(occ25-occ26)} room nights vs prior year. Review distribution channels and pricing.`});
+
+  // TRevPAR
+  const tpChg=pct(tp26,tp25);
+  if(tpChg>5) positives.push({title:'TRevPAR Growth',metric:`€${tp26?.toFixed(0)} (+${tpChg.toFixed(1)}%)`,detail:`Total Revenue per Available Room grew from €${tp25?.toFixed(0)} to €${tp26?.toFixed(0)}, indicating stronger total hotel revenue generation per room.`});
+
+  // Engineering
+  const engChg=engPct26-engPct25;
+  if(Math.abs(engChg)>1) watch.push({title:'Engineering & Maintenance',metric:`${engPct26.toFixed(1)}% rev (${engChg>0?'+':''}${engChg.toFixed(1)}pp)`,detail:`Engineering costs at ${fmt(eng26,'eur')} (${engPct26.toFixed(1)}% of revenue). This is one of the largest undistributed cost lines — review contracts and energy consumption.`});
+
+  // F&B costs
+  const fbChg=fbPct26-fbPct25;
+  if(fbChg>1.5) negatives.push({title:'F&B Department Cost Increase',metric:`${fbPct26.toFixed(1)}% rev (+${fbChg.toFixed(1)}pp)`,detail:`F&B costs grew to ${fmt(fbC26,'eur')} (${fbPct26.toFixed(1)}% of revenue) from ${fmt(fbC25,'eur')}. Food cost per cover and beverage purchasing should be reviewed.`});
+  else if(fbChg<-1.5) positives.push({title:'F&B Cost Control',metric:`${fbPct26.toFixed(1)}% rev (${fbChg.toFixed(1)}pp)`,detail:`F&B department costs improved as % of revenue. Cost management initiatives are showing results.`});
+
+  // Admin
+  const admChg=admPct26-adm25Pct;
+  if(admChg<-1) positives.push({title:'Admin & General Cost Reduction',metric:`${admPct26.toFixed(1)}% rev (${admChg.toFixed(1)}pp)`,detail:`Admin & General costs reduced from ${fmt(adm25,'eur')} to ${fmt(adm26,'eur')} — a saving of ${fmt(adm25-adm26,'eur')} YTD.`});
+
+  // S&M very low
+  if(sm26/rev26<0.01) watch.push({title:'Very Low S&M Investment',metric:`${(sm26/rev26*100).toFixed(1)}% of revenue`,detail:`Sales & Marketing spend of ${fmt(sm26,'eur')} is very low at ${(sm26/rev26*100).toFixed(1)}% of revenue. Consider whether growth is sustainable without increased marketing investment.`});
+
+  // Fill minimums
+  while(positives.length<3) positives.push({title:'Undistributed Expense Control',metric:`${(und26/rev26*100).toFixed(1)}% of rev`,detail:`Total undistributed expenses at ${fmt(und26,'eur')} represent ${(und26/rev26*100).toFixed(1)}% of revenue, vs ${(und25/rev25*100).toFixed(1)}% in W25.`});
+  while(watch.length<2) watch.push({title:'GIH Growth',metric:`${Math.round(FB['25-26'].gih).toLocaleString('it')} guests`,detail:`Guests in house grew to ${Math.round(FB['25-26'].gih).toLocaleString('it')} in W25/26 vs ${Math.round(FB['24-25'].gih).toLocaleString('it')} — a ${pct(FB['25-26'].gih,FB['24-25'].gih).toFixed(1)}% increase. Monitor service quality and per-guest spend.`});
+
+  const summary=`W25/26 YTD (Dec–Apr) shows ${revChg>0?'strong revenue growth of +'+revChg.toFixed(1)+'%':'a revenue change of '+revChg.toFixed(1)+'%'}, with GOP reaching ${fmt(gop26,'eur')} at a ${gop26m.toFixed(1)}% margin — ${gopChg>0?'up '+gopChg.toFixed(1)+'pp':'down '+Math.abs(gopChg).toFixed(1)+'pp'} vs W24/25. Payroll efficiency ${wageChg<0?'improved':'worsened'} (${wagesPct26.toFixed(1)}% of revenue). ${'TRevPOR reached €'+tpo26?.toFixed(0)+' and TRevPAR €'+tp26?.toFixed(0)+', reflecting strong total revenue capture.'}`;
+
+  return {summary, positives, negatives, watch};
 }
 
-async function renderAnalysis() {
-  const el = document.getElementById('analysis-content');
-  el.innerHTML = `<div class="ai-loading"><div class="ai-spinner"></div><div class="ai-load-txt">Analysing 4 seasons of data with AI…</div></div>`;
-  try {
-    const result = await callClaude(`You are a hospitality financial analyst. Analyse this hotel P&L data and return ONLY a JSON object (no markdown) with this exact structure:
-{
-  "summary": "2-3 sentence executive summary of W25/26 performance vs W24/25",
-  "positives": [{"title":"short title","detail":"1-2 sentences with context","metric":"key number"}],
-  "negatives": [{"title":"short title","detail":"1-2 sentences with context","metric":"key number"}],
-  "watch": [{"title":"short title","detail":"1-2 sentences explaining why to monitor this","metric":"key number"}]
+function computeSuggestions(){
+  const pct=(a,b)=>b?((a-b)/Math.abs(b)*100):0;
+  const rev26=sm('25-26','revenue',YTD),rev25=sm('24-25','revenue',YTD);
+  const gop26=sm('25-26','gop',YTD),gop25=sm('24-25','gop',YTD);
+  const tpChgS=pct(av('25-26','trevpar',YTD),av('24-25','trevpar',YTD));
+  const occ26=sm('25-26','occ',YTD),occ25=sm('24-25','occ',YTD);
+  const eng26=sm('25-26','engineering',YTD);
+  const sm26=sm('25-26','smCosts',YTD);
+  const wages26=sm('25-26','wages',YTD);
+  const tp26=av('25-26','trevpar',YTD),tpo26=av('25-26','trevpor',YTD);
+  const gop26m=gop26/rev26*100;
+
+  const recs=[];
+
+  // ADR vs Occupancy trade-off
+  const occChg=pct(occ26,occ25);
+  if(tpChgS<-5 && occChg>0){
+    recs.push({title:'Revenue Management: Recover ADR',area:'Revenue',impact:'high',effort:'medium',
+      detail:`TRevPAR change of ${tpChgS.toFixed(1)}% with occupancy +${occChg.toFixed(1)}%. Review package pricing, ancillary revenue streams, and OTA commission costs to maximise total revenue per room.`,
+      expected:`Optimising package pricing and direct booking mix can add +2–3% total revenue`});
+  }
+
+  // TRevPOR upselling
+  if(tpo26>200){
+    recs.push({title:'Upselling & Ancillary Revenue',area:'Revenue',impact:'high',effort:'low',
+      detail:`TRevPOR of €${tpo26?.toFixed(0)} shows guests already spend significantly beyond room rate. Formalise upsell programs: room upgrades at check-in, F&B packages, spa/activity bundles, and ski packages to capture more wallet share from existing guests.`,
+      expected:`+2–4% total revenue with structured upsell program`});
+  }
+
+  // Engineering high
+  if(eng26/rev26>0.15){
+    recs.push({title:'Engineering & Energy Cost Reduction',area:'Costs',impact:'high',effort:'medium',
+      detail:`Engineering at ${fmt(eng26,'eur')} represents ${(eng26/rev26*100).toFixed(1)}% of revenue — above industry benchmark of 8–10%. Conduct energy audit, renegotiate maintenance contracts, install smart thermostats for unoccupied rooms, and review snow-clearing contracts.`,
+      expected:`Potential saving of €20–40K per season with targeted action`});
+  }
+
+  // S&M too low
+  if(sm26/rev26<0.015){
+    recs.push({title:'Increase Sales & Marketing Investment',area:'Marketing',impact:'medium',effort:'low',
+      detail:`S&M spend of ${fmt(sm26,'eur')} is only ${(sm26/rev26*100).toFixed(1)}% of revenue — well below the 3–5% industry benchmark. Invest in digital marketing (Google Ads, Meta), improve direct booking website, and develop a loyalty program to reduce OTA commission costs.`,
+      expected:`Every €1 invested in direct marketing typically saves €2–3 in OTA commissions`});
+  }
+
+  // F&B breakfast cost
+  if(FB['25-26'].bkfTotalPerCover > 5){
+    recs.push({title:'Breakfast Cost Optimisation',area:'F&B',impact:'medium',effort:'low',
+      detail:`Breakfast total cost per cover reached €${FB['25-26'].bkfTotalPerCover.toFixed(2)} (food €${FB['25-26'].bkfFoodPerCover.toFixed(2)} + bev €${FB['25-26'].bkfBevPerCover.toFixed(2)}). Review buffet wastage, renegotiate supplier contracts, and consider a semi-buffet format for lower occupancy periods to reduce fixed breakfast costs.`,
+      expected:`€0.30–0.50 saving per cover = €${(0.4*FB['25-26'].gih/1000).toFixed(0)}K over a full season`});
+  }
+
+  // Restaurant food cost per cover high
+  if(FB['25-26'].restaurantPerCover > 9){
+    recs.push({title:'Restaurant Food Cost Control',area:'F&B',impact:'medium',effort:'medium',
+      detail:`Restaurant food cost per GIH reached €${FB['25-26'].restaurantPerCover.toFixed(2)}, up from €${FB['24-25'].restaurantPerCover.toFixed(2)} in W25. Implement weekly food cost reporting, review portion sizes, use seasonal and local ingredients to reduce procurement costs, and minimise evening menu complexity.`,
+      expected:`Target restaurant food cost/cover under €9 — saving €${((FB['25-26'].restaurantPerCover-9)*FB['25-26'].gih/1000).toFixed(0)}K`});
+  }
+
+  // Payroll efficiency
+  if(wages26/rev26 < 0.26){
+    recs.push({title:'Protect Payroll Efficiency Gains',area:'HR',impact:'medium',effort:'low',
+      detail:`Payroll at ${(wages26/rev26*100).toFixed(1)}% of revenue is a strong result. Maintain this through cross-training staff across departments, scheduling aligned to occupancy forecasts, and reviewing seasonal contract terms before next winter season.`,
+      expected:`Sustaining current payroll ratio worth €30–50K vs industry average`});
+  } else {
+    recs.push({title:'Labour Cost Restructuring',area:'HR',impact:'high',effort:'high',
+      detail:`Payroll at ${(wages26/rev26*100).toFixed(1)}% of revenue is above target. Review department headcount vs occupancy, implement productivity KPIs per department, and consider cross-training to reduce total headcount during low-occupancy months.`,
+      expected:`2pp improvement in payroll ratio = €${(rev26*0.02/1000).toFixed(0)}K saving`});
+  }
+
+  // Summer season
+  recs.push({title:'Summer Season Revenue Strategy',area:'Revenue',impact:'high',effort:'medium',
+    detail:`Summer season (Jun–Oct) has historically been weaker than winter. Based on prior years, focus summer marketing on activity packages (hiking, cycling, mountain experiences), target domestic market and families, and consider F&B-only guests to generate revenue during shoulder periods.`,
+    expected:`Summer occupancy improvement of 10% = €80–120K additional revenue`});
+
+  // Direct booking
+  recs.push({title:'Direct Booking & Channel Mix',area:'Marketing',impact:'high',effort:'medium',
+    detail:`Review the split between OTA bookings and direct bookings. OTA commissions (typically 15–20%) significantly erode room revenue. Invest in SEO, meta-search advertising, and a competitive best-rate guarantee on the direct website. Target 40–50% direct booking ratio.`,
+    expected:`Reducing OTA share by 10pp saves approximately 1.5–2% of total room revenue`});
+
+  return recs.slice(0,8);
 }
-Include 4-5 items per category. Be specific with numbers. Focus on hotel management KPIs.
 
-Data:
-${KPI_CONTEXT}`);
-
-    const sug_btn = `<button class="ai-refresh" onclick="renderAnalysis()">🔄 Refresh Analysis</button>`;
-    let html = sug_btn;
-    html += `<div class="analysis-summary">📋 ${result.summary}</div>`;
-    html += `<div class="analysis-cols">`;
-
-    const cols = [
-      {key:'positives', label:'✅ Positives', cls:'ac-pos'},
-      {key:'negatives', label:'⚠️ Areas of Concern', cls:'ac-neg'},
-      {key:'watch',     label:'👁 Watch Closely', cls:'ac-watch'}
-    ];
-    cols.forEach(({key,label,cls})=>{
-      html += `<div class="ac ${cls}"><div class="ac-head">${label}</div>`;
+async function renderAnalysis(){
+  const el=document.getElementById('analysis-content');
+  el.innerHTML=`<div class="ai-loading"><div class="ai-spinner"></div><div class="ai-load-txt">Analysing data…</div></div>`;
+  await new Promise(r=>setTimeout(r,400));
+  try{
+    const result=computeAnalysis();
+    let html=`<button class="ai-refresh" onclick="renderAnalysis()">🔄 Refresh</button>`;
+    html+=`<div class="analysis-summary">📋 ${result.summary}</div>`;
+    html+=`<div class="analysis-cols">`;
+    [{key:'positives',label:'✅ Positives',cls:'ac-pos'},{key:'negatives',label:'⚠️ Areas of Concern',cls:'ac-neg'},{key:'watch',label:'👁 Watch Closely',cls:'ac-watch'}]
+    .forEach(({key,label,cls})=>{
+      html+=`<div class="ac ${cls}"><div class="ac-head">${label}</div>`;
       (result[key]||[]).forEach(item=>{
-        html += `<div class="ac-item"><div class="ac-item-title">${item.title} <span class="ac-item-metric">${item.metric||''}</span></div><div class="ac-item-detail">${item.detail}</div></div>`;
+        html+=`<div class="ac-item"><div class="ac-item-title">${item.title} <span class="ac-item-metric">${item.metric||''}</span></div><div class="ac-item-detail">${item.detail}</div></div>`;
       });
-      html += `</div>`;
+      html+=`</div>`;
     });
-    html += `</div>`;
-    el.innerHTML = html;
-  } catch(e) {
-    document.getElementById('analysis-content').innerHTML =
-      `<div class="ai-error">⚠️ Error generating analysis: ${e.message}</div><button class="ai-refresh" onclick="renderAnalysis()">🔄 Try Again</button>`;
+    html+=`</div>`;
+    el.innerHTML=html;
+  }catch(e){
+    el.innerHTML=`<div class="ai-error">Error: ${e.message}</div><button class="ai-refresh" onclick="renderAnalysis()">🔄 Retry</button>`;
   }
 }
 
-async function renderSuggestions() {
-  const el = document.getElementById('suggestions-content');
-  el.innerHTML = `<div class="ai-loading"><div class="ai-spinner"></div><div class="ai-load-txt">Generating strategic recommendations with AI…</div></div>`;
-  try {
-    const result = await callClaude(`You are a hotel management consultant specialising in mountain resorts. Based on this 4-season P&L data, generate 7-8 specific, actionable recommendations to improve GOP and bottom line. Return ONLY a JSON object (no markdown):
-{
-  "recommendations": [
-    {
-      "title": "short action title",
-      "detail": "2-3 sentences explaining what to do and why, with specific references to the data",
-      "expected": "expected financial impact or % improvement",
-      "effort": "low|medium|high",
-      "impact": "low|medium|high",
-      "area": "Revenue|Costs|F&B|Operations|Marketing|HR"
-    }
-  ]
-}
-Sort by impact (high first). Be very specific to the hotel's actual numbers. Reference trends across seasons. Focus on practical actions a hotel GM can take.
-
-Data:
-${KPI_CONTEXT}`);
-
-    const impactColor = {high:'badge-impact-high', medium:'badge-impact-med', low:'badge-impact-low'};
-    const effortColor = {high:'badge-high', medium:'badge-med', low:'badge-low'};
-    const impactBg = {high:'#1D4ED8', medium:'#7C3AED', low:'#6B7280'};
-    const numBg = {high:'#DBEAFE', medium:'#EDE9FE', low:'#F3F4F6'};
-
-    let html = `<button class="ai-refresh" onclick="renderSuggestions()">🔄 Refresh Suggestions</button>`;
-    (result.recommendations||[]).forEach((r,i)=>{
-      const imp = r.impact||'medium', eff = r.effort||'medium';
-      html += `<div class="sug-item">
-        <div class="sug-num" style="background:${numBg[imp]};color:${impactBg[imp]}">${i+1}</div>
+async function renderSuggestions(){
+  const el=document.getElementById('suggestions-content');
+  el.innerHTML=`<div class="ai-loading"><div class="ai-spinner"></div><div class="ai-load-txt">Generating recommendations…</div></div>`;
+  await new Promise(r=>setTimeout(r,400));
+  try{
+    const recs=computeSuggestions();
+    const impBg={high:'#DBEAFE',medium:'#EDE9FE',low:'#F3F4F6'};
+    const impCol={high:'#1D4ED8',medium:'#7C3AED',low:'#6B7280'};
+    const efBadge={high:'badge-high',medium:'badge-med',low:'badge-low'};
+    let html=`<button class="ai-refresh" onclick="renderSuggestions()">🔄 Refresh</button>`;
+    recs.forEach((r,i)=>{
+      const imp=r.impact||'medium',eff=r.effort||'medium';
+      html+=`<div class="sug-item">
+        <div class="sug-num" style="background:${impBg[imp]};color:${impCol[imp]}">${i+1}</div>
         <div class="sug-body">
-          <div class="sug-title">${r.title} <span class="badge" style="background:#F0FDF4;color:#166534;font-size:10px">${r.area||''}</span></div>
+          <div class="sug-title">${r.title} <span class="badge" style="background:#F0FDF4;color:#166534">${r.area}</span></div>
           <div class="sug-detail">${r.detail}</div>
           <div class="sug-expected">💰 ${r.expected}</div>
           <div class="sug-badges">
-            <span class="badge ${impactColor[imp]}">Impact: ${imp}</span>
-            <span class="badge ${effortColor[eff]}">Effort: ${eff}</span>
+            <span class="badge badge-impact-${imp}">Impact: ${imp}</span>
+            <span class="badge ${efBadge[eff]}">Effort: ${eff}</span>
           </div>
         </div>
       </div>`;
     });
-    el.innerHTML = html;
-  } catch(e) {
-    document.getElementById('suggestions-content').innerHTML =
-      `<div class="ai-error">⚠️ Error generating suggestions: ${e.message}</div><button class="ai-refresh" onclick="renderSuggestions()">🔄 Try Again</button>`;
+    el.innerHTML=html;
+  }catch(e){
+    el.innerHTML=`<div class="ai-error">Error: ${e.message}</div><button class="ai-refresh" onclick="renderSuggestions()">🔄 Retry</button>`;
   }
 }
 
@@ -1019,7 +1184,7 @@ document.querySelectorAll('.nt').forEach(b=>b.addEventListener('click',e=>{
   if(tab==='analysis'){renderAnalysis();}
   if(tab==='suggestions'){renderSuggestions();}
   if(tab==='fb'&&!document.getElementById('fb-food-chart')._rendered){
-    renderFBKPIs();renderFBCharts();renderFBTable();
+    renderFBKPIs();renderFBCharts();renderFBTable();renderFBProductChart();renderFBProductTable();
     document.getElementById('fb-food-chart')._rendered=true;
   }
   if(tab==='mensile'&&!charts.mensile){makeLeg('m-leg');makePills('m-pills','mensile');renderTabChart('mensile');}
