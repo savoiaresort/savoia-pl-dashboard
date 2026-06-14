@@ -129,6 +129,7 @@ td:first-child{text-align:left}
   <div class="nav">
     <button class="nt on" data-tab="overview">Overview</button>
     <button class="nt" data-tab="costi">Costs</button>
+    <button class="nt" data-tab="fb">F&B Detail</button>
     <button class="nt" data-tab="mensile">Monthly</button>
     <button class="nt" data-tab="stagionale">Seasonal</button>
     <button class="nt" data-tab="ytd">YTD Winter</button>
@@ -185,6 +186,34 @@ td:first-child{text-align:left}
     <div class="card tw">
       <div class="th"><div class="tt">Cost Detail — YTD Dec–Apr</div><div class="tsubt">€ · % of revenue</div></div>
       <div class="tbl-scroll"><table id="cost-tbl"></table></div>
+    </div>
+  </div>
+</div>
+
+<!-- F&B DETAIL -->
+<div id="tab-fb" class="tabpanel">
+  <div class="sec">
+    <div class="sh"><div class="shb" style="background:#E09400"></div><div class="sht">F&B Cost per Cover — Full Winter Season</div></div>
+    <div class="krow" id="krow-fb"></div>
+  </div>
+  <div class="two-col sec">
+    <div>
+      <div class="sh"><div class="shb" style="background:#E09400"></div><div class="sht">Food Cost per Cover (€/GIH)</div></div>
+      <div class="card csec"><div class="cw-sm"><canvas id="fb-food-chart" aria-label="Food cost per cover"></canvas></div></div>
+    </div>
+    <div>
+      <div class="sh"><div class="shb" style="background:#4A90D9"></div><div class="sht">Beverage Cost per Cover (€/GIH)</div></div>
+      <div class="card csec"><div class="cw-sm"><canvas id="fb-bev-chart" aria-label="Beverage cost per cover"></canvas></div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sh"><div class="shb" style="background:#E09400"></div><div class="sht">Total F&B Cost of Sales — Full Winter Season</div></div>
+    <div class="card csec"><div class="cw"><canvas id="fb-total-chart" aria-label="Total F&B cost"></canvas></div></div>
+  </div>
+  <div class="sec">
+    <div class="card tw">
+      <div class="th"><div class="tt">F&B Cost Summary — All Seasons</div><div class="tsubt">Full winter (Oct–Apr)</div></div>
+      <div class="tbl-scroll"><table id="fb-tbl"></table></div>
     </div>
   </div>
 </div>
@@ -373,6 +402,94 @@ function arrow(p,costMode){
   return good?`<span class="pos">▲ ${Math.abs(p).toFixed(1)}%</span>`:`<span class="neg">▼ ${Math.abs(p).toFixed(1)}%</span>`;
 }
 
+// ═══ F&B SEASONAL DATA (from Confronto file) ═══
+const FB = {
+  '22-23': { foodCost:225863, foodCostPL:210627, bevCost:46565, bevCostPL:46769, gih:13350.5, foodPerCover:16.92, bevPerCover:3.49, fbRev:1184077 },
+  '23-24': { foodCost:175985, foodCostPL:175524, bevCost:54260, bevCostPL:54314, gih:13797,   foodPerCover:12.76, bevPerCover:3.93, fbRev:1184077 },
+  '24-25': { foodCost:179565, foodCostPL:181962, bevCost:50760, bevCostPL:51365, gih:13604.5, foodPerCover:13.20, bevPerCover:3.73, fbRev:1184077 },
+  '25-26': { foodCost:227153, foodCostPL:228292, bevCost:60198, bevCostPL:60987, gih:15808,   foodPerCover:14.37, bevPerCover:3.81, fbRev:1184077 }
+};
+
+function renderFBKPIs(){
+  const cur=FB['25-26'], prev=FB['24-25'];
+  const kpis=[
+    {lbl:'Food Cost/Cover W26',    val:cur.foodPerCover,  prev:prev.foodPerCover,  col:'#E09400', u:'eur2', cost:true},
+    {lbl:'Bev Cost/Cover W26',     val:cur.bevPerCover,   prev:prev.bevPerCover,   col:'#4A90D9', u:'eur2', cost:true},
+    {lbl:'Total Food Cost W26',    val:cur.foodCost,      prev:prev.foodCost,      col:'#E53935', u:'eur',  cost:true},
+    {lbl:'Total Bev Cost W26',     val:cur.bevCost,       prev:prev.bevCost,       col:'#7B61FF', u:'eur',  cost:true},
+    {lbl:'Guests In House W26',    val:cur.gih,           prev:prev.gih,           col:'#1D9E75', u:'num',  cost:false},
+    {lbl:'Food+Bev Total W26',     val:cur.foodCost+cur.bevCost, prev:prev.foodCost+prev.bevCost, col:'#E53935', u:'eur', cost:true},
+  ];
+  document.getElementById('krow-fb').innerHTML=kpis.map(({lbl,val,prev:pv_,col,u,cost})=>{
+    const p=pv_?((val-pv_)/Math.abs(pv_)*100):null;
+    const arr=p===null?'':cost?(p>0?`<span class="neg">▲ ${Math.abs(p).toFixed(1)}%</span>`:`<span class="pos">▼ ${Math.abs(p).toFixed(1)}%</span>`):(p>=0?`<span class="pos">▲ ${Math.abs(p).toFixed(1)}%</span>`:`<span class="neg">▼ ${Math.abs(p).toFixed(1)}%</span>`);
+    return`<div class="card kc"><div class="kc-l">${lbl}</div><div class="kc-v" style="color:${col}">${fmt(val,u)}</div><div class="kc-vs">vs ${fmt(pv_,u)} W25</div><div class="kc-d">${arr}</div></div>`;
+  }).join('');
+}
+
+function renderFBCharts(){
+  const gc='rgba(0,0,0,.07)',tc='rgba(0,0,0,.45)';
+  const labels=YRS.map(y=>YL[y]);
+  const barOpts=(title)=>({responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: €${c.raw.toFixed(2)}`}}},
+    scales:{x:{ticks:{color:tc,font:{size:11}},grid:{color:gc}},
+      y:{ticks:{color:tc,font:{size:11},callback:v=>'€'+v.toFixed(0)},grid:{color:gc}}}});
+
+  // Food cost per cover
+  new Chart(document.getElementById('fb-food-chart'),{
+    type:'bar',
+    data:{labels,datasets:[{data:YRS.map(y=>FB[y].foodPerCover),
+      backgroundColor:YRS.map(y=>COLS[y]+'cc'),borderColor:YRS.map(y=>COLS[y]),borderWidth:1.5,borderRadius:5}]},
+    options:barOpts('Food Cost/Cover')
+  });
+
+  // Bev cost per cover
+  new Chart(document.getElementById('fb-bev-chart'),{
+    type:'bar',
+    data:{labels,datasets:[{data:YRS.map(y=>FB[y].bevPerCover),
+      backgroundColor:YRS.map(y=>COLS[y]+'cc'),borderColor:YRS.map(y=>COLS[y]),borderWidth:1.5,borderRadius:5}]},
+    options:barOpts('Bev Cost/Cover')
+  });
+
+  // Total F&B costs stacked
+  new Chart(document.getElementById('fb-total-chart'),{
+    type:'bar',
+    data:{labels,datasets:[
+      {label:'Food Cost',data:YRS.map(y=>FB[y].foodCost),backgroundColor:YRS.map(y=>COLS[y]+'cc'),borderColor:YRS.map(y=>COLS[y]),borderWidth:1,borderRadius:4,stack:'fb'},
+      {label:'Beverage Cost',data:YRS.map(y=>FB[y].bevCost),backgroundColor:YRS.map(y=>COLS[y]+'55'),borderColor:YRS.map(y=>COLS[y]),borderWidth:1,borderRadius:4,stack:'fb'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'top',labels:{font:{size:11},usePointStyle:true,pointStyle:'rect',boxWidth:10,color:tc}},
+        tooltip:{mode:'index',intersect:false,callbacks:{label:c=>`${c.dataset.label}: ${fmt(c.raw,'eur')}`}}},
+      scales:{x:{stacked:true,ticks:{color:tc,font:{size:11}},grid:{color:gc}},
+        y:{stacked:true,ticks:{color:tc,font:{size:11},callback:v=>fmt(v,'eur')},grid:{color:gc}}}}
+  });
+}
+
+function renderFBTable(){
+  const rows=[
+    {lbl:'Guests In House (GIH)', fn:y=>FB[y].gih, u:'num'},
+    {lbl:'Food Cost Total (€)',    fn:y=>FB[y].foodCost, u:'eur'},
+    {lbl:'Food Cost / Cover',      fn:y=>FB[y].foodPerCover, u:'eur2'},
+    {lbl:'Beverage Cost Total (€)',fn:y=>FB[y].bevCost, u:'eur'},
+    {lbl:'Bev Cost / Cover',       fn:y=>FB[y].bevPerCover, u:'eur2'},
+    {lbl:'Total F&B Cost of Sales',fn:y=>FB[y].foodCost+FB[y].bevCost, u:'eur'},
+    {lbl:'Total F&B (P&L check)',  fn:y=>FB[y].foodCostPL+FB[y].bevCostPL, u:'eur'},
+  ];
+  let h=`<thead><tr><th style="min-width:220px">METRIC</th>${YRS.map(y=>`<th>${YL[y]}</th>`).join('')}<th>26 vs 25 %</th></tr></thead><tbody>`;
+  rows.forEach(({lbl,fn,u})=>{
+    h+=`<tr><td>${lbl}</td>`;
+    const vals=YRS.map(y=>fn(y));
+    vals.forEach(v=>{ h+=`<td>${fmt(v,u)}</td>`; });
+    const p=vals[2]?((vals[3]-vals[2])/Math.abs(vals[2])*100):null;
+    const cls=p===null?'':p>0?'red':'green';
+    h+=`<td class="${cls}">${p!==null?(p>0?'▲':'▼')+Math.abs(p).toFixed(1)+'%':'—'}</td>`;
+    h+='</tr>';
+  });
+  h+='</tbody>';
+  document.getElementById('fb-tbl').innerHTML=h;
+}
+
 // ── Overview KPIs ──
 function renderOvKPIs(){
   const kpis=[
@@ -543,8 +660,43 @@ function renderCostPills(){
     c.querySelectorAll('.mp').forEach(x=>x.classList.remove('on'));
     e.currentTarget.classList.add('on');
     if(costLChart){costLChart.destroy();costLChart=null;}
-    costLChart=renderLineChart('cost-line',curCK);
+    costLChart=renderCostLineChart(curCK);
   }));
+}
+function renderCostLineChart(k){
+  const md=MD[k];
+  const tc='rgba(0,0,0,.45)',gc='rgba(0,0,0,.07)';
+  return new Chart(document.getElementById('cost-line'),{
+    type:'line',
+    data:{labels:MN,datasets:YRS.map(yr=>({
+      label:YL[yr],
+      data:MN.map((_,i)=>{const v=D[yr][k]?.[i];return(v===null||v===undefined||isNaN(v))?null:v;}),
+      borderColor:COLS[yr],backgroundColor:COLS[yr]+'20',
+      pointRadius:3,pointHoverRadius:6,borderWidth:yr==='25-26'?2.5:1.5,
+      tension:.35,spanGaps:false,fill:false
+    }))},
+    options:{responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{
+          display:true,position:'top',
+          labels:{font:{size:11},usePointStyle:true,pointStyle:'circle',boxWidth:10,color:'#444'},
+          onClick(e,item,legend){
+            // default toggle behaviour
+            const i=item.datasetIndex;
+            const meta=legend.chart.getDatasetMeta(i);
+            meta.hidden=meta.hidden===null?!legend.chart.data.datasets[i].hidden:null;
+            legend.chart.update();
+          }
+        },
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${fmt(c.raw,md.u)}`},
+          backgroundColor:'#fff',titleColor:'#222',bodyColor:'#555',borderColor:'rgba(0,0,0,.12)',borderWidth:1}
+      },
+      scales:{
+        x:{ticks:{color:tc,font:{size:11}},grid:{color:gc}},
+        y:{ticks:{color:tc,font:{size:11},callback:v=>fmt(v,md.u)},grid:{color:gc}}
+      }}
+  });
 }
 
 // ── Cost Table ──
@@ -664,6 +816,10 @@ document.querySelectorAll('.nt').forEach(b=>b.addEventListener('click',e=>{
   e.target.classList.add('on');
   document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('on'));
   document.getElementById('tab-'+tab).classList.add('on');
+  if(tab==='fb'&&!document.getElementById('fb-food-chart')._rendered){
+    renderFBKPIs();renderFBCharts();renderFBTable();
+    document.getElementById('fb-food-chart')._rendered=true;
+  }
   if(tab==='mensile'&&!charts.mensile){makeLeg('m-leg');makePills('m-pills','mensile');renderTabChart('mensile');}
   if(tab==='stagionale'&&!charts.stagionale){makePills('s-pills','stagionale');renderTabChart('stagionale');}
   if(tab==='ytd'&&!charts.ytd){makePills('y-pills','ytd');renderTabChart('ytd');}
@@ -698,7 +854,7 @@ renderPLTable();
 renderCostiKPIs();
 renderStackChart();
 renderCostPills();
-costLChart=renderLineChart('cost-line',curCK);
+costLChart=renderCostLineChart(curCK);
 renderCostTable();
 </script>
 </body>
