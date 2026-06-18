@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Savoia · Weekly Revenue Summer 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#1A3028; --navy2:#243d32; --gold:#C4A97A; --cream:#FAF7F1;
+  --ink:#1E1E14; --muted:#8A8A72; --line:#E5DECF;
+  --green:#1D9E75; --red:#D4574A; --amber:#E0A030; --blue:#4A7FB5;
+}
+body{font-family:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+
+/* Header */
+header{background:var(--navy);color:#fff;padding:28px 0 24px}
+.h-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.brand{font-family:Georgia,'Times New Roman',serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.h-date{font-size:12px;color:rgba(255,255,255,.55);letter-spacing:.5px}
+h1{font-family:Georgia,serif;font-size:30px;font-weight:400;margin-top:6px;letter-spacing:-.3px}
+.h-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:6px;max-width:680px}
+
+/* Summary strip */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);margin:24px 0 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.strip-c{background:#fff;padding:16px 18px}
+.strip-l{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.strip-v{font-family:Georgia,serif;font-size:26px;margin-top:4px}
+.strip-d{font-size:12px;margin-top:2px;font-weight:500}
+.up{color:var(--green)} .down{color:var(--red)}
+
+/* Section */
+section{margin:34px 0}
+.s-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.s-bar{width:4px;height:20px;background:var(--gold);border-radius:2px}
+.s-title{font-family:Georgia,serif;font-size:19px;font-weight:400}
+.s-note{font-size:12.5px;color:var(--muted);margin:-10px 0 16px 14px}
+
+/* Legend */
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:14px;font-size:12px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:6px}
+.dot{width:11px;height:11px;border-radius:3px}
+
+/* Chart card */
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}
+.chart-box{position:relative;height:340px}
+
+/* Weekly grid */
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px}
+.wk{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0;overflow:hidden;transition:transform .12s,box-shadow .12s;cursor:default}
+.wk:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,48,40,.1)}
+.wk-top{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.wk-name{font-weight:600;font-size:14px}
+.wk-tag{font-size:9.5px;text-transform:uppercase;letter-spacing:.7px;font-weight:700;padding:3px 8px;border-radius:20px;color:#fff}
+.tag-raise{background:var(--green)}
+.tag-hold{background:var(--blue)}
+.tag-push{background:var(--amber)}
+.tag-watch{background:var(--red)}
+.wk-body{padding:14px 16px}
+.wk-occ{display:flex;align-items:baseline;gap:8px;margin-bottom:3px}
+.wk-occ-v{font-family:Georgia,serif;font-size:32px;line-height:1}
+.wk-occ-l{font-size:11px;color:var(--muted)}
+.wk-vs{font-size:12px;font-weight:600;margin-bottom:12px}
+.bar-track{height:7px;background:#EFEAE0;border-radius:4px;overflow:hidden;margin-bottom:13px;position:relative}
+.bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.bar-prev{position:absolute;top:-2px;width:2px;height:11px;background:var(--ink);opacity:.35}
+.wk-row{display:flex;justify-content:space-between;font-size:12.5px;padding:4px 0;border-top:1px dotted var(--line)}
+.wk-row .lab{color:var(--muted)}
+.wk-row .val{font-weight:600}
+.wk-pace{margin-top:11px;padding:9px 11px;background:var(--cream);border-radius:8px;font-size:11.5px;color:var(--ink)}
+.wk-pace b{color:var(--navy)}
+
+/* Strategy table */
+.strat{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.strat-row{display:grid;grid-template-columns:160px 1fr;gap:0;border-bottom:1px solid var(--line)}
+.strat-row:last-child{border-bottom:none}
+.strat-k{padding:15px 18px;font-weight:600;font-size:13.5px;display:flex;align-items:center;gap:9px;border-right:1px solid var(--line)}
+.strat-k .kdot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.strat-v{padding:15px 18px;font-size:13.5px;color:#3a3a2e}
+.strat-v b{color:var(--navy)}
+.tabline{font-size:12px;color:var(--muted);margin-top:5px}
+
+footer{text-align:center;font-size:11.5px;color:var(--muted);padding:30px 0 40px}
+
+@media(max-width:700px){
+  .strip{grid-template-columns:repeat(2,1fr)}
+  h1{font-size:24px}
+  .strat-row{grid-template-columns:1fr}
+  .strat-k{border-right:none;border-bottom:1px dashed var(--line)}
+  .chart-box{height:300px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="h-top">
+      <div class="brand">Savoia Mountain Resort · Bardonecchia</div>
+      <div class="h-date">Booking on the books · 17 June 2026</div>
+    </div>
+    <h1>Weekly Revenue — Summer 2026</h1>
+    <div class="h-sub">Occupancy and average room rate (Retta) by stay week (Sunday–Saturday), compared with 2025 and 2024 at the same point, and the booking pace over the last 30 days.</div>
+
+    <div class="strip" id="strip"></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <div class="s-head"><div class="s-bar"></div><div class="s-title">Weekly occupancy · 3-year comparison</div></div>
+    <div class="s-note">% of rooms sold out of 78 available, at the same booking date (17/06) each year</div>
+    <div class="card">
+      <div class="legend">
+        <span><span class="dot" style="background:#C4A97A"></span>2026</span>
+        <span><span class="dot" style="background:#6B8FAA"></span>2025</span>
+        <span><span class="dot" style="background:#B5AE9C"></span>2024</span>
+      </div>
+      <div class="chart-box"><canvas id="occChart"></canvas></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="s-head"><div class="s-bar"></div><div class="s-title">Weekly average room rate (ADR)</div></div>
+    <div class="s-note">€ per room sold — the line shows where price rose or fell versus prior years</div>
+    <div class="card">
+      <div class="legend">
+        <span><span class="dot" style="background:#C4A97A"></span>2026</span>
+        <span><span class="dot" style="background:#6B8FAA"></span>2025</span>
+        <span><span class="dot" style="background:#B5AE9C"></span>2024</span>
+      </div>
+      <div class="chart-box"><canvas id="adrChart"></canvas></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="s-head"><div class="s-bar"></div><div class="s-title">Booking pace · last 30 days</div></div>
+    <div class="s-note">Room nights picked up between 17/05 and 17/06 for each week, and the average rate they came in at (entry ADR)</div>
+    <div class="card">
+      <div class="legend">
+        <span><span class="dot" style="background:#1D9E75"></span>Nights picked up 2026</span>
+        <span><span class="dot" style="background:#6B8FAA"></span>Nights picked up 2025</span>
+        <span><span class="dot" style="background:#C4A97A;border-radius:50%"></span>Entry ADR 2026 (€)</span>
+      </div>
+      <div class="chart-box"><canvas id="paceChart"></canvas></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="s-head"><div class="s-bar"></div><div class="s-title">Week-by-week action map</div></div>
+    <div class="s-note">Each card: current occupancy, comparison with 2025, price, and recommended action. The dark notch on the bar marks 2025 occupancy.</div>
+    <div class="weeks" id="weeks"></div>
+  </section>
+
+  <section>
+    <div class="s-head"><div class="s-bar"></div><div class="s-title">The three strategies</div></div>
+    <div class="strat">
+      <div class="strat-row">
+        <div class="strat-k"><span class="kdot" style="background:var(--green)"></span>Raise the price</div>
+        <div class="strat-v"><b>21-27 June · 19-25 July · 2-8 August.</b> Weeks that are full or nearly full (high occupancy, above 2025) but with ADR down versus a year ago. They fill up regardless: you are leaving margin on the table. Push rates up on the remaining rooms.
+        <div class="tabline">Signal: occupancy ≥ last year + price below last year</div></div>
+      </div>
+      <div class="strat-row">
+        <div class="strat-k"><span class="kdot" style="background:var(--blue)"></span>Stay the course</div>
+        <div class="strat-v"><b>28 Jun-4 Jul · 5-11 July · 9-15 August.</b> Working well as is: rising price and solid incoming demand. On the mid-August peak (9-15 Aug) bookings come in at €261 — push the price and apply minimum-stay, but don't change the approach.
+        <div class="tabline">Signal: rising price + healthy pace</div></div>
+      </div>
+      <div class="strat-row">
+        <div class="strat-k"><span class="kdot" style="background:var(--amber)"></span>Generate demand</div>
+        <div class="strat-v"><b>26 Jul-1 August.</b> The emptiest week (20%) with a slow pace. Work it on volume — packages, promotions, direct-channel push — before the date approaches.
+        <div class="tabline">Signal: low occupancy + slow pace</div></div>
+      </div>
+      <div class="strat-row">
+        <div class="strat-k"><span class="kdot" style="background:var(--red)"></span>Watch closely</div>
+        <div class="strat-v"><b>16-22 August.</b> The only week below 2025 (-10 points), with a very slow pace — but incoming bookings pay €283, the highest rate of all. The high price is holding back volume: decide whether the post-peak tail is worth more at full price with few rooms, or with a targeted offer that unlocks occupancy.
+        <div class="tabline">Signal: occupancy below last year + very high price + slow pace</div></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>Data: Ericsoft Pick-up Analysis · Savoia Mountain Resort · room rate (Retta) only · 78 rooms</footer>
+
+<script>
+const DATA = [{"week": "21-27 Jun", "avail": 546, "2026": {"r": 29790.0, "n": 190, "occ": 34.8, "adr": 157.0}, "2025": {"r": 25495.0, "n": 147, "occ": 26.9, "adr": 173.0}, "2024": {"r": 8339.0, "n": 57, "occ": 10.4, "adr": 146.0}, "pace": {"2026": {"dn": 70, "dr": 9293.0, "adr_in": 133.0, "old_n": 120}, "2025": {"dn": 60, "dr": 10583.0, "adr_in": 176.0, "old_n": 87}, "2024": {"dn": 28, "dr": 3936.0, "adr_in": 141.0, "old_n": 29}}}, {"week": "28Jun-04Jul", "avail": 546, "2026": {"r": 26317.0, "n": 147, "occ": 26.9, "adr": 179.0}, "2025": {"r": 16989.0, "n": 99, "occ": 18.1, "adr": 172.0}, "2024": {"r": 17935.0, "n": 105, "occ": 19.2, "adr": 171.0}, "pace": {"2026": {"dn": 71, "dr": 11480.0, "adr_in": 162.0, "old_n": 76}, "2025": {"dn": 47, "dr": 9756.0, "adr_in": 208.0, "old_n": 52}, "2024": {"dn": 24, "dr": 4001.0, "adr_in": 167.0, "old_n": 81}}}, {"week": "05-11 Jul", "avail": 546, "2026": {"r": 31990.0, "n": 155, "occ": 28.4, "adr": 206.0}, "2025": {"r": 17489.0, "n": 116, "occ": 21.2, "adr": 151.0}, "2024": {"r": 10909.0, "n": 76, "occ": 13.9, "adr": 144.0}, "pace": {"2026": {"dn": 59, "dr": 9776.0, "adr_in": 166.0, "old_n": 96}, "2025": {"dn": 16, "dr": 2421.0, "adr_in": 151.0, "old_n": 100}, "2024": {"dn": 45, "dr": 6200.0, "adr_in": 138.0, "old_n": 31}}}, {"week": "12-18 Jul", "avail": 546, "2026": {"r": 32856.0, "n": 180, "occ": 33.0, "adr": 183.0}, "2025": {"r": 27099.0, "n": 136, "occ": 24.9, "adr": 199.0}, "2024": {"r": 22314.0, "n": 130, "occ": 23.8, "adr": 172.0}, "pace": {"2026": {"dn": 86, "dr": 15180.0, "adr_in": 177.0, "old_n": 94}, "2025": {"dn": 64, "dr": 12493.0, "adr_in": 195.0, "old_n": 72}, "2024": {"dn": 78, "dr": 12244.0, "adr_in": 157.0, "old_n": 52}}}, {"week": "19-25 Jul", "avail": 546, "2026": {"r": 43550.0, "n": 217, "occ": 39.7, "adr": 201.0}, "2025": {"r": 33910.0, "n": 158, "occ": 28.9, "adr": 215.0}, "2024": {"r": 14724.0, "n": 80, "occ": 14.7, "adr": 184.0}, "pace": {"2026": {"dn": 59, "dr": 9839.0, "adr_in": 167.0, "old_n": 158}, "2025": {"dn": 47, "dr": 12126.0, "adr_in": 258.0, "old_n": 111}, "2024": {"dn": 49, "dr": 8690.0, "adr_in": 177.0, "old_n": 31}}}, {"week": "26Jul-01Aug", "avail": 546, "2026": {"r": 21326.0, "n": 112, "occ": 20.5, "adr": 190.0}, "2025": {"r": 13880.0, "n": 76, "occ": 13.9, "adr": 183.0}, "2024": {"r": 15263.0, "n": 85, "occ": 15.6, "adr": 180.0}, "pace": {"2026": {"dn": 37, "dr": 5085.0, "adr_in": 137.0, "old_n": 75}, "2025": {"dn": 15, "dr": 2928.0, "adr_in": 195.0, "old_n": 61}, "2024": {"dn": 30, "dr": 4858.0, "adr_in": 162.0, "old_n": 55}}}, {"week": "02-08 Aug", "avail": 546, "2026": {"r": 42133.0, "n": 217, "occ": 39.7, "adr": 194.0}, "2025": {"r": 38191.0, "n": 188, "occ": 34.4, "adr": 203.0}, "2024": {"r": 10336.0, "n": 63, "occ": 11.5, "adr": 164.0}, "pace": {"2026": {"dn": 41, "dr": 7069.0, "adr_in": 172.0, "old_n": 176}, "2025": {"dn": 30, "dr": 4971.0, "adr_in": 166.0, "old_n": 158}, "2024": {"dn": 15, "dr": 2290.0, "adr_in": 153.0, "old_n": 48}}}, {"week": "09-15 Aug", "avail": 546, "2026": {"r": 43135.0, "n": 170, "occ": 31.1, "adr": 254.0}, "2025": {"r": 30796.0, "n": 139, "occ": 25.5, "adr": 222.0}, "2024": {"r": 12588.0, "n": 61, "occ": 11.2, "adr": 206.0}, "pace": {"2026": {"dn": 56, "dr": 14604.0, "adr_in": 261.0, "old_n": 114}, "2025": {"dn": 36, "dr": 9552.0, "adr_in": 265.0, "old_n": 103}, "2024": {"dn": 34, "dr": 6559.0, "adr_in": 193.0, "old_n": 27}}}, {"week": "16-22 Aug", "avail": 546, "2026": {"r": 26337.0, "n": 101, "occ": 18.5, "adr": 261.0}, "2025": {"r": 32560.0, "n": 153, "occ": 28.0, "adr": 213.0}, "2024": {"r": 16200.0, "n": 81, "occ": 14.8, "adr": 200.0}, "pace": {"2026": {"dn": 25, "dr": 7064.0, "adr_in": 283.0, "old_n": 76}, "2025": {"dn": 35, "dr": 7437.0, "adr_in": 212.0, "old_n": 118}, "2024": {"dn": 25, "dr": 4706.0, "adr_in": 188.0, "old_n": 56}}}, {"week": "23-29 Aug", "avail": 546, "2026": {"r": 31942.0, "n": 128, "occ": 23.4, "adr": 250.0}, "2025": {"r": 18195.0, "n": 90, "occ": 16.5, "adr": 202.0}, "2024": {"r": 8646.0, "n": 59, "occ": 10.8, "adr": 147.0}, "pace": {"2026": {"dn": 24, "dr": 6591.0, "adr_in": 275.0, "old_n": 104}, "2025": {"dn": 39, "dr": 7366.0, "adr_in": 189.0, "old_n": 51}, "2024": {"dn": 19, "dr": 2516.0, "adr_in": 132.0, "old_n": 40}}}];
+
+const C26='#C4A97A', C25='#6B8FAA', C24='#B5AE9C';
+const labels = DATA.map(d=>d.week);
+
+// ── Summary strip ──
+const sum = {26:{n:0,r:0},25:{n:0,r:0}};
+DATA.forEach(d=>{ sum[26].n+=d['2026'].n; sum[26].r+=d['2026'].r; sum[25].n+=d['2025'].n; sum[25].r+=d['2025'].r; });
+const availTot = DATA.reduce((a,d)=>a+d.avail,0);
+const occ26=(sum[26].n/availTot*100), occ25=(sum[25].n/availTot*100);
+const adr26=sum[26].r/sum[26].n, adr25=sum[25].r/sum[25].n;
+const paceTot = DATA.reduce((a,d)=>a+d.pace['2026'].dn,0);
+const pace25Tot = DATA.reduce((a,d)=>a+d.pace['2025'].dn,0);
+
+function arrow(v){return v>0?'▲':'▼';}
+const strip = [
+  {l:'Average occupancy',v:occ26.toFixed(1)+'%',d:`${arrow(occ26-occ25)} ${Math.abs(occ26-occ25).toFixed(1)}pp vs 2025`,up:occ26>=occ25},
+  {l:'Average ADR (Retta)',v:'€'+adr26.toFixed(0),d:`${arrow(adr26-adr25)} ${(Math.abs(adr26-adr25)/adr25*100).toFixed(1)}% vs 2025`,up:adr26>=adr25},
+  {l:'Nights sold',v:sum[26].n.toLocaleString('en-US'),d:`${arrow(sum[26].n-sum[25].n)} ${((sum[26].n/sum[25].n-1)*100).toFixed(0)}% vs 2025`,up:sum[26].n>=sum[25].n},
+  {l:'Pace last 30 days',v:'+'+paceTot+' nights',d:`vs +${pace25Tot} in 2025`,up:paceTot>=pace25Tot},
+];
+document.getElementById('strip').innerHTML = strip.map(s=>`
+  <div class="strip-c">
+    <div class="strip-l">${s.l}</div>
+    <div class="strip-v">${s.v}</div>
+    <div class="strip-d ${s.up?'up':'down'}">${s.d}</div>
+  </div>`).join('');
+
+// ── Chart defaults ──
+Chart.defaults.font.family="'Jost',sans-serif";
+Chart.defaults.font.size=11;
+Chart.defaults.color='#8A8A72';
+const grid='rgba(0,0,0,.06)';
+
+// Occupancy chart
+new Chart(document.getElementById('occChart'),{
+  type:'bar',
+  data:{labels,datasets:[
+    {label:'2026',data:DATA.map(d=>d['2026'].occ),backgroundColor:C26,borderRadius:4},
+    {label:'2025',data:DATA.map(d=>d['2025'].occ),backgroundColor:C25,borderRadius:4},
+    {label:'2024',data:DATA.map(d=>d['2024'].occ),backgroundColor:C24,borderRadius:4},
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toFixed(1)+'%'}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:grid},ticks:{callback:v=>v+'%'},title:{display:true,text:'Occupancy %'}}}}
+});
+
+// ADR chart
+new Chart(document.getElementById('adrChart'),{
+  type:'line',
+  data:{labels,datasets:[
+    {label:'2026',data:DATA.map(d=>d['2026'].adr),borderColor:C26,backgroundColor:C26,borderWidth:3,pointRadius:4,pointBackgroundColor:C26,tension:.3},
+    {label:'2025',data:DATA.map(d=>d['2025'].adr),borderColor:C25,backgroundColor:C25,borderWidth:2,pointRadius:3,tension:.3},
+    {label:'2024',data:DATA.map(d=>d['2024'].adr),borderColor:C24,backgroundColor:C24,borderWidth:2,pointRadius:3,borderDash:[5,4],tension:.3},
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': €'+c.raw.toFixed(0)}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:grid},ticks:{callback:v=>'€'+v},title:{display:true,text:'ADR Retta (€)'}}}}
+});
+
+// Pace chart (bars = nights in, line = entry ADR)
+new Chart(document.getElementById('paceChart'),{
+  data:{labels,datasets:[
+    {type:'bar',label:'Nights picked up 2026',data:DATA.map(d=>d.pace['2026'].dn),backgroundColor:'#1D9E75',borderRadius:4,yAxisID:'y',order:2},
+    {type:'bar',label:'Nights picked up 2025',data:DATA.map(d=>d.pace['2025'].dn),backgroundColor:C25,borderRadius:4,yAxisID:'y',order:3},
+    {type:'line',label:'ADR ingresso 2026',data:DATA.map(d=>d.pace['2026'].adr_in),borderColor:C26,backgroundColor:C26,borderWidth:3,pointRadius:4,pointBackgroundColor:C26,yAxisID:'y1',tension:.3,order:1},
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label.includes('ADR')?c.dataset.label+': €'+c.raw.toFixed(0):c.dataset.label+': +'+c.raw+' nights'}}},
+    scales:{x:{grid:{display:false}},
+      y:{position:'left',grid:{color:grid},title:{display:true,text:'Nights picked up (30d)'},beginAtZero:true},
+      y1:{position:'right',grid:{display:false},title:{display:true,text:'Entry ADR (€)'},ticks:{callback:v=>'€'+v}}}}
+});
+
+// ── Weekly cards ──
+function strategy(d){
+  const o26=d['2026'].occ, o25=d['2025'].occ, a26=d['2026'].adr, a25=d['2025'].adr, pace=d.pace['2026'].dn;
+  // Watch: below last year + slow pace
+  if(o26 < o25 - 3 && pace < 30) return {tag:'Watch',cls:'tag-watch'};
+  // Raise: high occ (>=last year) but ADR down
+  if(o26 >= o25 && a26 < a25 - 4 && o26 >= 28) return {tag:'Raise price',cls:'tag-raise'};
+  // Push: low occupancy
+  if(o26 < 23) return {tag:'Generate demand',cls:'tag-push'};
+  // Hold otherwise
+  return {tag:'Stay course',cls:'tag-hold'};
+}
+function occColor(o26,o25){ return o26>=o25 ? '#1D9E75' : '#D4574A'; }
+
+document.getElementById('weeks').innerHTML = DATA.map(d=>{
+  const o26=d['2026'].occ, o25=d['2025'].occ, a26=d['2026'].adr, a25=d['2025'].adr;
+  const s=strategy(d);
+  const vsOcc=o26-o25, vsAdr=a26-a25;
+  const pace=d.pace['2026'];
+  const fillW=Math.min(o26,100);
+  const prevPos=Math.min(o25,100);
+  return `
+  <div class="wk">
+    <div class="wk-top">
+      <div class="wk-name">${d.week}</div>
+      <div class="wk-tag ${s.cls}">${s.tag}</div>
+    </div>
+    <div class="wk-body">
+      <div class="wk-occ"><div class="wk-occ-v">${o26.toFixed(0)}%</div><div class="wk-occ-l">occupied</div></div>
+      <div class="wk-vs" style="color:${vsOcc>=0?'var(--green)':'var(--red)'}">${vsOcc>=0?'▲':'▼'} ${Math.abs(vsOcc).toFixed(1)}pp vs 2025</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${fillW}%;background:${occColor(o26,o25)}"></div>
+        <div class="bar-prev" style="left:${prevPos}%"></div>
+      </div>
+      <div class="wk-row"><span class="lab">ADR (Retta)</span><span class="val">€${a26.toFixed(0)} <span style="color:${vsAdr>=0?'var(--green)':'var(--red)'};font-size:11px">(${vsAdr>=0?'+':''}${vsAdr.toFixed(0)})</span></span></div>
+      <div class="wk-row"><span class="lab">Nights sold</span><span class="val">${d['2026'].n} / ${d.avail}</span></div>
+      <div class="wk-pace">Last 30 days: <b>+${pace.dn} nights</b> in at <b>€${pace.adr_in.toFixed(0)}</b> avg</div>
+    </div>
+  </div>`;
+}).join('');
+</script>
+
+</body>
+</html>
