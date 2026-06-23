@@ -67,14 +67,20 @@ html,body{height:100%;overflow:hidden;background:var(--green-dark);font-family:-
 .mp-val.amber{color:#f0c040;}
 
 /* SECTION HEADER */
-.section-hdr{padding:8px 16px 4px;background:var(--cream-dark);display:flex;align-items:center;justify-content:space-between;}
-.section-hdr-title{font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.8px;text-transform:uppercase;}
+.section-hdr{padding:10px 16px;background:var(--cream-dark);display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;border-bottom:0.5px solid var(--color-border-tertiary);}
+.section-hdr:active{background:#ddd8cc;}
+.section-hdr-title{font-size:12px;font-weight:600;color:var(--text-dark);letter-spacing:0.5px;display:flex;align-items:center;gap:8px;}
 .section-hdr-count{font-size:11px;color:var(--text-light);}
+.section-hdr-arrow{font-size:14px;color:var(--text-light);transition:transform 0.25s;display:inline-block;}
+.section-hdr-arrow.open{transform:rotate(90deg);}
+.cat-group-body{overflow:hidden;transition:max-height 0.3s ease;}
 
 /* WINE CARD */
 .wine-card{background:#fff;border-bottom:1px solid var(--cream-dark);padding:12px 16px;cursor:pointer;display:flex;gap:12px;align-items:flex-start;}
 .wine-card:active{background:var(--cream);}
-.wine-label{width:42px;height:56px;border-radius:4px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;gap:2px;}
+.wine-label{width:42px;height:56px;border-radius:4px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;gap:2px;overflow:hidden;position:relative;}
+.wine-label img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:4px;}
+.wine-label .label-fallback{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:2px;}
 .wine-info{flex:1;min-width:0;}
 .wine-name{font-size:14px;font-weight:600;color:var(--text-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .wine-prod{font-size:12px;color:var(--text-mid);margin-top:1px;}
@@ -91,7 +97,9 @@ html,body{height:100%;overflow:hidden;background:var(--green-dark);font-family:-
 #detail-sheet.open{transform:translateY(0);}
 .sheet-handle{width:36px;height:4px;border-radius:2px;background:var(--cream-dark);margin:12px auto 16px;}
 .sheet-header{padding:0 20px 16px;border-bottom:1px solid var(--cream-dark);}
-.sheet-label{width:56px;height:72px;border-radius:6px;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:700;letter-spacing:0.5px;}
+.sheet-label{width:56px;height:72px;border-radius:6px;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:700;letter-spacing:0.5px;overflow:hidden;position:relative;}
+.sheet-label img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:6px;}
+.sheet-label .label-fallback{position:relative;z-index:1;}
 .sheet-wine-name{font-size:20px;font-weight:700;color:var(--text-dark);line-height:1.2;}
 .sheet-producer{font-size:15px;color:var(--text-mid);margin-top:4px;}
 .sheet-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
@@ -208,6 +216,9 @@ html,body{height:100%;overflow:hidden;background:var(--green-dark);font-family:-
     <button class="tab-btn" onclick="switchTab('sommario',this)">
       <span class="tab-icon">💶</span><span>Riepilogo</span>
     </button>
+    <button class="tab-btn" onclick="switchTab('ai',this)">
+      <span class="tab-icon">🤖</span><span>AI</span>
+    </button>
   </div>
 
   <div id="content">
@@ -215,6 +226,7 @@ html,body{height:100%;overflow:hidden;background:var(--green-dark);font-family:-
     <div id="tab-vendite" style="display:none"></div>
     <div id="tab-grafici" style="display:none"></div>
     <div id="tab-sommario" style="display:none"></div>
+    <div id="tab-ai" style="display:none"></div>
   </div>
 </div>
 
@@ -367,7 +379,7 @@ const WINES = [
   {id:138,nome:"Sommo Langhe Arneis DOC",prod:"Fontanabianca",anno:"2024",cat:"Occasioni",reg:"Piemonte",regione:"Langhe, Piemonte",alc:"13.0%",formato:"0,75 L",giac:7,pv:20,pa:null},
   {id:139,nome:"Prosecco DOC (Extra Dry - Brut)",prod:"Foss Marai",anno:"",cat:"Occasioni",reg:"Veneto",regione:"Veneto",alc:"12.0%",formato:"0,75 L",giac:4,pv:20,pa:null},
   {id:140,nome:"Rosè cuvè",prod:"Pompili",anno:"2020",cat:"Occasioni",reg:"Marche",regione:"Marche",alc:"11.5%",formato:"0,75 L",giac:3,pv:20,pa:null},
-  {id:141,nome:"Prosecco Savoia calice",prod:"Solito",anno:"",cat:"Mescita",reg:"Veneto",regione:"Veneto",alc:"",formato:"calice",giac:360,pv:7,pa:4},
+  {id:141,nome:"Prosecco Savoia calice",prod:"Solito",anno:"",cat:"Mescita",reg:"Veneto",regione:"Veneto",alc:"",formato:"calice",giac:360,pv:8,pa:4},
   {id:142,nome:"Chardonnay",prod:"Le Torri",anno:"2024",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"13.0%",formato:"calice",giac:48,pv:7,pa:4},
   {id:143,nome:"Arneis",prod:"Le Torri",anno:"2024",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"13.0%",formato:"calice",giac:47,pv:7,pa:4},
   {id:144,nome:"Dagatra",prod:"Cavagnero",anno:"",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"",formato:"calice",giac:48,pv:7,pa:4},
@@ -451,7 +463,12 @@ const SALES_RAW = [
   {desc:"PROSECCO SAVOIA CALICE",camera:"232",qty:1,tot:7,wid:141},
 
   {desc:"GUERRIERO NERO IGT",camera:"233",qty:1,tot:40,wid:87},
-  {desc:"Vino al calice (tutti i calici)",camera:"varie camere",qty:97,tot:820,wid:999},
+  {desc:"Vino al calice (tutti i calici)",camera:"varie camere",qty:101,tot:844,wid:999},
+  {desc:"CHIANTI SUPERIORE DOCG",camera:"222",qty:1,tot:20,wid:null},
+  {desc:"GEWURZSTRAMINER ALTOLAGO",camera:"222",qty:1,tot:20,wid:137},
+  {desc:"LANGHE ARNEIS LE RONDINI",camera:"224",qty:1,tot:30,wid:null},
+  {desc:"LANGHE ARNEIS LE RONDINI",camera:"231",qty:1,tot:30,wid:null},
+  {desc:"LANGHE CHARDONNAY LE RONDINI",camera:"231",qty:2,tot:60,wid:null},
 ];
 
 const CAT_COLORS = {
@@ -476,6 +493,70 @@ function savePA(id, val) {
   try { localStorage.setItem('savoia_pa', JSON.stringify(prices)); } catch(e) {}
 }
 
+// Per mescita/calice: acquistiamo bottiglie ma vendiamo calici (4 calici = 1 bottiglia)
+// Il costo effettivo per calice = PA bottiglia / 4
+const CALICI_PER_BOTTIGLIA = 3.5;
+function paEff(w) {
+  const pa = prices[w.id];
+  if (pa == null) return null;
+  return w.formato === 'calice' || w.formato === 'calice 150ml' ? pa / CALICI_PER_BOTTIGLIA : pa;
+}
+
+// Wine images: fetch in batches of 10 via Anthropic API with web search
+const imgCache = {};
+let imgFetchStarted = false;
+
+async function fetchWineImagesBatch(wines) {
+  // Ask Claude to return a JSON map of id -> image URL for a batch
+  const list = wines.map(w => `${w.id}: "${w.nome}" by ${w.prod}`).join('\n');
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1500,
+        tools: [{type:'web_search_20250305',name:'web_search'}],
+        messages: [{role:'user', content: `For each wine below, find a direct image URL of the bottle (jpg/png/webp) from vivino.com, wine-searcher.com or the producer website. Return ONLY a valid JSON object like {"1":"https://...","2":"https://..."} with no other text.\n\n${list}`}]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.filter(b=>b.type==='text').map(b=>b.text).join('') || '';
+    const jsonMatch = text.match(/\{[^{}]+\}/s);
+    if (jsonMatch) {
+      const map = JSON.parse(jsonMatch[0]);
+      Object.entries(map).forEach(([id, url]) => {
+        if (url && url.startsWith('http')) {
+          imgCache[parseInt(id)] = url;
+          // Update any already-rendered elements
+          document.querySelectorAll(`[data-wine-img="${id}"]`).forEach(el => {
+            el.src = url;
+            el.style.display = 'block';
+          });
+        }
+      });
+    }
+  } catch(e) {}
+}
+
+async function loadAllWineImages() {
+  if (imgFetchStarted) return;
+  imgFetchStarted = true;
+  // Fetch in batches of 8 to stay within token limits
+  const batchSize = 8;
+  for (let i = 0; i < WINES.length; i += batchSize) {
+    const batch = WINES.slice(i, i + batchSize).filter(w => w.cat !== 'Mescita');
+    if (batch.length > 0) await fetchWineImagesBatch(batch);
+    await new Promise(r => setTimeout(r, 300)); // small delay between batches
+  }
+}
+
+function wineImgHtml(w) {
+  if (w.cat === 'Mescita') return ''; // no image for mescita
+  const src = imgCache[w.id] || '';
+  return `<img src="${src}" style="display:${src?'block':'none'}" data-wine-img="${w.id}" onerror="this.style.display='none'" loading="lazy">`;
+}
+
 let soldMap = {};
 SALES_RAW.forEach(s => {
   if (!s.wid) return;
@@ -487,18 +568,20 @@ SALES_RAW.forEach(s => {
 let currentFilter = 'all';
 let currentSearch = '';
 let currentTab = 'inventario';
+let collapsedCats = {}; // tracks which categories are collapsed
 
 function switchTab(tab, btn) {
   currentTab = tab;
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  ['inventario','vendite','grafici','sommario'].forEach(t => {
+  ['inventario','vendite','grafici','sommario','ai'].forEach(t => {
     document.getElementById('tab-'+t).style.display = t===tab ? 'block' : 'none';
   });
   if (tab==='inventario') renderInventario();
   if (tab==='vendite') renderVendite();
   if (tab==='grafici') renderGrafici();
   if (tab==='sommario') renderSommario();
+  if (tab==='ai') renderAITab();
 }
 
 function catCls(cat) { return CAT_COLORS[cat] || 'cat-mes'; }
@@ -515,15 +598,18 @@ function renderInventario() {
   const regions = [...new Set(WINES.map(w=>w.reg))].sort();
 
   // Calcola metriche globali
+  // Per mescita: giac=bottiglie, pv=prezzo calice → valore bottiglia = pv × CALICI_PER_BOTTIGLIA
   let totInv=0, totAcq=0, totBott=0, profTot=0, missingPA=0;
   WINES.forEach(w=>{
-    totInv += w.giac * w.pv;
-    const pa = prices[w.id];
-    if(pa) totAcq += w.giac * pa;
+    const isCaliceW = w.formato==='calice'||w.formato==='calice 150ml';
+    totInv += w.giac * w.pv * (isCaliceW ? CALICI_PER_BOTTIGLIA : 1);
+    const paRaw = prices[w.id];
+    if(paRaw) totAcq += w.giac * paRaw;
     totBott += w.giac;
+    const pa = paEff(w);
     const s = soldMap[w.id]||{qty:0,rev:0};
     if(pa && s.qty>0) profTot += s.rev - s.qty*pa;
-    if(!pa) missingPA++;
+    if(!paRaw) missingPA++;
   });
   const totInvNetto = Math.round(totInv / 1.10);
 
@@ -536,7 +622,7 @@ function renderInventario() {
     <div class="metric-pill"><div class="mp-label">Bottiglie</div><div class="mp-val">${totBott.toLocaleString('it')}</div></div>
     <div class="metric-pill"><div class="mp-label">Stock vendita</div><div class="mp-val gold">€${Math.round(totInv/1000)}k</div></div>
     <div class="metric-pill"><div class="mp-label">Stock netto -IVA</div><div class="mp-val gold">€${Math.round(totInvNetto/1000)}k</div></div>
-    <div class="metric-pill"><div class="mp-label">Stock acquisto</div><div class="mp-val amber">€${Math.round(totAcq/1000)}k</div></div>
+    <div class="metric-pill" title="Valore parziale: ${missingPA} vini senza PA"><div class="mp-label">Stock acquisto${missingPA>0?' ⚠':''}</div><div class="mp-val amber">€${Math.round(totAcq/1000)}k${missingPA>0?'<span style="font-size:9px;display:block;color:#BA7517">'+missingPA+' PA mancanti</span>':''}</div></div>
     <div class="metric-pill"><div class="mp-label">Profitto giu</div><div class="mp-val gold">€${Math.round(profTot)}</div></div>
     <div class="metric-pill"><div class="mp-label">PA mancanti</div><div class="mp-val amber">${missingPA}</div></div>
     <div class="metric-pill"><div class="mp-label">Referenze</div><div class="mp-val">${WINES.length}</div></div>
@@ -571,17 +657,26 @@ function renderInventario() {
     const grp = groups[cat];
     const totGiac = grp.reduce((a,w)=>a+w.giac,0);
     const pct = Math.round(totGiac/totBott*100);
-    html += `<div class="section-hdr">
-      <span class="section-hdr-title">${CAT_EMOJI[cat]} ${cat}</span>
+    const isOpen = !collapsedCats[cat];
+    html += `<div class="section-hdr" onclick="toggleCat('${cat}')">
+      <span class="section-hdr-title">
+        <span class="section-hdr-arrow ${isOpen?'open':''}" id="arrow-${cat}">›</span>
+        ${CAT_EMOJI[cat]} ${cat}
+      </span>
       <span class="section-hdr-count">${grp.length} ref · ${totGiac} bott · ${pct}%</span>
-    </div>`;
+    </div>
+    <div class="cat-group-body" id="group-${cat}" style="max-height:${isOpen?'9999px':'0'}">`;
     grp.forEach(w => {
-      const pa = prices[w.id];
+      const paRaw = prices[w.id];
+      const pa = paEff(w);
       const sold = soldMap[w.id]||{qty:0,rev:0};
       html += `<div class="wine-card" onclick="openDetail(${w.id})">
         <div class="wine-label ${catCls(w.cat)}">
-          <span style="font-size:16px">${CAT_EMOJI[w.cat]}</span>
-          <span>${w.cat.substring(0,4)}</span>
+          ${wineImgHtml(w)}
+          <div class="label-fallback">
+            <span style="font-size:16px">${CAT_EMOJI[w.cat]}</span>
+            <span>${w.cat.substring(0,4)}</span>
+          </div>
         </div>
         <div class="wine-info">
           <div class="wine-name">${w.nome}</div>
@@ -594,12 +689,13 @@ function renderInventario() {
         </div>
         <div class="wine-nums">
           <div class="price-sell">€${w.pv}</div>
-          <div class="price-buy">${pa?'acq. €'+pa:'⚠ PA mancante'}</div>
+          <div class="price-buy">${paRaw?'acq. €'+paRaw+(w.formato==='calice'||w.formato==='calice 150ml'?' (€'+(paRaw/CALICI_PER_BOTTIGLIA).toFixed(2)+'/cal)':''):'⚠ PA mancante'}</div>
           ${profitBadge(pa, sold)}
-          <div class="sold-qty">${sold.qty>0?sold.qty+' vend.':''} ${w.giac} giac.</div>
+          <div class="sold-qty">${sold.qty>0?sold.qty+(w.formato==='calice'||w.formato==='calice 150ml'?' cal. ('+( sold.qty/CALICI_PER_BOTTIGLIA).toFixed(1)+' bott.)':' bott. vend.'):''}  ${w.giac} ${w.formato==='calice'||w.formato==='calice 150ml'?'bott. in stock':'giac.'}</div>
         </div>
       </div>`;
     });
+    html += '</div>'; // close cat-group-body
   });
 
   if (wines.length===0) html += `<div class="empty"><div class="empty-icon">🍷</div><div>Nessun vino trovato</div></div>`;
@@ -610,7 +706,8 @@ function renderInventario() {
 function openDetail(id) {
   const w = WINES.find(x=>x.id===id);
   if (!w) return;
-  const pa = prices[w.id];
+  const paRaw = prices[w.id];
+  const pa = paEff(w);
   const sold = soldMap[w.id]||{qty:0,rev:0};
   const incasso = sold.rev;
   const costo = pa ? sold.qty*pa : null;
@@ -620,7 +717,8 @@ function openDetail(id) {
   document.getElementById('sheet-content').innerHTML = `
     <div class="sheet-header">
       <div class="wine-label ${catCls(w.cat)}" style="width:56px;height:72px;font-size:20px;border-radius:8px;margin-bottom:12px">
-        ${CAT_EMOJI[w.cat]}
+        ${wineImgHtml(w)}
+        <div class="label-fallback" style="font-size:20px">${CAT_EMOJI[w.cat]}</div>
       </div>
       <div class="sheet-wine-name">${w.nome}</div>
       <div class="sheet-producer">${w.prod}</div>
@@ -639,7 +737,7 @@ function openDetail(id) {
         <div class="field-row">
           <span class="field-key">Prezzo acquisto</span>
           <div class="pa-input-wrap">
-            <input class="pa-input" type="number" inputmode="decimal" step="0.01" min="0" placeholder="€ —" value="${pa!=null?pa:''}" id="pa-input-${w.id}">
+            <input class="pa-input" type="number" inputmode="decimal" step="0.01" min="0" placeholder="€ —" value="${paRaw!=null?paRaw:''}" id="pa-input-${w.id}">
             <button class="save-btn" onclick="savePA(${w.id},parseFloat(document.getElementById('pa-input-${w.id}').value)||null);renderInventario();openDetail(${w.id})">Salva</button>
           </div>
         </div>
@@ -666,74 +764,85 @@ function closeDetail() {
   document.getElementById('overlay').classList.remove('show');
 }
 
+function toggleCat(cat) {
+  collapsedCats[cat] = !collapsedCats[cat];
+  const body = document.getElementById('group-'+cat);
+  const arrow = document.getElementById('arrow-'+cat);
+  if (!body) return;
+  if (collapsedCats[cat]) {
+    body.style.maxHeight = '0';
+    if (arrow) { arrow.classList.remove('open'); }
+  } else {
+    body.style.maxHeight = '9999px';
+    if (arrow) { arrow.classList.add('open'); }
+  }
+}
+
+function groupSales(list) {
+  const map = {};
+  list.forEach(s => {
+    const key = s.wid != null ? 'w'+s.wid : 'd'+s.desc;
+    if (!map[key]) map[key] = {desc:s.desc, wid:s.wid, qty:0, tot:0, camere:[]};
+    map[key].qty += s.qty;
+    map[key].tot += s.tot;
+    if (s.camera && !map[key].camere.includes(s.camera)) map[key].camere.push(s.camera);
+  });
+  return Object.values(map).sort((a,b)=>b.tot-a.tot);
+}
+
+function vendCard(s) {
+  const w = s.wid ? WINES.find(x=>x.id===s.wid) : null;
+  const pa = w ? paEff(w) : null;
+  const prof = pa!=null ? s.tot - s.qty*pa : null;
+  const profCls = prof==null?'':'color:'+(prof>=0?'#155724':'#721c24');
+  const isCalice = w ? (w.formato==='calice'||w.formato==='calice 150ml') : s.desc.toLowerCase().includes('calice');
+  const unitLabel = isCalice ? 'calici' : 'bott.';
+  const bottiglieEquiv = isCalice ? (s.qty/CALICI_PER_BOTTIGLIA).toFixed(1)+' bott. equiv.' : '';
+  return `<div class="vend-card">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+      <div style="flex:1;min-width:0">
+        <div class="vend-desc">${w ? w.nome : s.desc}</div>
+        <div class="vend-cam">${s.qty} ${unitLabel} venduti${isCalice?' ('+bottiglieEquiv+')':''}</div>
+        <div style="margin-top:3px;font-size:11px;color:${w?'var(--green-mid)':isCalice?'#888':'#c0392b'}">
+          ${w?w.cat+' · '+w.prod:isCalice?'Vino calice':'Non abbinato'}
+        </div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div class="vend-tot">€${s.tot}</div>
+        <div style="font-size:11px;color:#888">€${(s.tot/s.qty).toFixed(2)}/${isCalice?'calice':'bott.'}</div>
+        <div style="font-size:11px;font-weight:600;${profCls}">${prof!=null?'profit €'+Math.round(prof):'PA mancante'}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
 function renderVendite() {
-  let totInc=0, totQty=0, totProf=0;
+  let totInc=0, totQty=0;
   SALES_RAW.forEach(s=>{ totInc+=s.tot; totQty+=s.qty; });
+  const grouped = groupSales(SALES_RAW);
+  let totProf=0;
+  grouped.forEach(s=>{ const w=s.wid?WINES.find(x=>x.id===s.wid):null; const pa=w?paEff(w):null; if(pa!=null) totProf+=s.tot-s.qty*pa; });
 
   let html = `
   <div class="metrics-strip">
-    <div class="metric-pill"><div class="mp-label">Righe</div><div class="mp-val">${SALES_RAW.length}</div></div>
+    <div class="metric-pill"><div class="mp-label">Etichette</div><div class="mp-val">${grouped.length}</div></div>
     <div class="metric-pill"><div class="mp-label">Qty totale</div><div class="mp-val">${totQty}</div></div>
     <div class="metric-pill"><div class="mp-label">Incasso</div><div class="mp-val gold">€${Math.round(totInc).toLocaleString('it')}</div></div>
+    <div class="metric-pill"><div class="mp-label">Profitto stim.</div><div class="mp-val gold">€${Math.round(totProf)}</div></div>
   </div>
   <div style="padding:10px 16px 0;background:#fff;border-bottom:1px solid var(--cream-dark);">
     <input class="search-box" type="search" placeholder="🔍 Cerca..." style="width:100%" oninput="renderVenditeFiltered(this.value)" autocorrect="off">
   </div>
   <div id="vend-list">`;
 
-  html += SALES_RAW.map(s => {
-    const w = s.wid ? WINES.find(x=>x.id===s.wid) : null;
-    const pa = w ? prices[w.id] : null;
-    const prof = pa!=null ? s.tot - s.qty*pa : null;
-    const profCls = prof==null?'':'color:'+(prof>=0?'#155724':'#721c24');
-    const isCalice = s.desc.toLowerCase().includes('calice');
-    return `<div class="vend-card">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
-        <div style="flex:1;min-width:0">
-          <div class="vend-desc">${s.desc}</div>
-          <div class="vend-cam">Camera ${s.camera} · ${s.qty} pz</div>
-          <div style="margin-top:4px;font-size:11px;color:${w?'var(--green-mid)':isCalice?'#888':'#c0392b'}">
-            ${w?'→ '+w.nome:isCalice?'Vino calice':'Non abbinato'}
-          </div>
-        </div>
-        <div style="text-align:right;flex-shrink:0">
-          <div class="vend-tot">€${s.tot}</div>
-          <div style="font-size:11px;color:#888">€${(s.tot/s.qty).toFixed(2)}/cad</div>
-          <div style="font-size:11px;font-weight:600;${profCls}">${prof!=null?'profit €'+Math.round(prof):'PA mancante'}</div>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-
+  html += grouped.map(s => vendCard(s)).join('');
   html += '</div>';
   document.getElementById('tab-vendite').innerHTML = html;
 }
 
 function renderVenditeFiltered(q) {
-  const filtered = q ? SALES_RAW.filter(s=>s.desc.toLowerCase().includes(q.toLowerCase())) : SALES_RAW;
-  document.getElementById('vend-list').innerHTML = filtered.map(s => {
-    const w = s.wid ? WINES.find(x=>x.id===s.wid) : null;
-    const pa = w ? prices[w.id] : null;
-    const prof = pa!=null ? s.tot - s.qty*pa : null;
-    const profCls = prof==null?'':'color:'+(prof>=0?'#155724':'#721c24');
-    const isCalice = s.desc.toLowerCase().includes('calice');
-    return `<div class="vend-card">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
-        <div style="flex:1;min-width:0">
-          <div class="vend-desc">${s.desc}</div>
-          <div class="vend-cam">Camera ${s.camera} · ${s.qty} pz</div>
-          <div style="margin-top:4px;font-size:11px;color:${w?'var(--green-mid)':isCalice?'#888':'#c0392b'}">
-            ${w?'→ '+w.nome:isCalice?'Vino calice':'Non abbinato'}
-          </div>
-        </div>
-        <div style="text-align:right;flex-shrink:0">
-          <div class="vend-tot">€${s.tot}</div>
-          <div style="font-size:11px;color:#888">€${(s.tot/s.qty).toFixed(2)}/cad</div>
-          <div style="font-size:11px;font-weight:600;${profCls}">${prof!=null?'profit €'+Math.round(prof):'PA mancante'}</div>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
+  const filtered = q ? SALES_RAW.filter(s=>s.desc.toLowerCase().includes(q.toLowerCase())||(s.wid&&WINES.find(x=>x.id===s.wid)?.nome.toLowerCase().includes(q.toLowerCase()))) : SALES_RAW;
+  document.getElementById('vend-list').innerHTML = groupSales(filtered).map(s => vendCard(s)).join('');
 }
 
 function renderGrafici() {
@@ -747,9 +856,10 @@ function renderGrafici() {
   WINES.forEach(w=>{
     if(!catData[w.cat]) return;
     catData[w.cat].bott += w.giac;
-    catData[w.cat].val += w.giac*w.pv;
-    const pa=prices[w.id], s=soldMap[w.id]||{qty:0,rev:0};
-    if(pa) catData[w.cat].valAcq += w.giac*pa;
+    const isCaliceW2 = w.formato==='calice'||w.formato==='calice 150ml';
+    catData[w.cat].val += w.giac * w.pv * (isCaliceW2 ? CALICI_PER_BOTTIGLIA : 1);
+    const pa=paEff(w), paRaw2=prices[w.id], s=soldMap[w.id]||{qty:0,rev:0};
+    if(paRaw2) catData[w.cat].valAcq += w.giac*paRaw2;
     catData[w.cat].inc += s.rev;
     catData[w.cat].sold += s.qty;
     if(pa&&s.qty>0) catData[w.cat].prof += s.rev - s.qty*pa;
@@ -864,10 +974,10 @@ function renderGrafici() {
   <div class="chart-card">
     <div class="chart-title">Top 10 vini per profitto giugno</div>
     ${WINES.filter(w=>{
-      const s=soldMap[w.id]; const pa=prices[w.id];
+      const s=soldMap[w.id]; const pa=paEff(w);
       return s&&s.qty>0&&pa;
     }).map(w=>{
-      const s=soldMap[w.id]; const pa=prices[w.id];
+      const s=soldMap[w.id]; const pa=paEff(w);
       return {w, prof:s.rev-s.qty*pa};
     }).sort((a,b)=>b.prof-a.prof).slice(0,10).map(({w,prof},i)=>{
       const maxP=WINES.filter(x=>{const s=soldMap[x.id];const p=prices[x.id];return s&&s.qty>0&&p;}).map(x=>{const s=soldMap[x.id];const p=prices[x.id];return s.rev-s.qty*p;}).reduce((a,b)=>Math.max(a,b),0);
@@ -897,7 +1007,7 @@ function renderSommario() {
     const wines = WINES.filter(w=>w.cat===cat);
     let inc=0,costo=0,vend=0,giac=0,missing=0;
     wines.forEach(w=>{
-      const pa=prices[w.id], s=soldMap[w.id]||{qty:0,rev:0};
+      const pa=paEff(w), paRawSom=prices[w.id], s=soldMap[w.id]||{qty:0,rev:0};
       inc+=s.rev; vend+=s.qty; giac+=w.giac;
       if(pa) costo+=s.qty*pa;
       else if(s.qty>0) missing++;
@@ -970,6 +1080,130 @@ function renderSommario() {
   setTimeout(generateAIAnalysis, 100);
 }
 
+function renderAITab() {
+  document.getElementById('tab-ai').innerHTML = `
+  <div style="background:var(--green-dark);padding:16px;">
+    <div style="color:var(--gold-light);font-size:18px;font-weight:600;margin-bottom:4px">🤖 Analisi AI cantina</div>
+    <div style="color:rgba(255,255,255,0.6);font-size:12px">Savoia Mountain Resort · Estate 2026 · 1–22 giugno</div>
+  </div>
+  <div style="padding:16px;">
+    <div style="background:#fff;border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="font-size:13px;font-weight:600;color:#1a3a2a">Analisi strategica etichette</div>
+        <button onclick="refreshAIAnalysis()" style="font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid #4a8c5c;background:none;color:#4a8c5c;cursor:pointer">↺ Aggiorna</button>
+      </div>
+      <div id="ai-analysis-content"><div style="color:#888;font-size:13px">Caricamento analisi...</div></div>
+    </div>
+
+    <div style="background:#fff;border-radius:14px;padding:16px;margin-top:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+      <div style="font-size:13px;font-weight:600;color:#1a3a2a;margin-bottom:12px">📋 Scheda per etichetta</div>
+      <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap" id="ai-wine-filters">
+        ${['Tutti','Champagne','Bollicine','Rosati','Bianchi','Rossi','Occasioni','Mescita'].map(c=>
+          `<span style="padding:4px 12px;border-radius:20px;border:1px solid var(--cream-dark);background:#fff;font-size:12px;cursor:pointer" onclick="filterAIWines('${c}',this)">${c}</span>`
+        ).join('')}
+      </div>
+      <div id="ai-wine-list">${buildAIWineList('Tutti')}</div>
+    </div>
+  </div>`;
+  setTimeout(generateAIAnalysis, 100);
+  setTimeout(generateAllWineAdvice, 500);
+}
+
+function filterAIWines(cat, el) {
+  document.querySelectorAll('#ai-wine-filters span').forEach(s=>{ s.style.background='#fff'; s.style.color=''; });
+  el.style.background='var(--green-dark)'; el.style.color='#fff';
+  document.getElementById('ai-wine-list').innerHTML = buildAIWineList(cat);
+}
+
+function buildAIWineList(cat) {
+  const wines = cat==='Tutti' ? WINES.filter(w=>w.id!==999) : WINES.filter(w=>w.cat===cat&&w.id!==999);
+  return wines.map(w => {
+    const s = soldMap[w.id]||{qty:0,rev:0};
+    const pa = paEff(w);
+    const prof = pa&&s.qty>0 ? Math.round(s.rev - s.qty*pa) : null;
+    const marg = pa&&s.rev>0 ? Math.round((s.rev-s.qty*pa)/s.rev*100) : null;
+    const advice = wineAdviceCache[w.id];
+    const adviceHtml = advice
+      ? `<div style="margin-top:6px;font-size:11px;line-height:1.5;color:#333;padding:6px 8px;background:${advice.color};border-radius:6px;border-left:3px solid ${advice.border}">${advice.icon} ${advice.text}</div>`
+      : `<div id="advice-${w.id}" style="margin-top:6px;font-size:11px;color:#aaa;font-style:italic">Analisi in corso...</div>`;
+    return `<div style="padding:12px 0;border-bottom:0.5px solid var(--cream-dark);display:flex;gap:10px;align-items:flex-start">
+      <div class="wine-label ${catCls(w.cat)}" style="flex-shrink:0;width:36px;height:48px">
+        ${wineImgHtml(w)}
+        <div class="label-fallback"><span style="font-size:14px">${CAT_EMOJI[w.cat]}</span></div>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:500;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${w.nome}</div>
+        <div style="font-size:11px;color:#888">${w.prod}${w.anno?' · '+w.anno:''} · ${w.giac} giac.</div>
+        <div style="font-size:11px;color:#555;margin-top:2px">${s.qty>0?s.qty+' vend. · €'+s.rev+' inc.'+(marg!=null?' · '+marg+'% marg.':''):'nessuna vendita'}</div>
+        ${adviceHtml}
+      </div>
+      <div style="text-align:right;flex-shrink:0;font-size:13px;font-weight:600">€${w.pv}</div>
+    </div>`;
+  }).join('');
+}
+
+const wineAdviceCache = {};
+
+async function generateAllWineAdvice() {
+  // Build all wine data in one prompt to save API calls
+  const wines = WINES.filter(w=>w.id!==999);
+  const wineData = wines.map(w => {
+    const s = soldMap[w.id]||{qty:0,rev:0};
+    const pa = paEff(w);
+    const marg = pa&&s.rev>0 ? Math.round((s.rev-s.qty*pa)/s.rev*100) : null;
+    return `ID:${w.id}|${w.nome}|cat:${w.cat}|giac:${w.giac}|sold:${s.qty}|inc:${s.rev}|marg:${marg!=null?marg+'%':'n.d.'}`;
+  }).join('\n');
+
+  const prompt = `Sei un esperto enologo per il Savoia Mountain Resort di Bardonecchia (4 stelle, estate 2026, dati 1-22 giugno).
+
+Per ogni vino nella lista fornisci un consiglio breve (max 12 parole) su: MANTIENI, NON RINNOVARE, o MONITORA.
+Considera: vendite, giacenza, margine, tipologia resort montagna.
+Lo stock esistente va smaltito al 90% prima di toglierlo.
+
+VINI:
+${wineData}
+
+Rispondi SOLO in JSON array, nessun testo aggiuntivo:
+[{"id":1,"verdict":"MANTIENI","note":"Alta domanda, buon margine"},{"id":2,"verdict":"NON RINNOVARE","note":"Zero vendite, troppa giacenza"},...]
+Usa solo questi verdict: MANTIENI, NON RINNOVARE, MONITORA`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:4000, messages:[{role:'user',content:prompt}]})
+    });
+    const data = await res.json();
+    const text = data.content?.[0]?.text||'';
+    const clean = text.replace(/```json|```/g,'').trim();
+    const arr = JSON.parse(clean);
+    const verdictStyle = {
+      'MANTIENI':    {color:'#f0fff4', border:'#4a8c5c', icon:'✅'},
+      'NON RINNOVARE':{color:'#fff5f5', border:'#c0392b', icon:'⚠️'},
+      'MONITORA':    {color:'#fffbf0', border:'#c9a84c', icon:'👁️'},
+    };
+    arr.forEach(item => {
+      const style = verdictStyle[item.verdict] || verdictStyle['MONITORA'];
+      wineAdviceCache[item.id] = {...style, text:`${item.verdict} — ${item.note}`};
+      const el = document.getElementById('advice-'+item.id);
+      if (el) {
+        el.outerHTML = `<div style="margin-top:6px;font-size:11px;line-height:1.5;color:#333;padding:6px 8px;background:${style.color};border-radius:6px;border-left:3px solid ${style.border}">${style.icon} ${item.verdict} — ${item.note}</div>`;
+      }
+    });
+  } catch(e) {
+    document.querySelectorAll('[id^="advice-"]').forEach(el=>{
+      el.textContent='Errore analisi: '+e.message;
+    });
+  }
+}
+
+function refreshAIAnalysis() {
+  document.getElementById('ai-analysis-content').innerHTML = '<div style="color:#888;font-size:13px">Ricaricamento...</div>';
+  Object.keys(wineAdviceCache).forEach(k=>delete wineAdviceCache[k]);
+  generateAIAnalysis();
+  setTimeout(generateAllWineAdvice, 500);
+}
+
 async function generateAIAnalysis() {
   const el = document.getElementById('ai-analysis-content');
   if (!el) return;
@@ -977,9 +1211,8 @@ async function generateAIAnalysis() {
 
   const rows = [];
   WINES.forEach(w => {
-    const pa = prices[w.id];
     const s = soldMap[w.id]||{qty:0,rev:0};
-    const marg = pa && s.rev > 0 ? Math.round((s.rev - s.qty*pa)/s.rev*100) : null;
+    const pa=paEff(w), marg = pa && s.rev > 0 ? Math.round((s.rev - s.qty*pa)/s.rev*100) : null;
     rows.push({nome:w.nome, cat:w.cat, reg:w.reg, giac:w.giac, pv:w.pv, pa:pa||null, sold:s.qty, rev:s.rev, marg:marg});
   });
 
@@ -1049,13 +1282,14 @@ function exportCSV() {
   let csv = '\uFEFF'; // BOM per Excel
   csv += 'Nome,Produttore,Anno,Categoria,Regione,Formato,Alcol,Giacenza,P.Vendita,P.Acquisto,Margine unitario,Vendute giu,Incasso giu,Costo giu,Profitto giu,Margine%\n';
   WINES.forEach(w => {
-    const pa = prices[w.id];
+    const paRawCsv = prices[w.id];
+    const pa = paEff(w);
     const s = soldMap[w.id]||{qty:0,rev:0};
     const costo = pa?s.qty*pa:null;
     const prof = costo!=null?s.rev-costo:null;
     const marg = prof!=null&&s.rev>0?Math.round(prof/s.rev*100):null;
     const margUnit = pa?+(w.pv-pa).toFixed(2):null;
-    csv += `"${w.nome}","${w.prod}","${w.anno}","${w.cat}","${w.regione}","${w.formato}","${w.alc}",${w.giac},${w.pv},${pa!=null?pa:''},${margUnit!=null?margUnit:''},${s.qty},${s.rev},${costo!=null?Math.round(costo):''},${prof!=null?Math.round(prof):''},${marg!=null?marg:''}\n`;
+    csv += `"${w.nome}","${w.prod}","${w.anno}","${w.cat}","${w.regione}","${w.formato}","${w.alc}",${w.giac},${w.pv},${paRawCsv!=null?paRawCsv:''},${margUnit!=null?margUnit:''},${s.qty},${s.rev},${costo!=null?Math.round(costo):''},${prof!=null?Math.round(prof):''},${marg!=null?marg:''}\n`;
   });
   const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
   const a = document.createElement('a');
@@ -1068,6 +1302,7 @@ function exportCSV() {
 
 // Init
 renderInventario();
+setTimeout(loadAllWineImages, 1500); // start loading wine images after UI is ready
 </script>
 </body>
 </html>
