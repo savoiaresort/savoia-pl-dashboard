@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Savoia Cantina">
+<meta name="theme-color" content="#1a3a2a">
+<title>Savoia Cantina</title>
+<style>
+:root {
+  --green-dark: #1a3a2a;
+  --green-mid: #2d5a3d;
+  --green-light: #4a8c5c;
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --cream: #f7f4ee;
+  --cream-dark: #ede8de;
+  --text-dark: #1a1a1a;
+  --text-mid: #4a4a4a;
+  --text-light: #888;
+  --red-acc: #c0392b;
+  --safe-top: env(safe-area-inset-top, 44px);
+  --safe-bot: env(safe-area-inset-bottom, 20px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;background:var(--green-dark);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;}
+
+/* SHELL */
+#app{display:flex;flex-direction:column;height:100%;height:-webkit-fill-available;}
+#header{background:var(--green-dark);padding:calc(var(--safe-top) + 8px) 16px 10px;flex-shrink:0;border-bottom:1px solid rgba(201,168,76,0.3);}
+.header-inner{display:flex;align-items:center;justify-content:space-between;}
+.logo-area{display:flex;align-items:center;gap:10px;}
+.logo-mark{width:32px;height:32px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--green-dark);}
+.logo-text{color:#fff;font-size:17px;font-weight:600;letter-spacing:0.3px;}
+.logo-sub{color:var(--gold-light);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;}
+#header-right{display:flex;gap:8px;}
+.hdr-btn{background:rgba(255,255,255,0.1);border:none;border-radius:8px;padding:6px 10px;color:#fff;font-size:12px;cursor:pointer;}
+
+/* TABS */
+#tabs{background:var(--green-dark);display:flex;border-bottom:1px solid rgba(201,168,76,0.2);flex-shrink:0;}
+.tab-btn{flex:1;padding:10px 4px;border:none;background:none;color:rgba(255,255,255,0.5);font-size:11px;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.tab-btn.active{color:var(--gold-light);border-bottom:2px solid var(--gold);}
+.tab-icon{font-size:18px;}
+
+/* CONTENT */
+#content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--cream);padding-bottom:calc(var(--safe-bot) + 8px);}
+
+/* SEARCH BAR */
+.search-wrap{padding:12px 16px;background:#fff;border-bottom:1px solid var(--cream-dark);position:sticky;top:0;z-index:10;}
+.search-row{display:flex;gap:8px;margin-bottom:8px;}
+.search-box{flex:1;padding:9px 12px;border:1px solid var(--cream-dark);border-radius:10px;font-size:15px;background:var(--cream);color:var(--text-dark);}
+.filter-scroll{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.filter-scroll::-webkit-scrollbar{display:none;}
+.filter-chip{white-space:nowrap;padding:5px 12px;border-radius:20px;border:1px solid var(--cream-dark);background:#fff;font-size:12px;color:var(--text-mid);cursor:pointer;flex-shrink:0;}
+.filter-chip.active{background:var(--green-dark);color:#fff;border-color:var(--green-dark);}
+
+/* METRICS STRIP */
+.metrics-strip{display:flex;gap:0;background:var(--green-dark);overflow-x:auto;scrollbar-width:none;}
+.metrics-strip::-webkit-scrollbar{display:none;}
+.metric-pill{flex-shrink:0;padding:10px 16px;text-align:center;border-right:1px solid rgba(255,255,255,0.1);}
+.metric-pill:last-child{border-right:none;}
+.mp-label{font-size:9px;color:rgba(255,255,255,0.5);letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap;}
+.mp-val{font-size:16px;font-weight:600;color:#fff;white-space:nowrap;}
+.mp-val.gold{color:var(--gold-light);}
+.mp-val.amber{color:#f0c040;}
+
+/* SECTION HEADER */
+.section-hdr{padding:8px 16px 4px;background:var(--cream-dark);display:flex;align-items:center;justify-content:space-between;}
+.section-hdr-title{font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.8px;text-transform:uppercase;}
+.section-hdr-count{font-size:11px;color:var(--text-light);}
+
+/* WINE CARD */
+.wine-card{background:#fff;border-bottom:1px solid var(--cream-dark);padding:12px 16px;cursor:pointer;display:flex;gap:12px;align-items:flex-start;}
+.wine-card:active{background:var(--cream);}
+.wine-label{width:42px;height:56px;border-radius:4px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;gap:2px;}
+.wine-info{flex:1;min-width:0;}
+.wine-name{font-size:14px;font-weight:600;color:var(--text-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wine-prod{font-size:12px;color:var(--text-mid);margin-top:1px;}
+.wine-meta{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;}
+.meta-tag{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:500;}
+.wine-nums{text-align:right;flex-shrink:0;}
+.price-sell{font-size:15px;font-weight:700;color:var(--text-dark);}
+.price-buy{font-size:11px;color:var(--text-light);}
+.profit-badge{font-size:11px;font-weight:600;padding:2px 7px;border-radius:10px;margin-top:3px;display:inline-block;}
+.sold-qty{font-size:11px;color:var(--text-light);margin-top:2px;}
+
+/* DETAIL SHEET */
+#detail-sheet{position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,0.2);transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);z-index:100;max-height:90vh;overflow-y:auto;padding-bottom:calc(var(--safe-bot) + 16px);}
+#detail-sheet.open{transform:translateY(0);}
+.sheet-handle{width:36px;height:4px;border-radius:2px;background:var(--cream-dark);margin:12px auto 16px;}
+.sheet-header{padding:0 20px 16px;border-bottom:1px solid var(--cream-dark);}
+.sheet-label{width:56px;height:72px;border-radius:6px;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:700;letter-spacing:0.5px;}
+.sheet-wine-name{font-size:20px;font-weight:700;color:var(--text-dark);line-height:1.2;}
+.sheet-producer{font-size:15px;color:var(--text-mid);margin-top:4px;}
+.sheet-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.sheet-body{padding:16px 20px;}
+.field-group{margin-bottom:20px;}
+.field-label{font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:8px;}
+.field-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--cream-dark);}
+.field-row:last-child{border-bottom:none;}
+.field-key{font-size:14px;color:var(--text-mid);}
+.field-val{font-size:14px;font-weight:600;color:var(--text-dark);}
+.pa-input-wrap{display:flex;align-items:center;gap:8px;}
+.pa-input{width:90px;padding:8px 12px;border:1.5px solid var(--cream-dark);border-radius:10px;font-size:16px;text-align:right;color:var(--text-dark);background:var(--cream);}
+.pa-input:focus{border-color:var(--green-mid);outline:none;}
+.save-btn{background:var(--green-dark);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:14px;font-weight:600;cursor:pointer;}
+.profit-box{background:var(--cream);border-radius:12px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pbox{text-align:center;}
+.pbox-label{font-size:10px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.6px;}
+.pbox-val{font-size:20px;font-weight:700;margin-top:2px;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:99;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.overlay.show{opacity:1;pointer-events:all;}
+
+/* CHARTS TAB */
+.chart-section{padding:16px;}
+.chart-card{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+.chart-title{font-size:13px;font-weight:600;color:var(--text-dark);margin-bottom:14px;}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.bar-label{font-size:11px;color:var(--text-mid);width:70px;text-align:right;flex-shrink:0;}
+.bar-track{flex:1;background:var(--cream-dark);border-radius:4px;height:18px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:6px;}
+.bar-fill span{font-size:10px;font-weight:600;color:#fff;white-space:nowrap;}
+.bar-end{font-size:11px;color:var(--text-mid);width:50px;text-align:right;flex-shrink:0;}
+.donut-wrap{display:flex;align-items:center;gap:16px;}
+.donut-legend{flex:1;}
+.legend-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.legend-label{font-size:12px;color:var(--text-mid);}
+.legend-val{font-size:12px;font-weight:600;color:var(--text-dark);margin-left:auto;}
+
+/* REGIONI */
+.region-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:2px 8px;border-radius:10px;background:var(--cream-dark);color:var(--text-mid);}
+
+/* VENDITE TAB */
+.vend-card{background:#fff;border-bottom:1px solid var(--cream-dark);padding:12px 16px;}
+.vend-desc{font-size:13px;font-weight:500;color:var(--text-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vend-cam{font-size:11px;color:var(--text-light);}
+.vend-row2{display:flex;justify-content:space-between;margin-top:4px;}
+.vend-match{font-size:11px;color:var(--green-mid);}
+.vend-nums{text-align:right;}
+.vend-tot{font-size:14px;font-weight:600;color:var(--text-dark);}
+.vend-prof{font-size:11px;font-weight:600;}
+
+/* SOMMARIO */
+.sum-card{background:#fff;border-radius:14px;margin:10px 16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+.sum-row{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--cream-dark);}
+.sum-row:last-child{border-bottom:none;}
+.sum-cat{flex:1;display:flex;align-items:center;gap:10px;}
+.sum-cat-label{font-size:14px;color:var(--text-dark);}
+.sum-nums{text-align:right;}
+.sum-inc{font-size:14px;font-weight:600;color:var(--text-dark);}
+.sum-prof{font-size:11px;font-weight:600;}
+.sum-marg{font-size:11px;color:var(--text-light);}
+
+/* EMPTY */
+.empty{text-align:center;padding:60px 20px;color:var(--text-light);}
+.empty-icon{font-size:48px;margin-bottom:12px;}
+
+/* COLORS per categoria */
+.cat-champ{background:#2c1f5e;color:#b8a9f5;}
+.cat-boll{background:#1a4a3a;color:#7dd4a8;}
+.cat-ros{background:#5a1a2a;color:#f4a0b5;}
+.cat-bian{background:#1a3a5a;color:#8bbde8;}
+.cat-ross{background:#4a1a10;color:#f0a080;}
+.cat-nat{background:#2a4a1a;color:#a0d080;}
+.cat-occ{background:#4a3a10;color:#e8c060;}
+.cat-mes{background:#3a3a3a;color:#c0c0c0;}
+
+.tag-cat{font-size:10px;padding:2px 8px;border-radius:10px;}
+.tag-reg{font-size:10px;padding:2px 8px;border-radius:10px;background:var(--cream-dark);color:var(--text-mid);}
+.tag-ann{font-size:10px;padding:2px 8px;border-radius:10px;background:#fff3cd;color:#856404;}
+.tag-alc{font-size:10px;padding:2px 8px;border-radius:10px;background:#e8f4f8;color:#0c5460;}
+
+.prof-pos{background:#d4edda;color:#155724;}
+.prof-neg{background:#f8d7da;color:#721c24;}
+.prof-na{background:var(--cream-dark);color:var(--text-light);}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="header">
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-mark">S</div>
+        <div>
+          <div class="logo-text">Savoia Cantina</div>
+          <div class="logo-sub">Mountain Resort · Bardonecchia</div>
+        </div>
+      </div>
+      <div id="header-right">
+        <button class="hdr-btn" onclick="exportCSV()">⬇ CSV</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="tabs">
+    <button class="tab-btn active" onclick="switchTab('inventario',this)">
+      <span class="tab-icon">🍷</span><span>Cantina</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('vendite',this)">
+      <span class="tab-icon">📋</span><span>Vendite</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('grafici',this)">
+      <span class="tab-icon">📊</span><span>Grafici</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('sommario',this)">
+      <span class="tab-icon">💶</span><span>Riepilogo</span>
+    </button>
+  </div>
+
+  <div id="content">
+    <div id="tab-inventario"></div>
+    <div id="tab-vendite" style="display:none"></div>
+    <div id="tab-grafici" style="display:none"></div>
+    <div id="tab-sommario" style="display:none"></div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeDetail()"></div>
+
+<div id="detail-sheet">
+  <div class="sheet-handle"></div>
+  <div id="sheet-content"></div>
+</div>
+
+<script>
+const WINES = [
+  {id:1,nome:"Dom Pérignon Brut Millésimé",prod:"Dom Pérignon",anno:"2013",cat:"Champagne",reg:"Francia",regione:"Champagne, Francia",alc:"12.5%",formato:"0,75 L",giac:1,pv:390,pa:null},
+  {id:2,nome:"Ruinart Blanc de Blancs Brut",prod:"Maison Ruinart",anno:"NV",cat:"Champagne",reg:"Francia",regione:"Champagne, Francia",alc:"12.5%",formato:"0,75 L",giac:1,pv:230,pa:null},
+  {id:3,nome:"Laurent-Perrier La Cuvée",prod:"Laurent-Perrier",anno:"NV",cat:"Champagne",reg:"Francia",regione:"Champagne, Francia",alc:"12.0%",formato:"1,50 L Magnum",giac:1,pv:220,pa:null},
+  {id:4,nome:"Veuve Clicquot RICH",prod:"Maison Veuve Clicquot",anno:"NV",cat:"Champagne",reg:"Francia",regione:"Champagne, Francia",alc:"12.0%",formato:"0,75 L",giac:2,pv:140,pa:null},
+  {id:5,nome:"Moet & Chandon Brut Imperial",prod:"Maison Moet & Chandon",anno:"NV",cat:"Champagne",reg:"Francia",regione:"Champagne, Francia",alc:"12.5%",formato:"0,75 L",giac:1,pv:90,pa:null},
+  {id:6,nome:"Franciacorta Satèn 'Magnificentia'",prod:"Uberti",anno:"2020",cat:"Bollicine",reg:"Lombardia",regione:"Franciacorta, Lombardia",alc:"12.5%",formato:"0,75 L",giac:9,pv:89,pa:null},
+  {id:7,nome:"Cuvée Aurora Blanc de Noirs Millesimato",prod:"Banfi",anno:"2017",cat:"Bollicine",reg:"Toscana",regione:"Toscana",alc:"12.5%",formato:"0,75 L",giac:5,pv:69,pa:null},
+  {id:8,nome:"Franciacorta Extra Brut 'Francesco I'",prod:"Uberti",anno:"2024",cat:"Bollicine",reg:"Lombardia",regione:"Franciacorta, Lombardia",alc:"12.5%",formato:"0,75 L",giac:8,pv:69,pa:null},
+  {id:9,nome:"Franciacorta Ca' del Bosco Extra Brut",prod:"Ca' del Bosco",anno:"NV",cat:"Bollicine",reg:"Lombardia",regione:"Franciacorta, Lombardia",alc:"12.5%",formato:"0,75 L",giac:7,pv:65,pa:null},
+  {id:10,nome:"Alta Langa Millesimato DOCG Pas Dosé",prod:"Contratto",anno:"2022",cat:"Bollicine",reg:"Piemonte",regione:"Alta Langa, Piemonte",alc:"12.0%",formato:"0,75 L",giac:90,pv:55,pa:null},
+  {id:11,nome:"Millesimato Extra Dry",prod:"Il Cantiniere d'Italia",anno:"2023",cat:"Bollicine",reg:"Italia",regione:"Italia",alc:"11.5%",formato:"0,75 L",giac:5,pv:45,pa:null},
+  {id:12,nome:"Franciacorta Brut DOCG",prod:"Ferghettina",anno:"2025",cat:"Bollicine",reg:"Lombardia",regione:"Franciacorta, Lombardia",alc:"12.0%",formato:"0,75 L",giac:12,pv:45,pa:14},
+  {id:13,nome:"Extra Dry Rosé",prod:"Guerrieri",anno:"NV",cat:"Bollicine",reg:"Marche",regione:"Marche",alc:"12.0%",formato:"0,75 L",giac:14,pv:33,pa:4},
+  {id:14,nome:"Valdobbiadene Superiore DOCG Millesimato",prod:"Foss Marai",anno:"NV",cat:"Bollicine",reg:"Veneto",regione:"Valdobbiadene, Veneto",alc:"12.0%",formato:"0,75 L",giac:24,pv:30,pa:4},
+  {id:15,nome:"Franciacorta Brut DOCG (½ bott.)",prod:"Ferghettina",anno:"2025",cat:"Bollicine",reg:"Lombardia",regione:"Franciacorta, Lombardia",alc:"12.0%",formato:"0,375 L",giac:12,pv:30,pa:8.5},
+  {id:16,nome:"Rosato Etna DOC",prod:"Cottanera",anno:"2025",cat:"Rosati",reg:"Sicilia",regione:"Etna, Sicilia",alc:"12.5%",formato:"0,75 L",giac:36,pv:36,pa:9.8},
+  {id:17,nome:"Nudo Cannonau di Sardegna DOC rosato",prod:"Siddura",anno:"2024",cat:"Rosati",reg:"Sardegna",regione:"Sardegna",alc:"12.0%",formato:"0,75 L",giac:36,pv:36,pa:null},
+  {id:18,nome:"Lumera Sicilia DOC Rosato",prod:"Donnafugata",anno:"2025",cat:"Rosati",reg:"Sicilia",regione:"Sicilia",alc:"12.5%",formato:"0,75 L",giac:6,pv:34,pa:8.6},
+  {id:19,nome:"Alìe Rosé Toscana IGT",prod:"Frescobaldi",anno:"2025",cat:"Rosati",reg:"Toscana",regione:"Toscana",alc:"12.0%",formato:"0,75 L",giac:36,pv:34,pa:8.3},
+  {id:20,nome:"Rosa dei Frati DOC",prod:"Ca' dei Frati",anno:"2025",cat:"Rosati",reg:"Lombardia",regione:"Lugana, Lombardia",alc:"12.5%",formato:"0,75 L",giac:12,pv:32,pa:7.5},
+  {id:21,nome:"Rosa dei Frati DOC (½ bott.)",prod:"Ca' dei Frati",anno:"2025",cat:"Rosati",reg:"Lombardia",regione:"Lugana, Lombardia",alc:"12.5%",formato:"0,375 L",giac:12,pv:20,pa:4.5},
+  {id:22,nome:"Cervaro della Sala",prod:"Castello della Sala",anno:"2024",cat:"Bianchi",reg:"Umbria",regione:"Umbria",alc:"12.5%",formato:"0,75 L",giac:6,pv:120,pa:35},
+  {id:23,nome:"Chiarandà Entellina DOC Chardonnay",prod:"Donnafugata",anno:"2022",cat:"Bianchi",reg:"Sicilia",regione:"Sicilia",alc:"13.5%",formato:"0,75 L",giac:6,pv:80,pa:19.2},
+  {id:24,nome:"Chablis 'Gloire de Chablis' AOC",prod:"J.Moreau & Fils",anno:"2024",cat:"Bianchi",reg:"Francia",regione:"Chablis, Francia",alc:"12.0%",formato:"0,75 L",giac:6,pv:60,pa:null},
+  {id:25,nome:"Guerriero del Mare Bianchello",prod:"Guerrieri",anno:"2022",cat:"Bianchi",reg:"Marche",regione:"Marche",alc:"13.5%",formato:"0,75 L",giac:16,pv:45,pa:null},
+  {id:26,nome:"Timorasso Colli Tortonesi DOC",prod:"Monlia",anno:"2023",cat:"Bianchi",reg:"Piemonte",regione:"Colli Tortonesi, Piemonte",alc:"13.5%",formato:"0,75 L",giac:36,pv:40,pa:10.5},
+  {id:27,nome:"Gewürztraminer",prod:"Terlan",anno:"2024",cat:"Bianchi",reg:"Alto Adige",regione:"Alto Adige",alc:"14.0%",formato:"0,75 L",giac:5,pv:40,pa:null},
+  {id:28,nome:"Is Argiolas",prod:"Argiolas",anno:"2025",cat:"Bianchi",reg:"Sardegna",regione:"Sardegna",alc:"14.0%",formato:"0,75 L",giac:36,pv:36,pa:12.5},
+  {id:29,nome:"Lugana DOC 'Oasi Mantellina'",prod:"Allegrini",anno:"2024",cat:"Bianchi",reg:"Lombardia",regione:"Lugana, Lombardia",alc:"13.0%",formato:"0,75 L",giac:14,pv:36,pa:null},
+  {id:30,nome:"Greco di Tufo DOCG 'Cutizzi'",prod:"Feudi di San Gregorio",anno:"2023",cat:"Bianchi",reg:"Campania",regione:"Campania",alc:"13.0%",formato:"0,75 L",giac:10,pv:36,pa:null},
+  {id:31,nome:"Vigna di Gabri Sicilia DOC",prod:"Donnafugata",anno:"2024",cat:"Bianchi",reg:"Sicilia",regione:"Sicilia",alc:"13.0%",formato:"0,75 L",giac:12,pv:36,pa:11.2},
+  {id:32,nome:"Gavi di Gavi DOCG",prod:"Marchesi di Barolo",anno:"2023",cat:"Bianchi",reg:"Piemonte",regione:"Gavi, Piemonte",alc:"12.5%",formato:"0,75 L",giac:15,pv:36,pa:null},
+  {id:33,nome:"Giallo del Filare",prod:"Pompili",anno:"2021",cat:"Bianchi",reg:"Marche",regione:"Marche",alc:"12.0%",formato:"0,75 L",giac:44,pv:36,pa:null},
+  {id:34,nome:"Arveja Langhe Arneis DOC",prod:"Prunotto",anno:"2025",cat:"Bianchi",reg:"Piemonte",regione:"Langhe, Piemonte",alc:"12.5%",formato:"0,75 L",giac:12,pv:36,pa:9.7},
+  {id:35,nome:"Pinot Bianco Toscana IGP",prod:"Villa Antinori",anno:"2025",cat:"Bianchi",reg:"Toscana",regione:"Toscana",alc:"11.5%",formato:"0,75 L",giac:12,pv:36,pa:9.5},
+  {id:36,nome:"Lugana 'I Frati' DOC",prod:"Ca' dei Frati",anno:"2024",cat:"Bianchi",reg:"Lombardia",regione:"Lugana, Lombardia",alc:"13.0%",formato:"0,75 L",giac:12,pv:34,pa:7.5},
+  {id:37,nome:"Ribolla Gialla DOC",prod:"Bastianich",anno:"2025",cat:"Bianchi",reg:"Friuli",regione:"Friuli-Venezia Giulia",alc:"12.5%",formato:"0,75 L",giac:36,pv:32,pa:10},
+  {id:38,nome:"Guerriero Bianco Marche",prod:"Guerrieri",anno:"2023",cat:"Bianchi",reg:"Marche",regione:"Marche",alc:"13.5%",formato:"0,75 L",giac:13,pv:32,pa:null},
+  {id:39,nome:"Falanghina del Sannio",prod:"Feudi di San Gregorio",anno:"2024",cat:"Bianchi",reg:"Campania",regione:"Campania",alc:"12.5%",formato:"0,75 L",giac:8,pv:32,pa:null},
+  {id:40,nome:"Pinot Grigio DOC",prod:"Bastianich",anno:"2025",cat:"Bianchi",reg:"Friuli",regione:"Friuli-Venezia Giulia",alc:"12.0%",formato:"0,75 L",giac:36,pv:32,pa:10},
+  {id:41,nome:"Anthilia Sicilia DOC",prod:"Donnafugata",anno:"2025",cat:"Bianchi",reg:"Sicilia",regione:"Sicilia",alc:"12.5%",formato:"0,75 L",giac:24,pv:32,pa:7.6},
+  {id:42,nome:"Roero Arneis DOCG",prod:"Marchesi di Barolo",anno:"2025",cat:"Bianchi",reg:"Piemonte",regione:"Roero, Piemonte",alc:"13.5%",formato:"0,75 L",giac:12,pv:32,pa:null},
+  {id:43,nome:"Villa Antinori Bianco Toscana IGP",prod:"Antinori",anno:"2025",cat:"Bianchi",reg:"Toscana",regione:"Toscana",alc:"11.5%",formato:"0,75 L",giac:18,pv:32,pa:6.6},
+  {id:44,nome:"Costamolinos - Vermentino di Gallura",prod:"Argiolas",anno:"2025",cat:"Bianchi",reg:"Sardegna",regione:"Sardegna",alc:"13.5%",formato:"0,75 L",giac:36,pv:29,pa:8.3},
+  {id:45,nome:"Castello Pomino Bianco DOC",prod:"Frescobaldi",anno:"2025",cat:"Bianchi",reg:"Toscana",regione:"Toscana",alc:"12.5%",formato:"0,75 L",giac:36,pv:29,pa:6.85},
+  {id:46,nome:"Bric Amel Langhe DOC (½ bott.)",prod:"Marchesi di Barolo",anno:"2023",cat:"Bianchi",reg:"Piemonte",regione:"Langhe, Piemonte",alc:"12.5%",formato:"0,375 L",giac:28,pv:20,pa:null},
+  {id:47,nome:"Gavi DOCG (½ bott.)",prod:"Marchesi di Barolo",anno:"2025",cat:"Bianchi",reg:"Piemonte",regione:"Gavi, Piemonte",alc:"12.5%",formato:"0,375 L",giac:16,pv:20,pa:4.5},
+  {id:48,nome:"Lugana 'I Frati' DOC (½ bott.)",prod:"Ca' dei Frati",anno:"2024",cat:"Bianchi",reg:"Lombardia",regione:"Lugana, Lombardia",alc:"13.0%",formato:"0,375 L",giac:13,pv:20,pa:4.5},
+  {id:49,nome:"Bolgheri Sassicaia DOC",prod:"Tenuta San Guido",anno:"2023",cat:"Rossi",reg:"Toscana",regione:"Bolgheri, Toscana",alc:"14.0%",formato:"0,75 L",giac:3,pv:450,pa:145},
+  {id:50,nome:"Ornellaia Bolgheri Superiore DOC",prod:"Ornellaia",anno:"2023",cat:"Rossi",reg:"Toscana",regione:"Bolgheri, Toscana",alc:"13.0%",formato:"0,75 L",giac:3,pv:400,pa:126},
+  {id:51,nome:"Brunello di Montalcino DOCG",prod:"Biondi-Santi",anno:"2017",cat:"Rossi",reg:"Toscana",regione:"Montalcino, Toscana",alc:"14.5%",formato:"0,75 L",giac:2,pv:350,pa:null},
+  {id:52,nome:"Tignanello Toscana IGT",prod:"Antinori",anno:"2022",cat:"Rossi",reg:"Toscana",regione:"Toscana",alc:"14.0%",formato:"0,75 L",giac:6,pv:250,pa:61},
+  {id:53,nome:"Amarone della Valpolicella Pietro Dal Cero",prod:"Ca' dei Frati",anno:"2019",cat:"Rossi",reg:"Veneto",regione:"Valpolicella, Veneto",alc:"16.0%",formato:"0,75 L",giac:3,pv:140,pa:42},
+  {id:54,nome:"Barolo DOCG",prod:"Oddero",anno:"2022",cat:"Rossi",reg:"Piemonte",regione:"Barolo, Piemonte",alc:"14.5%",formato:"0,75 L",giac:12,pv:100,pa:25},
+  {id:55,nome:"Chateauneuf Du Pape AOC",prod:"J&G Meffre",anno:"2022",cat:"Rossi",reg:"Francia",regione:"Châteauneuf-du-Pape, Francia",alc:"13.0%",formato:"0,75 L",giac:6,pv:90,pa:null},
+  {id:56,nome:"Barolo DOCG",prod:"Prunotto",anno:"2022",cat:"Rossi",reg:"Piemonte",regione:"Barolo, Piemonte",alc:"14.5%",formato:"0,75 L",giac:6,pv:90,pa:27},
+  {id:57,nome:"Serpico Irpinia DOC Aglianico",prod:"Feudi di San Gregorio",anno:"2016",cat:"Rossi",reg:"Campania",regione:"Campania",alc:"14.0%",formato:"0,75 L",giac:11,pv:90,pa:null},
+  {id:58,nome:"Barolo DOCG Serralunga d'Alba (Bio)",prod:"Fontanafredda",anno:"2022",cat:"Rossi",reg:"Piemonte",regione:"Barolo, Piemonte",alc:"14.5%",formato:"0,75 L",giac:6,pv:80,pa:30},
+  {id:59,nome:"Barbera D'Alba DOC",prod:"Monti",anno:"2020",cat:"Rossi",reg:"Piemonte",regione:"Alba, Piemonte",alc:"13.5%",formato:"0,75 L",giac:12,pv:70,pa:null},
+  {id:60,nome:"'Greppo di Sotto' Sangiovese DOC",prod:"Pompili",anno:"2020",cat:"Rossi",reg:"Marche",regione:"Marche",alc:"13.5%",formato:"0,75 L",giac:13,pv:65,pa:null},
+  {id:61,nome:"\"Azelia\" Barolo DOCG",prod:"Luigi Scanavino",anno:"2021",cat:"Rossi",reg:"Piemonte",regione:"Barolo, Piemonte",alc:"14.5%",formato:"0,75 L",giac:18,pv:65,pa:null},
+  {id:62,nome:"Chianti Classico Riserva",prod:"Marchese Antinori",anno:"2023",cat:"Rossi",reg:"Toscana",regione:"Chianti, Toscana",alc:"14.5%",formato:"0,75 L",giac:6,pv:65,pa:20.2},
+  {id:63,nome:"Merlot Siebeneich DOC",prod:"Terlan",anno:"2021",cat:"Rossi",reg:"Alto Adige",regione:"Alto Adige",alc:"14.0%",formato:"0,75 L",giac:9,pv:65,pa:null},
+  {id:64,nome:"Barolo Monforte d'Alba DOCG",prod:"Monti",anno:"2020",cat:"Rossi",reg:"Piemonte",regione:"Barolo, Piemonte",alc:"14.5%",formato:"0,75 L",giac:12,pv:65,pa:null},
+  {id:65,nome:"Terre Siciliane IGP Serramarrocco",prod:"Barone di Serramarrocco",anno:"2017",cat:"Rossi",reg:"Sicilia",regione:"Sicilia",alc:"13.5%",formato:"0,75 L",giac:6,pv:60,pa:null},
+  {id:66,nome:"Toscana Rosso 'Vis et Amor' IGT",prod:"Casa Grande della Quercia",anno:"2016",cat:"Rossi",reg:"Toscana",regione:"Toscana",alc:"15.0%",formato:"0,75 L",giac:9,pv:60,pa:null},
+  {id:67,nome:"Pinot Nero Barrique IGP",prod:"Le Opere - Cantiniere d'Italia",anno:"2022",cat:"Rossi",reg:"Italia",regione:"Italia",alc:"14.0%",formato:"0,75 L",giac:12,pv:55,pa:null},
+  {id:68,nome:"Valpolicella Classico Superiore 'Ripasso'",prod:"Corte Rugoli",anno:"2021",cat:"Rossi",reg:"Veneto",regione:"Valpolicella, Veneto",alc:"14.5%",formato:"0,75 L",giac:15,pv:50,pa:20},
+  {id:69,nome:"Guerriero di Terra Montepulciano",prod:"Guerrieri",anno:"2022",cat:"Rossi",reg:"Marche",regione:"Marche",alc:"15.0%",formato:"0,75 L",giac:10,pv:50,pa:null},
+  {id:70,nome:"Chianti Classico Tenuta Perano DOCG",prod:"Frescobaldi",anno:"2023",cat:"Rossi",reg:"Toscana",regione:"Chianti, Toscana",alc:"14.0%",formato:"0,75 L",giac:54,pv:50,pa:11},
+  {id:71,nome:"Langhe Nebbiolo DOC",prod:"Oddero",anno:"2024",cat:"Rossi",reg:"Piemonte",regione:"Langhe, Piemonte",alc:"14.0%",formato:"0,75 L",giac:42,pv:48,pa:10},
+  {id:72,nome:"LUCRETIA Chianti Classico Riserva DOCG",prod:"Casa Grande della Quercia",anno:"2017",cat:"Rossi",reg:"Toscana",regione:"Chianti, Toscana",alc:"14.0%",formato:"0,75 L",giac:9,pv:46,pa:null},
+  {id:73,nome:"Rosso di Montalcino DOC (Bio)",prod:"San Polo",anno:"2022",cat:"Rossi",reg:"Toscana",regione:"Montalcino, Toscana",alc:"13.5%",formato:"0,75 L",giac:11,pv:46,pa:null},
+  {id:74,nome:"Inferno Valtellina Sup. 'Efesto' DOCG",prod:"Nera",anno:"2021",cat:"Rossi",reg:"Lombardia",regione:"Valtellina, Lombardia",alc:"13.0%",formato:"0,75 L",giac:12,pv:46,pa:null},
+  {id:75,nome:"Nebbiolo D'Alba Superiore DOC",prod:"Monti",anno:"2019",cat:"Rossi",reg:"Piemonte",regione:"Alba, Piemonte",alc:"14.0%",formato:"0,75 L",giac:12,pv:45,pa:null},
+  {id:76,nome:"Ronchedone DOC",prod:"Ca' dei Frati",anno:"2021",cat:"Rossi",reg:"Lombardia",regione:"Lugana, Lombardia",alc:"14.0%",formato:"0,75 L",giac:27,pv:44,pa:11},
+  {id:77,nome:"'MERUM' Barbera d'Asti DOCG",prod:"Bellicoso Antonio",anno:"2022",cat:"Rossi",reg:"Piemonte",regione:"Asti, Piemonte",alc:"15.5%",formato:"0,75 L",giac:13,pv:44,pa:10.4},
+  {id:78,nome:"Sassella Nebbiolo 'Le Coppelle' DOCG",prod:"Caven",anno:"2020",cat:"Rossi",reg:"Lombardia",regione:"Valtellina, Lombardia",alc:"13.0%",formato:"0,75 L",giac:9,pv:44,pa:null},
+  {id:79,nome:"'La Martellina' Inferno Nebbiolo DOCG",prod:"Caven",anno:"2022",cat:"Rossi",reg:"Lombardia",regione:"Valtellina, Lombardia",alc:"13.0%",formato:"0,75 L",giac:14,pv:44,pa:null},
+  {id:80,nome:"Grignolino d'Asti \"Giassa\" DOC",prod:"Tenuta Garretto",anno:"2023",cat:"Rossi",reg:"Piemonte",regione:"Asti, Piemonte",alc:"14.0%",formato:"0,75 L",giac:12,pv:44,pa:null},
+  {id:81,nome:"Friuli C.O. Cabernet Sauvignon DOC",prod:"Perusini",anno:"2020",cat:"Rossi",reg:"Friuli",regione:"Friuli-Venezia Giulia",alc:"13.5%",formato:"0,75 L",giac:23,pv:42,pa:null},
+  {id:82,nome:"Sul Vulcano Etna Rosso DOC",prod:"Donnafugata",anno:"2022",cat:"Rossi",reg:"Sicilia",regione:"Etna, Sicilia",alc:"14.0%",formato:"0,75 L",giac:6,pv:42,pa:13.9},
+  {id:83,nome:"Monpertone Monferrato",prod:"Prunotto",anno:"2024",cat:"Rossi",reg:"Piemonte",regione:"Monferrato, Piemonte",alc:"14.0%",formato:"0,75 L",giac:18,pv:42,pa:9},
+  {id:84,nome:"Piemonte DOC 'La Lus' Albarossa",prod:"Banfi",anno:"2022",cat:"Rossi",reg:"Piemonte",regione:"Piemonte",alc:"13.5%",formato:"0,75 L",giac:12,pv:42,pa:null},
+  {id:85,nome:"Testucchio",prod:"Pompili",anno:"2021",cat:"Rossi",reg:"Marche",regione:"Marche",alc:"13.5%",formato:"0,75 L",giac:34,pv:42,pa:null},
+  {id:86,nome:"Valpolicella Ripasso Classico DOC",prod:"Tommasi",anno:"2022",cat:"Rossi",reg:"Veneto",regione:"Valpolicella, Veneto",alc:"13.5%",formato:"0,75 L",giac:13,pv:40,pa:null},
+  {id:87,nome:"Guerriero Nero IGT",prod:"Guerrieri",anno:"2023",cat:"Rossi",reg:"Marche",regione:"Marche",alc:"13.0%",formato:"0,75 L",giac:29,pv:40,pa:null},
+  {id:88,nome:"Nebbiolo d'Alba 'Michet' DOC",prod:"Marchesi di Barolo",anno:"2021",cat:"Rossi",reg:"Piemonte",regione:"Alba, Piemonte",alc:"14.0%",formato:"0,75 L",giac:12,pv:40,pa:8.6},
+  {id:89,nome:"Grumello Valtellina Sup. 'Tirso' DOCG",prod:"Nera",anno:"2021",cat:"Rossi",reg:"Lombardia",regione:"Valtellina, Lombardia",alc:"13.0%",formato:"0,75 L",giac:23,pv:40,pa:null},
+  {id:90,nome:"Floramundi Cerasuolo di Vittoria DOCG",prod:"Donnafugata",anno:"2023",cat:"Rossi",reg:"Sicilia",regione:"Sicilia",alc:"13.5%",formato:"0,75 L",giac:12,pv:40,pa:11.1},
+  {id:91,nome:"Frescobaldi Castiglioni Toscana IGT",prod:"Frescobaldi",anno:"2023",cat:"Rossi",reg:"Toscana",regione:"Toscana",alc:"14.0%",formato:"0,75 L",giac:54,pv:40,pa:10.5},
+  {id:92,nome:"QUERCUS Chianti Classico DOCG",prod:"Casa Grande della Quercia",anno:"2021",cat:"Rossi",reg:"Toscana",regione:"Chianti, Toscana",alc:"14.0%",formato:"0,75 L",giac:26,pv:40,pa:null},
+  {id:93,nome:"RUVEI Barbera d'Alba",prod:"Marchesi di Barolo",anno:"2023",cat:"Rossi",reg:"Piemonte",regione:"Alba, Piemonte",alc:"14.5%",formato:"0,75 L",giac:12,pv:38,pa:7.6},
+  {id:94,nome:"Refosco dal Peduncolo Rosso DOC",prod:"Le Opere - Cantiniere d'Italia",anno:"2022",cat:"Rossi",reg:"Friuli",regione:"Friuli-Venezia Giulia",alc:"12.5%",formato:"0,75 L",giac:13,pv:38,pa:null},
+  {id:95,nome:"Villa Antinori Toscana IGT",prod:"Antinori",anno:"2023",cat:"Rossi",reg:"Toscana",regione:"Toscana",alc:"13.5%",formato:"0,75 L",giac:18,pv:38,pa:10.4},
+  {id:96,nome:"Ruchè di Castagnole Monferrato \"Na Vota\"",prod:"Cantine St. Agata",anno:"2024",cat:"Rossi",reg:"Piemonte",regione:"Monferrato, Piemonte",alc:"14.0%",formato:"0,75 L",giac:36,pv:35,pa:null},
+  {id:97,nome:"Contesa dei Venti Nero d'Avola DOC",prod:"Donnafugata",anno:"2022",cat:"Rossi",reg:"Sicilia",regione:"Sicilia",alc:"13.0%",formato:"0,75 L",giac:12,pv:35,pa:10.8},
+  {id:98,nome:"St. Maddalena Hauser DOC",prod:"Terlan",anno:"2023",cat:"Rossi",reg:"Alto Adige",regione:"Alto Adige",alc:"13.0%",formato:"0,75 L",giac:17,pv:35,pa:null},
+  {id:99,nome:"'Summolaco' Rosso IGP",prod:"Madonna Vittorie",anno:"2023",cat:"Rossi",reg:"Trentino",regione:"Trentino",alc:"13.5%",formato:"0,75 L",giac:14,pv:35,pa:null},
+  {id:100,nome:"Nebbiolo Langhe DOC",prod:"Fontanabianca",anno:"2024",cat:"Rossi",reg:"Piemonte",regione:"Langhe, Piemonte",alc:"14.5%",formato:"0,75 L",giac:33,pv:35,pa:null},
+  {id:101,nome:"'Amormio' Barbera d'Asti DOCG",prod:"Bellicoso Antonio",anno:"2024",cat:"Rossi",reg:"Piemonte",regione:"Asti, Piemonte",alc:"15.0%",formato:"0,75 L",giac:13,pv:35,pa:8.6},
+  {id:102,nome:"Barbera d'Asti 'Rurè' DOCG",prod:"Marchesi di Barolo",anno:"2022",cat:"Rossi",reg:"Piemonte",regione:"Asti, Piemonte",alc:"14.0%",formato:"0,75 L",giac:12,pv:35,pa:7.6},
+  {id:103,nome:"Valpolicella Classico Rugolin",prod:"Corte Rugolin",anno:"2022",cat:"Rossi",reg:"Veneto",regione:"Valpolicella, Veneto",alc:"12.5%",formato:"0,75 L",giac:16,pv:35,pa:8.6},
+  {id:104,nome:"Cabernet Franc 'Grave del Friuli' DOC",prod:"Le Opere - Cantiniere d'Italia",anno:"2023",cat:"Rossi",reg:"Friuli",regione:"Friuli-Venezia Giulia",alc:"12.5%",formato:"0,75 L",giac:9,pv:35,pa:null},
+  {id:105,nome:"Pinot nero \"Hosteria\" Monferrato Rosso DOC",prod:"Cantine di Uviglie",anno:"2022",cat:"Rossi",reg:"Piemonte",regione:"Monferrato, Piemonte",alc:"13.5%",formato:"0,75 L",giac:36,pv:35,pa:null},
+  {id:106,nome:"Santa Cristina Toscana IGT",prod:"Santa Cristina - Cortona",anno:"2024",cat:"Rossi",reg:"Toscana",regione:"Toscana",alc:"12.5%",formato:"0,75 L",giac:18,pv:32,pa:6.2},
+  {id:107,nome:"Sherazade Nero d'Avola DOC",prod:"Donnafugata",anno:"2024",cat:"Rossi",reg:"Sicilia",regione:"Sicilia",alc:"13.5%",formato:"0,75 L",giac:18,pv:32,pa:8.6},
+  {id:108,nome:"RUBIO Toscana IGT Biologico",prod:"San Polo",anno:"2021",cat:"Rossi",reg:"Toscana",regione:"Toscana",alc:"13.5%",formato:"0,75 L",giac:17,pv:32,pa:null},
+  {id:109,nome:"Nirò Cabernet Merlot e Nero di Troia",prod:"Foss Marai",anno:"2020",cat:"Rossi",reg:"Veneto",regione:"Veneto",alc:"13.0%",formato:"0,75 L",giac:13,pv:32,pa:8.6},
+  {id:110,nome:"Sedara Nero d'Avola Sicilia DOC",prod:"Donnafugata",anno:"2023",cat:"Rossi",reg:"Sicilia",regione:"Sicilia",alc:"13.5%",formato:"0,75 L",giac:18,pv:32,pa:7.6},
+  {id:111,nome:"Vito Primitivo",prod:"Foss Marai",anno:"2021",cat:"Rossi",reg:"Veneto",regione:"Puglia/Veneto",alc:"14.0%",formato:"0,75 L",giac:14,pv:32,pa:8.6},
+  {id:112,nome:"Costera Cannonau di Sardegna DOC",prod:"Argiolas",anno:"2023",cat:"Rossi",reg:"Sardegna",regione:"Sardegna",alc:"14.5%",formato:"0,75 L",giac:54,pv:32,pa:9},
+  {id:113,nome:"Dolcetto d'Alba 'Madonna del Dono' DOC",prod:"Marchesi di Barolo",anno:"2025",cat:"Rossi",reg:"Piemonte",regione:"Alba, Piemonte",alc:"13.0%",formato:"0,75 L",giac:12,pv:32,pa:7.6},
+  {id:114,nome:"Fumac Aglianico",prod:"Foss Marai",anno:"2020",cat:"Rossi",reg:"Veneto",regione:"Veneto",alc:"13.0%",formato:"0,75 L",giac:12,pv:32,pa:7.6},
+  {id:115,nome:"Barbera d'Alba 'Ruvei' DOC (½ bott.)",prod:"Marchesi di Barolo",anno:"2023",cat:"Rossi",reg:"Piemonte",regione:"Alba, Piemonte",alc:"14.5%",formato:"0,375 L",giac:12,pv:20,pa:4.5},
+  {id:116,nome:"Nebbiolo d'Alba 'Michet' DOC (½ bott.)",prod:"Marchesi di Barolo",anno:"2023",cat:"Rossi",reg:"Piemonte",regione:"Alba, Piemonte",alc:"14.0%",formato:"0,375 L",giac:12,pv:20,pa:4.5},
+  {id:117,nome:"Dolcetto d'Alba Madonna del Dono (½ bott.)",prod:"Marchesi di Barolo",anno:"2025",cat:"Rossi",reg:"Piemonte",regione:"Alba, Piemonte",alc:"13.0%",formato:"0,375 L",giac:12,pv:20,pa:4.5},
+  {id:118,nome:"N.Uno Cortese",prod:"VNA WINES",anno:"2019",cat:"Naturale",reg:"Piemonte",regione:"Piemonte",alc:"11.5%",formato:"0,75 L",giac:9,pv:25,pa:null},
+  {id:119,nome:"N.zero riesling italico",prod:"VNA WINES",anno:"2019",cat:"Naturale",reg:"Piemonte",regione:"Piemonte",alc:"15.0%",formato:"0,75 L",giac:6,pv:25,pa:null},
+  {id:120,nome:"N.sei Pinot Nero",prod:"VNA WINES",anno:"2019",cat:"Naturale",reg:"Piemonte",regione:"Piemonte",alc:"14.0%",formato:"0,75 L",giac:11,pv:30,pa:null},
+  {id:121,nome:"N. meno Due Riserva etichetta nera",prod:"VNA WINES",anno:"2016",cat:"Naturale",reg:"Piemonte",regione:"Piemonte",alc:"14.5%",formato:"0,75 L",giac:10,pv:30,pa:null},
+  {id:122,nome:"N. meno Uno Croatina Riserva etichetta nera",prod:"VNA WINES",anno:"2016",cat:"Naturale",reg:"Piemonte",regione:"Piemonte",alc:"15.0%",formato:"0,75 L",giac:14,pv:30,pa:null},
+  {id:123,nome:"Amarone della Valpolicella DOCG",prod:"Le Opere - Cantiniere d'Italia",anno:"2018",cat:"Occasioni",reg:"Veneto",regione:"Valpolicella, Veneto",alc:"16.5%",formato:"0,75 L",giac:2,pv:90,pa:null},
+  {id:124,nome:"Barbaresco DOCG",prod:"Fontanabianca",anno:"2020",cat:"Occasioni",reg:"Piemonte",regione:"Barbaresco, Piemonte",alc:"14.0%",formato:"0,75 L",giac:3,pv:50,pa:null},
+  {id:125,nome:"\"Campanaro\" Fiano di Avellino Riserva",prod:"Feudi di San Gregorio",anno:"2021",cat:"Occasioni",reg:"Campania",regione:"Campania",alc:"13.5%",formato:"0,75 L",giac:6,pv:35,pa:null},
+  {id:126,nome:"Ripasso della Valpolicella DOCG",prod:"Corte Giara",anno:"",cat:"Occasioni",reg:"Veneto",regione:"Valpolicella, Veneto",alc:"",formato:"0,75 L",giac:2,pv:35,pa:null},
+  {id:127,nome:"Alta Langa Extra Brut DOCG",prod:"Fontanabianca",anno:"2022",cat:"Occasioni",reg:"Piemonte",regione:"Alta Langa, Piemonte",alc:"12.0%",formato:"0,75 L",giac:2,pv:35,pa:null},
+  {id:128,nome:"Solosole Vermentino Bolgheri DOC",prod:"Poggio al tesoro",anno:"2023",cat:"Occasioni",reg:"Toscana",regione:"Bolgheri, Toscana",alc:"14.0%",formato:"0,75 L",giac:3,pv:30,pa:null},
+  {id:129,nome:"TAURASI",prod:"",anno:"",cat:"Occasioni",reg:"Campania",regione:"Campania",alc:"",formato:"0,75 L",giac:5,pv:30,pa:null},
+  {id:130,nome:"Bolgheri Rosso \"ASKA\" DOC",prod:"Banfi",anno:"2023",cat:"Occasioni",reg:"Toscana",regione:"Bolgheri, Toscana",alc:"14.5%",formato:"0,75 L",giac:5,pv:30,pa:null},
+  {id:131,nome:"Chianti Classico Gran Selezione DOCG",prod:"Fonte alla Selva",anno:"2021",cat:"Occasioni",reg:"Toscana",regione:"Chianti, Toscana",alc:"14.0%",formato:"0,75 L",giac:1,pv:30,pa:null},
+  {id:132,nome:"Valpolicella Classico Superiore DOC",prod:"Villa della Torre",anno:"2012",cat:"Occasioni",reg:"Veneto",regione:"Valpolicella, Veneto",alc:"13.0%",formato:"0,75 L",giac:2,pv:25,pa:null},
+  {id:133,nome:"Buttafuoco \"Cliele\" DOC",prod:"Giorgi",anno:"2023",cat:"Occasioni",reg:"Lombardia",regione:"Oltrepò Pavese, Lombardia",alc:"12.5%",formato:"0,75 L",giac:8,pv:25,pa:null},
+  {id:134,nome:"Sassella Valtellina Superiore \"Alisio\" DOCG",prod:"Nera",anno:"2021",cat:"Occasioni",reg:"Lombardia",regione:"Valtellina, Lombardia",alc:"13.0%",formato:"0,75 L",giac:5,pv:25,pa:null},
+  {id:135,nome:"Friulano DOC",prod:"Perusini",anno:"2016",cat:"Occasioni",reg:"Friuli",regione:"Friuli-Venezia Giulia",alc:"13.0%",formato:"0,75 L",giac:5,pv:20,pa:null},
+  {id:136,nome:"Toscana Rosso Belnero IGT",prod:"Banfi",anno:"2022",cat:"Occasioni",reg:"Toscana",regione:"Toscana",alc:"14.5%",formato:"0,75 L",giac:2,pv:20,pa:null},
+  {id:137,nome:"Gewurztraminer - Altolago DOP",prod:"Madonna Vittorie",anno:"2024",cat:"Occasioni",reg:"Trentino",regione:"Trentino",alc:"13.0%",formato:"0,75 L",giac:2,pv:20,pa:null},
+  {id:138,nome:"Sommo Langhe Arneis DOC",prod:"Fontanabianca",anno:"2024",cat:"Occasioni",reg:"Piemonte",regione:"Langhe, Piemonte",alc:"13.0%",formato:"0,75 L",giac:7,pv:20,pa:null},
+  {id:139,nome:"Prosecco DOC (Extra Dry - Brut)",prod:"Foss Marai",anno:"",cat:"Occasioni",reg:"Veneto",regione:"Veneto",alc:"12.0%",formato:"0,75 L",giac:4,pv:20,pa:null},
+  {id:140,nome:"Rosè cuvè",prod:"Pompili",anno:"2020",cat:"Occasioni",reg:"Marche",regione:"Marche",alc:"11.5%",formato:"0,75 L",giac:3,pv:20,pa:null},
+  {id:141,nome:"Prosecco Savoia calice",prod:"Solito",anno:"",cat:"Mescita",reg:"Veneto",regione:"Veneto",alc:"",formato:"calice",giac:360,pv:7,pa:4},
+  {id:142,nome:"Chardonnay",prod:"Le Torri",anno:"2024",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"13.0%",formato:"calice",giac:48,pv:7,pa:4},
+  {id:143,nome:"Arneis",prod:"Le Torri",anno:"2024",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"13.0%",formato:"calice",giac:47,pv:7,pa:4},
+  {id:144,nome:"Dagatra",prod:"Cavagnero",anno:"",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"",formato:"calice",giac:48,pv:7,pa:4},
+  {id:145,nome:"Damatra",prod:"Cavagnero",anno:"",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"",formato:"calice",giac:48,pv:7,pa:4},
+  {id:146,nome:"Barbera",prod:"Le Torri",anno:"2023",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"13.0%",formato:"calice",giac:37,pv:7,pa:4},
+  {id:147,nome:"Nebbiolo",prod:"Le Torri",anno:"2023",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"13.0%",formato:"calice",giac:37,pv:7,pa:4},
+  {id:148,nome:"Dolcetto",prod:"Le Torri",anno:"2023",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"13.0%",formato:"calice",giac:36,pv:7,pa:4},
+  {id:149,nome:"Shiras",prod:"",anno:"2023",cat:"Mescita",reg:"Italia",regione:"Italia",alc:"13.0%",formato:"calice",giac:132,pv:7,pa:null},
+  {id:150,nome:"Grillo",prod:"",anno:"2024",cat:"Mescita",reg:"Italia",regione:"Italia",alc:"13.0%",formato:"calice",giac:50,pv:7,pa:null},
+  {id:151,nome:"Caplana Gavi",prod:"",anno:"",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"",formato:"calice",giac:36,pv:7,pa:null},
+  {id:152,nome:"Barbera Despet",prod:"",anno:"",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"",formato:"calice",giac:36,pv:7,pa:null},
+  {id:999,nome:"Vino al calice (mescita)",prod:"Vari · carrello",anno:"",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"",formato:"calice 150ml",giac:0,pv:8,pa:4},
+];
+
+const SALES_RAW = [
+  {desc:"PROSECCO SAVOIA CALICE",camera:"Bar",qty:6,tot:42,wid:141},
+  {desc:"LANGHE CHARDONNAY LE RONDINI",camera:"102",qty:1,tot:30,wid:null},
+  {desc:"SAMMARCELLO PIGNATELLO IGP",camera:"119",qty:1,tot:25,wid:null},
+  {desc:"SOMMO LANGHE ARNEIS DOC",camera:"119",qty:1,tot:20,wid:138},
+  {desc:"ARVEJA LANGHE ARNEIS DOC",camera:"120",qty:1,tot:36,wid:34},
+  {desc:"VITO PRIMITIVO",camera:"122",qty:1,tot:32,wid:111},
+  {desc:"VITO PRIMITIVO",camera:"124",qty:1,tot:32,wid:111},
+  {desc:"GREPPO DI SOTTO SANGIOVESE DOC",camera:"126",qty:1,tot:65,wid:60},
+
+
+
+  {desc:"ROSE CUVE",camera:"130",qty:1,tot:20,wid:140},
+  {desc:"LANGHE ARNEIS LE RONDINI",camera:"201",qty:1,tot:30,wid:null},
+
+
+  {desc:"LUGANA I FRATI 375ML",camera:"204",qty:1,tot:20,wid:48},
+  {desc:"VALDOBBIADENE SUPERIORE DOCG",camera:"205",qty:2,tot:60,wid:14},
+  {desc:"ALTA LANGA EXTRA BRUT FONTANABIANCA",camera:"206",qty:1,tot:35,wid:127},
+  {desc:"ROSA DEI FRATI DOC 750ML",camera:"212",qty:1,tot:32,wid:20},
+
+  {desc:"PROSECCO SAVOIA CALICE",camera:"213",qty:1,tot:7,wid:141},
+  {desc:"ROSA DEI FRATI DOC 375ML",camera:"213",qty:1,tot:20,wid:21},
+  {desc:"ROSSO DI MONTALCINO BIO",camera:"213",qty:1,tot:46,wid:73},
+
+
+  {desc:"AMORMIO BARBERA D'ASTI DOCG",camera:"214",qty:1,tot:36,wid:101},
+  {desc:"ROSA DEI FRATI DOC 750ML",camera:"215",qty:1,tot:32,wid:20},
+  {desc:"ANTHILIA SICILIA DOC",camera:"216",qty:1,tot:32,wid:41},
+
+
+
+  {desc:"PROSECCO SAVOIA CALICE",camera:"218",qty:6,tot:42,wid:141},
+  {desc:"ROSA DEI FRATI DOC 750ML",camera:"218",qty:1,tot:32,wid:20},
+  {desc:"ROSA DEI FRATI DOC 375ML",camera:"218",qty:1,tot:20,wid:21},
+
+  {desc:"BRIC AMEL LANGHE DOC 375ML",camera:"220",qty:1,tot:20,wid:46},
+  {desc:"FRANCIACORTA BRUT DOCG 375ML",camera:"221",qty:1,tot:30,wid:15},
+  {desc:"BARBARESCO DOCG FONTANABIANCA",camera:"222",qty:1,tot:50,wid:124},
+  {desc:"BRIC AMEL LANGHE DOC 375ML",camera:"222",qty:1,tot:20,wid:46},
+  {desc:"CHATEAUNEUF DU PAPE AOC",camera:"222",qty:1,tot:90,wid:55},
+  {desc:"GAVI DOCG 370ML",camera:"222",qty:1,tot:20,wid:47},
+  {desc:"LUGANA I FRATI CA DEI FRATI 750ML",camera:"222",qty:1,tot:34,wid:36},
+  {desc:"NEBBIOLO D'ALBA MICHET 375ML",camera:"222",qty:1,tot:20,wid:116},
+  {desc:"EXTRA DRY ROSE GUERRIERI",camera:"223",qty:1,tot:33,wid:13},
+  {desc:"NEBBIOLO D'ALBA MICHET DOC 750ML",camera:"223",qty:1,tot:40,wid:88},
+  {desc:"PROSECCO SAVOIA CALICE",camera:"223",qty:1,tot:7,wid:141},
+  {desc:"ROSA DEI FRATI DOC 375ML",camera:"223",qty:1,tot:20,wid:21},
+
+  {desc:"GAVI DOCG 370ML",camera:"224",qty:1,tot:20,wid:47},
+  {desc:"RUVEI BARBERA D'ALBA 750ML",camera:"224",qty:1,tot:20,wid:93},
+  {desc:"ALIE ROSE TOSCANA IGT",camera:"227",qty:1,tot:34,wid:19},
+  {desc:"NIRO CABERNET MERLOT E NERO DI TROIA",camera:"227",qty:1,tot:32,wid:109},
+  {desc:"NUDO CANNONAU DI SARDEGNA ROSATO",camera:"227",qty:1,tot:36,wid:17},
+  {desc:"PROSECCO SAVOIA CALICE",camera:"227",qty:2,tot:14,wid:141},
+  {desc:"ROSA DEI FRATI DOC 375ML",camera:"227",qty:1,tot:20,wid:21},
+  {desc:"PINOT BIANCO TOSCANA IGP",camera:"228",qty:1,tot:36,wid:35},
+
+
+
+
+
+
+  {desc:"ASKA BOLGHERI DOC",camera:"231",qty:1,tot:30,wid:130},
+  {desc:"VALPOLICELLA CLASSICO SUPERIORE DOC",camera:"231",qty:1,tot:25,wid:132},
+  {desc:"PROSECCO SAVOIA CALICE",camera:"231",qty:1,tot:7,wid:141},
+  {desc:"PROSECCO SAVOIA CALICE",camera:"232",qty:1,tot:7,wid:141},
+
+  {desc:"GUERRIERO NERO IGT",camera:"233",qty:1,tot:40,wid:87},
+  {desc:"Vino al calice (tutti i calici)",camera:"varie camere",qty:97,tot:820,wid:999},
+];
+
+const CAT_COLORS = {
+  Champagne:"cat-champ",Bollicine:"cat-boll",Rosati:"cat-ros",
+  Bianchi:"cat-bian",Rossi:"cat-ross",Naturale:"cat-nat",
+  Occasioni:"cat-occ",Mescita:"cat-mes"
+};
+const CAT_EMOJI = {
+  Champagne:"🥂",Bollicine:"🍾",Rosati:"🌸",Bianchi:"🍋",
+  Rossi:"🍷",Naturale:"🌿",Occasioni:"⭐",Mescita:"🪣"
+};
+
+let prices = {};
+WINES.forEach(w => { prices[w.id] = w.pa; });
+try {
+  const saved = localStorage.getItem('savoia_pa');
+  if (saved) Object.assign(prices, JSON.parse(saved));
+} catch(e) {}
+
+function savePA(id, val) {
+  prices[id] = val;
+  try { localStorage.setItem('savoia_pa', JSON.stringify(prices)); } catch(e) {}
+}
+
+let soldMap = {};
+SALES_RAW.forEach(s => {
+  if (!s.wid) return;
+  if (!soldMap[s.wid]) soldMap[s.wid] = {qty:0, rev:0};
+  soldMap[s.wid].qty += s.qty;
+  soldMap[s.wid].rev += s.tot;
+});
+
+let currentFilter = 'all';
+let currentSearch = '';
+let currentTab = 'inventario';
+
+function switchTab(tab, btn) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ['inventario','vendite','grafici','sommario'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = t===tab ? 'block' : 'none';
+  });
+  if (tab==='inventario') renderInventario();
+  if (tab==='vendite') renderVendite();
+  if (tab==='grafici') renderGrafici();
+  if (tab==='sommario') renderSommario();
+}
+
+function catCls(cat) { return CAT_COLORS[cat] || 'cat-mes'; }
+
+function profitBadge(pa, sold) {
+  if (!pa || !sold || sold.qty===0) return '';
+  const p = sold.rev - sold.qty*pa;
+  const cls = p>=0 ? 'prof-pos' : 'prof-neg';
+  return `<span class="profit-badge ${cls}">€${Math.round(p)}</span>`;
+}
+
+function renderInventario() {
+  const cats = ['all','Champagne','Bollicine','Rosati','Bianchi','Rossi','Naturale','Occasioni','Mescita'];
+  const regions = [...new Set(WINES.map(w=>w.reg))].sort();
+
+  // Calcola metriche globali
+  let totInv=0, totAcq=0, totBott=0, profTot=0, missingPA=0;
+  WINES.forEach(w=>{
+    totInv += w.giac * w.pv;
+    const pa = prices[w.id];
+    if(pa) totAcq += w.giac * pa;
+    totBott += w.giac;
+    const s = soldMap[w.id]||{qty:0,rev:0};
+    if(pa && s.qty>0) profTot += s.rev - s.qty*pa;
+    if(!pa) missingPA++;
+  });
+  const totInvNetto = Math.round(totInv / 1.10);
+
+  // Calcola % per categoria
+  const catTotals = {};
+  WINES.forEach(w=>{ catTotals[w.cat]=(catTotals[w.cat]||0)+w.giac; });
+
+  let html = `
+  <div class="metrics-strip">
+    <div class="metric-pill"><div class="mp-label">Bottiglie</div><div class="mp-val">${totBott.toLocaleString('it')}</div></div>
+    <div class="metric-pill"><div class="mp-label">Stock vendita</div><div class="mp-val gold">€${Math.round(totInv/1000)}k</div></div>
+    <div class="metric-pill"><div class="mp-label">Stock netto -IVA</div><div class="mp-val gold">€${Math.round(totInvNetto/1000)}k</div></div>
+    <div class="metric-pill"><div class="mp-label">Stock acquisto</div><div class="mp-val amber">€${Math.round(totAcq/1000)}k</div></div>
+    <div class="metric-pill"><div class="mp-label">Profitto giu</div><div class="mp-val gold">€${Math.round(profTot)}</div></div>
+    <div class="metric-pill"><div class="mp-label">PA mancanti</div><div class="mp-val amber">${missingPA}</div></div>
+    <div class="metric-pill"><div class="mp-label">Referenze</div><div class="mp-val">${WINES.length}</div></div>
+  </div>
+  <div class="search-wrap">
+    <div class="search-row">
+      <input class="search-box" type="search" placeholder="🔍  Cerca vino o produttore..." value="${currentSearch}" oninput="currentSearch=this.value;renderInventario()" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="filter-scroll">
+      <span class="filter-chip ${currentFilter==='all'?'active':''}" onclick="currentFilter='all';renderInventario()">Tutti</span>
+      ${cats.slice(1).map(c=>`<span class="filter-chip ${currentFilter===c?'active':''}" onclick="currentFilter='${c}';renderInventario()">${CAT_EMOJI[c]} ${c}</span>`).join('')}
+      ${regions.map(r=>`<span class="filter-chip ${currentFilter===r?'active':''}" onclick="currentFilter='${r}';renderInventario()">📍 ${r}</span>`).join('')}
+    </div>
+  </div>`;
+
+  let wines = WINES.filter(w => {
+    const matchCat = currentFilter==='all' || w.cat===currentFilter || w.reg===currentFilter;
+    const matchSearch = !currentSearch || w.nome.toLowerCase().includes(currentSearch.toLowerCase()) || w.prod.toLowerCase().includes(currentSearch.toLowerCase());
+    return matchCat && matchSearch;
+  });
+
+  // Raggruppa per categoria
+  const groups = {};
+  wines.forEach(w => {
+    if (!groups[w.cat]) groups[w.cat] = [];
+    groups[w.cat].push(w);
+  });
+
+  const catOrder = ['Champagne','Bollicine','Rosati','Bianchi','Rossi','Naturale','Occasioni','Mescita'];
+  catOrder.forEach(cat => {
+    if (!groups[cat]) return;
+    const grp = groups[cat];
+    const totGiac = grp.reduce((a,w)=>a+w.giac,0);
+    const pct = Math.round(totGiac/totBott*100);
+    html += `<div class="section-hdr">
+      <span class="section-hdr-title">${CAT_EMOJI[cat]} ${cat}</span>
+      <span class="section-hdr-count">${grp.length} ref · ${totGiac} bott · ${pct}%</span>
+    </div>`;
+    grp.forEach(w => {
+      const pa = prices[w.id];
+      const sold = soldMap[w.id]||{qty:0,rev:0};
+      html += `<div class="wine-card" onclick="openDetail(${w.id})">
+        <div class="wine-label ${catCls(w.cat)}">
+          <span style="font-size:16px">${CAT_EMOJI[w.cat]}</span>
+          <span>${w.cat.substring(0,4)}</span>
+        </div>
+        <div class="wine-info">
+          <div class="wine-name">${w.nome}</div>
+          <div class="wine-prod">${w.prod}</div>
+          <div class="wine-meta">
+            <span class="meta-tag tag-reg">📍 ${w.reg}</span>
+            ${w.anno?`<span class="meta-tag tag-ann">${w.anno}</span>`:''}
+            ${w.alc?`<span class="meta-tag tag-alc">${w.alc}</span>`:''}
+          </div>
+        </div>
+        <div class="wine-nums">
+          <div class="price-sell">€${w.pv}</div>
+          <div class="price-buy">${pa?'acq. €'+pa:'⚠ PA mancante'}</div>
+          ${profitBadge(pa, sold)}
+          <div class="sold-qty">${sold.qty>0?sold.qty+' vend.':''} ${w.giac} giac.</div>
+        </div>
+      </div>`;
+    });
+  });
+
+  if (wines.length===0) html += `<div class="empty"><div class="empty-icon">🍷</div><div>Nessun vino trovato</div></div>`;
+
+  document.getElementById('tab-inventario').innerHTML = html;
+}
+
+function openDetail(id) {
+  const w = WINES.find(x=>x.id===id);
+  if (!w) return;
+  const pa = prices[w.id];
+  const sold = soldMap[w.id]||{qty:0,rev:0};
+  const incasso = sold.rev;
+  const costo = pa ? sold.qty*pa : null;
+  const prof = costo!=null ? incasso-costo : null;
+  const marg = prof!=null && incasso>0 ? Math.round(prof/incasso*100) : null;
+
+  document.getElementById('sheet-content').innerHTML = `
+    <div class="sheet-header">
+      <div class="wine-label ${catCls(w.cat)}" style="width:56px;height:72px;font-size:20px;border-radius:8px;margin-bottom:12px">
+        ${CAT_EMOJI[w.cat]}
+      </div>
+      <div class="sheet-wine-name">${w.nome}</div>
+      <div class="sheet-producer">${w.prod}</div>
+      <div class="sheet-tags">
+        <span class="meta-tag tag-cat tag-reg">📍 ${w.regione}</span>
+        ${w.anno?`<span class="meta-tag tag-ann">${w.anno}</span>`:''}
+        ${w.alc?`<span class="meta-tag tag-alc">${w.alc}</span>`:''}
+        <span class="meta-tag tag-reg">${w.formato}</span>
+      </div>
+    </div>
+    <div class="sheet-body">
+      <div class="field-group">
+        <div class="field-label">Inventario</div>
+        <div class="field-row"><span class="field-key">Giacenza attuale</span><span class="field-val">${w.giac} bottiglie</span></div>
+        <div class="field-row"><span class="field-key">Prezzo vendita</span><span class="field-val">€${w.pv}</span></div>
+        <div class="field-row">
+          <span class="field-key">Prezzo acquisto</span>
+          <div class="pa-input-wrap">
+            <input class="pa-input" type="number" inputmode="decimal" step="0.01" min="0" placeholder="€ —" value="${pa!=null?pa:''}" id="pa-input-${w.id}">
+            <button class="save-btn" onclick="savePA(${w.id},parseFloat(document.getElementById('pa-input-${w.id}').value)||null);renderInventario();openDetail(${w.id})">Salva</button>
+          </div>
+        </div>
+        ${pa?`<div class="field-row"><span class="field-key">Margine unitario</span><span class="field-val" style="color:#1a3a2a">€${(w.pv-pa).toFixed(2)} (${Math.round((w.pv-pa)/w.pv*100)}%)</span></div>`:''}
+      </div>
+      <div class="field-group">
+        <div class="field-label">Vendite 1–22 giugno</div>
+        <div class="profit-box">
+          <div class="pbox"><div class="pbox-label">Vendute</div><div class="pbox-val">${sold.qty}</div></div>
+          <div class="pbox"><div class="pbox-label">Incasso</div><div class="pbox-val" style="font-size:16px">${incasso>0?'€'+Math.round(incasso):'—'}</div></div>
+          <div class="pbox"><div class="pbox-label">Costo</div><div class="pbox-val" style="font-size:16px;color:#888">${costo!=null?'€'+Math.round(costo):'—'}</div></div>
+          <div class="pbox"><div class="pbox-label">Profitto</div><div class="pbox-val ${prof!=null&&prof>=0?'':''}}" style="color:${prof!=null&&prof>=0?'#155724':'#721c24'}">${prof!=null?'€'+Math.round(prof):'—'}</div></div>
+        </div>
+        ${marg!=null?`<div style="margin-top:10px;text-align:center;font-size:13px;color:#888">Margine sul venduto: <strong>${marg}%</strong></div>`:''}
+      </div>
+    </div>`;
+
+  document.getElementById('detail-sheet').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
+}
+
+function closeDetail() {
+  document.getElementById('detail-sheet').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+function renderVendite() {
+  let totInc=0, totQty=0, totProf=0;
+  SALES_RAW.forEach(s=>{ totInc+=s.tot; totQty+=s.qty; });
+
+  let html = `
+  <div class="metrics-strip">
+    <div class="metric-pill"><div class="mp-label">Righe</div><div class="mp-val">${SALES_RAW.length}</div></div>
+    <div class="metric-pill"><div class="mp-label">Qty totale</div><div class="mp-val">${totQty}</div></div>
+    <div class="metric-pill"><div class="mp-label">Incasso</div><div class="mp-val gold">€${Math.round(totInc).toLocaleString('it')}</div></div>
+  </div>
+  <div style="padding:10px 16px 0;background:#fff;border-bottom:1px solid var(--cream-dark);">
+    <input class="search-box" type="search" placeholder="🔍 Cerca..." style="width:100%" oninput="renderVenditeFiltered(this.value)" autocorrect="off">
+  </div>
+  <div id="vend-list">`;
+
+  html += SALES_RAW.map(s => {
+    const w = s.wid ? WINES.find(x=>x.id===s.wid) : null;
+    const pa = w ? prices[w.id] : null;
+    const prof = pa!=null ? s.tot - s.qty*pa : null;
+    const profCls = prof==null?'':'color:'+(prof>=0?'#155724':'#721c24');
+    const isCalice = s.desc.toLowerCase().includes('calice');
+    return `<div class="vend-card">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+        <div style="flex:1;min-width:0">
+          <div class="vend-desc">${s.desc}</div>
+          <div class="vend-cam">Camera ${s.camera} · ${s.qty} pz</div>
+          <div style="margin-top:4px;font-size:11px;color:${w?'var(--green-mid)':isCalice?'#888':'#c0392b'}">
+            ${w?'→ '+w.nome:isCalice?'Vino calice':'Non abbinato'}
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div class="vend-tot">€${s.tot}</div>
+          <div style="font-size:11px;color:#888">€${(s.tot/s.qty).toFixed(2)}/cad</div>
+          <div style="font-size:11px;font-weight:600;${profCls}">${prof!=null?'profit €'+Math.round(prof):'PA mancante'}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  html += '</div>';
+  document.getElementById('tab-vendite').innerHTML = html;
+}
+
+function renderVenditeFiltered(q) {
+  const filtered = q ? SALES_RAW.filter(s=>s.desc.toLowerCase().includes(q.toLowerCase())) : SALES_RAW;
+  document.getElementById('vend-list').innerHTML = filtered.map(s => {
+    const w = s.wid ? WINES.find(x=>x.id===s.wid) : null;
+    const pa = w ? prices[w.id] : null;
+    const prof = pa!=null ? s.tot - s.qty*pa : null;
+    const profCls = prof==null?'':'color:'+(prof>=0?'#155724':'#721c24');
+    const isCalice = s.desc.toLowerCase().includes('calice');
+    return `<div class="vend-card">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+        <div style="flex:1;min-width:0">
+          <div class="vend-desc">${s.desc}</div>
+          <div class="vend-cam">Camera ${s.camera} · ${s.qty} pz</div>
+          <div style="margin-top:4px;font-size:11px;color:${w?'var(--green-mid)':isCalice?'#888':'#c0392b'}">
+            ${w?'→ '+w.nome:isCalice?'Vino calice':'Non abbinato'}
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div class="vend-tot">€${s.tot}</div>
+          <div style="font-size:11px;color:#888">€${(s.tot/s.qty).toFixed(2)}/cad</div>
+          <div style="font-size:11px;font-weight:600;${profCls}">${prof!=null?'profit €'+Math.round(prof):'PA mancante'}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderGrafici() {
+  const catOrder = ['Rossi','Bianchi','Bollicine','Rosati','Champagne','Mescita','Occasioni','Naturale'];
+  const totBott = WINES.reduce((a,w)=>a+w.giac,0);
+  const totVal = WINES.reduce((a,w)=>a+w.giac*w.pv,0);
+
+  // Per categoria: bottiglie, valore, profitto
+  const catData = {};
+  catOrder.forEach(c=>{ catData[c]={bott:0,val:0,valAcq:0,prof:0,inc:0,sold:0}; });
+  WINES.forEach(w=>{
+    if(!catData[w.cat]) return;
+    catData[w.cat].bott += w.giac;
+    catData[w.cat].val += w.giac*w.pv;
+    const pa=prices[w.id], s=soldMap[w.id]||{qty:0,rev:0};
+    if(pa) catData[w.cat].valAcq += w.giac*pa;
+    catData[w.cat].inc += s.rev;
+    catData[w.cat].sold += s.qty;
+    if(pa&&s.qty>0) catData[w.cat].prof += s.rev - s.qty*pa;
+  });
+
+  // Per regione
+  const regData = {};
+  WINES.forEach(w=>{
+    if(!regData[w.reg]) regData[w.reg]={bott:0,val:0};
+    regData[w.reg].bott += w.giac;
+    regData[w.reg].val += w.giac*w.pv;
+  });
+  const regSorted = Object.entries(regData).sort((a,b)=>b[1].bott-a[1].bott).slice(0,10);
+
+  const barColors = {Rossi:'#8B1A1A',Bianchi:'#DAA520',Bollicine:'#2E8B57',Rosati:'#DB7093',Champagne:'#4B0082',Mescita:'#708090',Occasioni:'#CD853F',Naturale:'#556B2F'};
+  const regColors = ['#1a3a2a','#2d5a3d','#4a8c5c','#6aac7c','#8acc9c','#2c5aa0','#4a78c0','#6a98e0','#8ab8ff','#aad8ff'];
+
+  const maxBott = Math.max(...catOrder.map(c=>catData[c].bott));
+  const maxRegBott = Math.max(...regSorted.map(r=>r[1].bott));
+
+  let html = `<div class="chart-section">
+
+  <div class="chart-card">
+    <div class="chart-title">Distribuzione giacenza per categoria</div>
+    ${catOrder.map(c=>{
+      const d=catData[c];
+      const pct=Math.round(d.bott/totBott*100);
+      const barW=Math.round(d.bott/maxBott*100);
+      return `<div class="bar-row">
+        <div class="bar-label">${CAT_EMOJI[c]} ${c}</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${barW}%;background:${barColors[c]}">
+            <span>${pct}%</span>
+          </div>
+        </div>
+        <div class="bar-end">${d.bott}</div>
+      </div>`;
+    }).join('')}
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Valore stock per categoria</div>
+    ${(()=>{
+      const sorted=catOrder.slice().sort((a,b)=>catData[b].val-catData[a].val);
+      const totValAcq=sorted.reduce((s,c)=>s+(catData[c].valAcq||0),0);
+      const maxV=Math.max(...sorted.map(c=>catData[c].val));
+      return sorted.map(c=>{
+        const d=catData[c];
+        const netto=Math.round(d.val/1.10);
+        const acq=d.valAcq||0;
+        const barV=Math.round(d.val/maxV*100);
+        const barN=Math.round(netto/maxV*100);
+        const barA=acq>0?Math.round(acq/maxV*100):0;
+        const pct=Math.round(d.val/totVal*100);
+        return `<div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#888;margin-bottom:3px">
+            <span>${CAT_EMOJI[c]} ${c}</span>
+            <span style="color:#444">${pct}%</span>
+          </div>
+          <div class="bar-row" style="margin-bottom:2px">
+            <div class="bar-label" style="font-size:9px;color:#888">Vendita</div>
+            <div class="bar-track"><div class="bar-fill" style="width:${barV}%;background:${barColors[c]}"><span>€${Math.round(d.val/1000)}k</span></div></div>
+          </div>
+          <div class="bar-row" style="margin-bottom:2px">
+            <div class="bar-label" style="font-size:9px;color:#888">-IVA 10%</div>
+            <div class="bar-track"><div class="bar-fill" style="width:${barN}%;background:#6aac7c"><span>€${Math.round(netto/1000)}k</span></div></div>
+          </div>
+          ${barA>0?`<div class="bar-row" style="margin-bottom:0">
+            <div class="bar-label" style="font-size:9px;color:#888">Acquisto</div>
+            <div class="bar-track"><div class="bar-fill" style="width:${barA}%;background:#c9a84c"><span>€${Math.round(acq/1000)}k</span></div></div>
+          </div>`:''}
+        </div>`;
+      }).join('');
+    })()}
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Incasso giugno per categoria (€)</div>
+    ${catOrder.filter(c=>catData[c].inc>0).sort((a,b)=>catData[b].inc-catData[a].inc).map(c=>{
+      const d=catData[c];
+      const maxI=Math.max(...catOrder.map(cc=>catData[cc].inc));
+      const barW=Math.round(d.inc/maxI*100)||2;
+      return `<div class="bar-row">
+        <div class="bar-label">${CAT_EMOJI[c]} ${c}</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${barW}%;background:${barColors[c]}">
+            <span>€${Math.round(d.inc)}</span>
+          </div>
+        </div>
+        <div class="bar-end">${d.sold}bott</div>
+      </div>`;
+    }).join('')}
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Bottiglie per regione di provenienza</div>
+    ${regSorted.map(([reg,d],i)=>{
+      const pct=Math.round(d.bott/totBott*100);
+      const barW=Math.round(d.bott/maxRegBott*100);
+      return `<div class="bar-row">
+        <div class="bar-label" style="font-size:10px">📍 ${reg}</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${barW}%;background:${regColors[i]}">
+            <span>${pct}%</span>
+          </div>
+        </div>
+        <div class="bar-end">${d.bott}</div>
+      </div>`;
+    }).join('')}
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Top 10 vini per profitto giugno</div>
+    ${WINES.filter(w=>{
+      const s=soldMap[w.id]; const pa=prices[w.id];
+      return s&&s.qty>0&&pa;
+    }).map(w=>{
+      const s=soldMap[w.id]; const pa=prices[w.id];
+      return {w, prof:s.rev-s.qty*pa};
+    }).sort((a,b)=>b.prof-a.prof).slice(0,10).map(({w,prof},i)=>{
+      const maxP=WINES.filter(x=>{const s=soldMap[x.id];const p=prices[x.id];return s&&s.qty>0&&p;}).map(x=>{const s=soldMap[x.id];const p=prices[x.id];return s.rev-s.qty*p;}).reduce((a,b)=>Math.max(a,b),0);
+      const barW=Math.round(prof/maxP*100)||2;
+      return `<div class="bar-row">
+        <div class="bar-label" style="font-size:9px;line-height:1.2;white-space:normal;text-align:right">${w.nome.substring(0,18)}</div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${barW}%;background:${barColors[w.cat]||'#1a3a2a'}">
+            <span>€${Math.round(prof)}</span>
+          </div>
+        </div>
+        <div class="bar-end" style="font-size:9px;line-height:1.3;text-align:right">${soldMap[w.id].qty}bt<br>€${(soldMap[w.id].rev/soldMap[w.id].qty).toFixed(0)}pm</div>
+      </div>`;
+    }).join('')}
+  </div>
+
+  </div>`;
+
+  document.getElementById('tab-grafici').innerHTML = html;
+}
+
+function renderSommario() {
+  const catOrder = ['Champagne','Bollicine','Rosati','Bianchi','Rossi','Naturale','Occasioni','Mescita'];
+  let grandInc=0, grandProf=0, grandCosto=0, grandBott=0, grandGiac=0;
+
+  const rows = catOrder.map(cat => {
+    const wines = WINES.filter(w=>w.cat===cat);
+    let inc=0,costo=0,vend=0,giac=0,missing=0;
+    wines.forEach(w=>{
+      const pa=prices[w.id], s=soldMap[w.id]||{qty:0,rev:0};
+      inc+=s.rev; vend+=s.qty; giac+=w.giac;
+      if(pa) costo+=s.qty*pa;
+      else if(s.qty>0) missing++;
+    });
+    const prof=inc-costo, marg=inc>0?Math.round(prof/inc*100):null;
+    grandInc+=inc; grandProf+=prof; grandCosto+=costo; grandBott+=vend; grandGiac+=giac;
+    return {cat,wines:wines.length,vend,giac,inc,costo,prof,marg,missing};
+  });
+
+  let html = `
+  <div class="metrics-strip">
+    <div class="metric-pill"><div class="mp-label">Incasso giu</div><div class="mp-val gold">€${Math.round(grandInc).toLocaleString('it')}</div></div>
+    <div class="metric-pill"><div class="mp-label">Costo venduto</div><div class="mp-val">€${Math.round(grandCosto).toLocaleString('it')}</div></div>
+    <div class="metric-pill"><div class="mp-label">Profitto</div><div class="mp-val gold">€${Math.round(grandProf).toLocaleString('it')}</div></div>
+    <div class="metric-pill"><div class="mp-label">Margine</div><div class="mp-val gold">${grandInc>0?Math.round(grandProf/grandInc*100)+'%':'—'}</div></div>
+    <div class="metric-pill"><div class="mp-label">Bott. vendute</div><div class="mp-val">${grandBott}</div></div>
+  </div>
+
+  <div style="padding:12px 16px 4px;background:var(--cream-dark)">
+    <div style="font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.8px;text-transform:uppercase">Per categoria · Giugno 2026</div>
+  </div>
+  <div class="sum-card">
+  ${rows.map(r=>`
+    <div class="sum-row">
+      <div class="sum-cat">
+        <span style="font-size:20px">${CAT_EMOJI[r.cat]}</span>
+        <div>
+          <div class="sum-cat-label">${r.cat}</div>
+          <div style="font-size:11px;color:var(--text-light)">${r.wines} ref · ${r.giac} giac · ${r.vend} vend.</div>
+        </div>
+      </div>
+      <div class="sum-nums">
+        <div class="sum-inc">${r.inc>0?'€'+Math.round(r.inc).toLocaleString('it'):'—'}</div>
+        <div class="sum-prof" style="color:${r.prof>0?'#155724':r.prof<0?'#721c24':'#888'}">${r.inc>0?(r.prof>=0?'+':'')+' €'+Math.round(r.prof):''}</div>
+        <div class="sum-marg">${r.marg!=null?r.marg+'% margine':r.missing>0?'⚠ '+r.missing+' PA mancanti':''}</div>
+      </div>
+    </div>`).join('')}
+  </div>
+
+  <div style="padding:12px 16px 4px;background:var(--cream-dark);margin-top:10px">
+    <div style="font-size:11px;font-weight:600;color:var(--text-light);letter-spacing:0.8px;text-transform:uppercase">PA mancanti · Da completare</div>
+  </div>
+  <div class="sum-card">
+  ${WINES.filter(w=>!prices[w.id]).map(w=>`
+    <div class="sum-row" onclick="openDetail(${w.id});return false">
+      <div class="sum-cat">
+        <span style="font-size:16px">${CAT_EMOJI[w.cat]}</span>
+        <div>
+          <div style="font-size:13px;color:var(--text-dark)">${w.nome}</div>
+          <div style="font-size:11px;color:var(--text-light)">${w.prod} · ${w.anno}</div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:13px;font-weight:600;color:var(--text-dark)">€${w.pv}</div>
+        <div style="font-size:11px;color:#c0392b">⚠ Tocca per inserire</div>
+      </div>
+    </div>`).join('')}
+  </div>`;
+
+  document.getElementById('tab-sommario').innerHTML = html;
+}
+
+function exportCSV() {
+  let csv = '\uFEFF'; // BOM per Excel
+  csv += 'Nome,Produttore,Anno,Categoria,Regione,Formato,Alcol,Giacenza,P.Vendita,P.Acquisto,Margine unitario,Vendute giu,Incasso giu,Costo giu,Profitto giu,Margine%\n';
+  WINES.forEach(w => {
+    const pa = prices[w.id];
+    const s = soldMap[w.id]||{qty:0,rev:0};
+    const costo = pa?s.qty*pa:null;
+    const prof = costo!=null?s.rev-costo:null;
+    const marg = prof!=null&&s.rev>0?Math.round(prof/s.rev*100):null;
+    const margUnit = pa?+(w.pv-pa).toFixed(2):null;
+    csv += `"${w.nome}","${w.prod}","${w.anno}","${w.cat}","${w.regione}","${w.formato}","${w.alc}",${w.giac},${w.pv},${pa!=null?pa:''},${margUnit!=null?margUnit:''},${s.qty},${s.rev},${costo!=null?Math.round(costo):''},${prof!=null?Math.round(prof):''},${marg!=null?marg:''}\n`;
+  });
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'savoia_cantina_estate2026.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+// Init
+renderInventario();
+</script>
+</body>
+</html>
