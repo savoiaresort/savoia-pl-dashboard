@@ -14,105 +14,82 @@
 }
 body{font-family:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1280px;margin:0 auto;padding:0 20px}
-
-/* Header */
 header{background:var(--navy);color:#fff;padding:28px 0 24px}
 .h-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.brand{font-family:Georgia,'Times New Roman',serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.brand{font-family:Georgia,serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
 .h-date{font-size:12px;color:rgba(255,255,255,.55);letter-spacing:.5px}
 h1{font-family:Georgia,serif;font-size:30px;font-weight:400;margin-top:6px;letter-spacing:-.3px}
-.h-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:6px;max-width:680px}
-
-/* Summary strip */
+.h-sub{font-size:13px;color:rgba(255,255,255,.6);margin-top:6px;max-width:720px}
 .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);margin:24px 0 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .strip-c{background:#fff;padding:16px 18px}
 .strip-l{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
 .strip-v{font-family:Georgia,serif;font-size:26px;margin-top:4px}
 .strip-d{font-size:12px;margin-top:2px;font-weight:500}
 .up{color:var(--green)} .down{color:var(--red)}
-
-/* Section */
 section{margin:34px 0}
 .s-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .s-bar{width:4px;height:20px;background:var(--gold);border-radius:2px}
 .s-title{font-family:Georgia,serif;font-size:19px;font-weight:400}
 .s-note{font-size:12.5px;color:var(--muted);margin:-10px 0 16px 14px}
-
-/* Legend */
 .legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:14px;font-size:12px;color:var(--muted)}
 .legend span{display:flex;align-items:center;gap:6px}
 .dot{width:11px;height:11px;border-radius:3px}
-
-/* Chart card */
 .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}
 .chart-box{position:relative;height:340px}
-
-/* Weekly grid */
-.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px}
-.wk{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0;overflow:hidden;transition:transform .12s,box-shadow .12s;cursor:default}
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(244px,1fr));gap:14px}
+.wk{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:transform .12s,box-shadow .12s}
 .wk:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,48,40,.1)}
 .wk-top{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
 .wk-name{font-weight:600;font-size:14px}
 .wk-tag{font-size:9.5px;text-transform:uppercase;letter-spacing:.7px;font-weight:700;padding:3px 8px;border-radius:20px;color:#fff}
-.tag-raise{background:var(--green)}
-.tag-hold{background:var(--blue)}
-.tag-push{background:var(--amber)}
-.tag-watch{background:var(--red)}
+.tag-raise{background:var(--green)} .tag-hold{background:var(--blue)} .tag-push{background:var(--amber)} .tag-watch{background:var(--red)}
 .wk-body{padding:14px 16px}
 .wk-occ{display:flex;align-items:baseline;gap:8px;margin-bottom:3px}
 .wk-occ-v{font-family:Georgia,serif;font-size:32px;line-height:1}
 .wk-occ-l{font-size:11px;color:var(--muted)}
-.wk-vs{font-size:12px;font-weight:600;margin-bottom:12px}
-.bar-track{height:7px;background:#EFEAE0;border-radius:4px;overflow:hidden;margin-bottom:13px;position:relative}
+.wk-vs{font-size:12px;font-weight:600;margin-bottom:10px}
+.bar-track{height:7px;background:#EFEAE0;border-radius:4px;overflow:hidden;margin-bottom:12px;position:relative}
 .bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
 .bar-prev{position:absolute;top:-2px;width:2px;height:11px;background:var(--ink);opacity:.35}
 .wk-row{display:flex;justify-content:space-between;font-size:12.5px;padding:4px 0;border-top:1px dotted var(--line)}
 .wk-row .lab{color:var(--muted)}
 .wk-row .val{font-weight:600}
-.wk-pace{margin-top:11px;padding:9px 11px;background:var(--cream);border-radius:8px;font-size:11.5px;color:var(--ink)}
-.wk-pace b{color:var(--navy)}
-
-/* Strategy table */
+.spark{margin-top:11px;padding:10px 11px;background:var(--cream);border-radius:8px}
+.spark-h{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:7px}
+.spark-row{display:flex;align-items:center;gap:7px;font-size:11px;margin-bottom:3px}
+.spark-d{width:38px;color:var(--muted);flex-shrink:0}
+.spark-bar{height:9px;border-radius:3px;background:var(--gold);min-width:2px}
+.spark-v{font-weight:600;font-size:11px}
+.wk-pickup{margin-top:9px;font-size:11.5px;color:var(--navy);font-weight:600}
 .strat{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.strat-row{display:grid;grid-template-columns:160px 1fr;gap:0;border-bottom:1px solid var(--line)}
+.strat-row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--line)}
 .strat-row:last-child{border-bottom:none}
 .strat-k{padding:15px 18px;font-weight:600;font-size:13.5px;display:flex;align-items:center;gap:9px;border-right:1px solid var(--line)}
 .strat-k .kdot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .strat-v{padding:15px 18px;font-size:13.5px;color:#3a3a2e}
 .strat-v b{color:var(--navy)}
 .tabline{font-size:12px;color:var(--muted);margin-top:5px}
-
 footer{text-align:center;font-size:11.5px;color:var(--muted);padding:30px 0 40px}
-
-@media(max-width:700px){
-  .strip{grid-template-columns:repeat(2,1fr)}
-  h1{font-size:24px}
-  .strat-row{grid-template-columns:1fr}
-  .strat-k{border-right:none;border-bottom:1px dashed var(--line)}
-  .chart-box{height:300px}
-}
+@media(max-width:700px){.strip{grid-template-columns:repeat(2,1fr)}h1{font-size:24px}.strat-row{grid-template-columns:1fr}.strat-k{border-right:none;border-bottom:1px dashed var(--line)}.chart-box{height:300px}}
 </style>
 </head>
 <body>
-
 <header>
   <div class="wrap">
     <div class="h-top">
       <div class="brand">Savoia Mountain Resort · Bardonecchia</div>
-      <div class="h-date">Booking on the books · 20 June 2026 (update #1)</div>
+      <div class="h-date">Latest snapshot · 27 June 2026 · update #2</div>
     </div>
     <h1>Weekly Revenue — Summer 2026</h1>
-    <div class="h-sub">Occupancy and average room rate (Retta) by stay week (Sunday–Saturday), compared with 2025 and 2024 at the same point, and the weekly pickup since the previous snapshot.</div>
-
+    <div class="h-sub">Occupancy and average room rate (Retta) by stay week (Sunday–Saturday), the consolidated fill curve across snapshots (17 Jun → 20 Jun → 27 Jun), and comparison with 2025 and 2024 at the same point.</div>
     <div class="strip" id="strip"></div>
   </div>
 </header>
-
 <div class="wrap">
 
   <section>
-    <div class="s-head"><div class="s-bar"></div><div class="s-title">Weekly occupancy · 3-year comparison</div></div>
-    <div class="s-note">% of rooms sold out of 78 available, at the same booking date (17/06) each year</div>
+    <div class="s-head"><div class="s-bar"></div><div class="s-title">Current occupancy · 3-year comparison</div></div>
+    <div class="s-note">% of 78 rooms sold, at the latest snapshot (27 Jun) vs the same booking date in prior years</div>
     <div class="card">
       <div class="legend">
         <span><span class="dot" style="background:#C4A97A"></span>2026</span>
@@ -124,180 +101,153 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:30px 0 40px
   </section>
 
   <section>
-    <div class="s-head"><div class="s-bar"></div><div class="s-title">Weekly average room rate (ADR)</div></div>
-    <div class="s-note">€ per room sold — the line shows where price rose or fell versus prior years</div>
+    <div class="s-head"><div class="s-bar"></div><div class="s-title">Consolidated fill curve · occupancy over time</div></div>
+    <div class="s-note">How each week has filled across the three snapshots — rising lines mean active pickup. Each line is a stay week.</div>
     <div class="card">
-      <div class="legend">
-        <span><span class="dot" style="background:#C4A97A"></span>2026</span>
-        <span><span class="dot" style="background:#6B8FAA"></span>2025</span>
-        <span><span class="dot" style="background:#B5AE9C"></span>2024</span>
-      </div>
-      <div class="chart-box"><canvas id="adrChart"></canvas></div>
+      <div class="chart-box"><canvas id="curveChart"></canvas></div>
     </div>
   </section>
 
   <section>
-    <div class="s-head"><div class="s-bar"></div><div class="s-title">Weekly pickup · since last update (17→20 Jun)</div></div>
-    <div class="s-note">Room nights picked up since the previous snapshot (nights only — over short intervals the rate figure is distorted by cancellations/recalculations)</div>
+    <div class="s-head"><div class="s-bar"></div><div class="s-title">Weekly pickup · last 7 days (20→27 Jun)</div></div>
+    <div class="s-note">Room nights picked up in the last interval, by week</div>
     <div class="card">
-      <div class="legend">
-        <span><span class="dot" style="background:#1D9E75"></span>Nights picked up</span>
-        <span><span class="dot" style="background:#6B8FAA"></span></span>
-        <span><span class="dot" style="background:#C4A97A;border-radius:50%"></span></span>
-      </div>
-      <div class="chart-box"><canvas id="paceChart"></canvas></div>
+      <div class="chart-box"><canvas id="pickupChart"></canvas></div>
     </div>
   </section>
 
   <section>
     <div class="s-head"><div class="s-bar"></div><div class="s-title">Week-by-week action map</div></div>
-    <div class="s-note">Each card: current occupancy, comparison with 2025, price, and recommended action. The dark notch on the bar marks 2025 occupancy.</div>
+    <div class="s-note">Each card: current occupancy, comparison with 2025, price, the fill history, and the latest pickup. Dark notch on the bar = 2025 occupancy.</div>
     <div class="weeks" id="weeks"></div>
   </section>
 
   <section>
-    <div class="s-head"><div class="s-bar"></div><div class="s-title">The three strategies</div></div>
-    <div class="strat">
-      <div class="strat-row">
-        <div class="strat-k"><span class="kdot" style="background:var(--green)"></span>Raise the price</div>
-        <div class="strat-v"><b>21-27 June · 19-25 July · 2-8 August.</b> Weeks that are full or nearly full (high occupancy, above 2025) but with ADR down versus a year ago. They fill up regardless: you are leaving margin on the table. Push rates up on the remaining rooms.
-        <div class="tabline">Signal: occupancy ≥ last year + price below last year</div></div>
-      </div>
-      <div class="strat-row">
-        <div class="strat-k"><span class="kdot" style="background:var(--blue)"></span>Stay the course</div>
-        <div class="strat-v"><b>28 Jun-4 Jul · 5-11 July · 9-15 August.</b> Working well as is: rising price and solid incoming demand. On the mid-August peak (9-15 Aug) bookings come in at €261 — push the price and apply minimum-stay, but don't change the approach.
-        <div class="tabline">Signal: rising price + healthy pace</div></div>
-      </div>
-      <div class="strat-row">
-        <div class="strat-k"><span class="kdot" style="background:var(--amber)"></span>Generate demand</div>
-        <div class="strat-v"><b>26 Jul-1 August.</b> The emptiest week (20%) with a slow pace. Work it on volume — packages, promotions, direct-channel push — before the date approaches.
-        <div class="tabline">Signal: low occupancy + slow pace</div></div>
-      </div>
-      <div class="strat-row">
-        <div class="strat-k"><span class="kdot" style="background:var(--red)"></span>Watch closely</div>
-        <div class="strat-v"><b>16-22 August.</b> The only week below 2025 (-10 points), with a very slow pace — but incoming bookings pay €283, the highest rate of all. The high price is holding back volume: decide whether the post-peak tail is worth more at full price with few rooms, or with a targeted offer that unlocks occupancy.
-        <div class="tabline">Signal: occupancy below last year + very high price + slow pace</div></div>
-      </div>
-    </div>
+    <div class="s-head"><div class="s-bar"></div><div class="s-title">Strategy notes</div></div>
+    <div class="strat" id="strat"></div>
   </section>
 
 </div>
-
-<footer>Data: Ericsoft Pick-up Analysis · Savoia Mountain Resort · room rate (Retta) only · 78 rooms</footer>
+<footer>Data: Ericsoft Pick-up Analysis · Savoia Mountain Resort · room rate (Retta) only · 78 rooms · snapshots 17/20/27 Jun 2026</footer>
 
 <script>
-const DATA = [{"week": "21-27 Jun", "avail": 546, "2026": {"r": 29079, "n": 202, "occ": 37.0, "adr": 144}, "2025": {"r": 27253, "n": 171, "occ": 31.3, "adr": 159}, "2024": {"r": 9849, "n": 80, "occ": 14.7, "adr": 123}, "pickup7": {"dn": 12, "prev_n": 190}}, {"week": "28Jun-04Jul", "avail": 546, "2026": {"r": 25375, "n": 156, "occ": 28.6, "adr": 163}, "2025": {"r": 15770, "n": 101, "occ": 18.5, "adr": 156}, "2024": {"r": 16861, "n": 112, "occ": 20.5, "adr": 151}, "pickup7": {"dn": 9, "prev_n": 147}}, {"week": "05-11 Jul", "avail": 546, "2026": {"r": 29322, "n": 157, "occ": 28.8, "adr": 187}, "2025": {"r": 17315, "n": 122, "occ": 22.3, "adr": 142}, "2024": {"r": 10745, "n": 84, "occ": 15.4, "adr": 128}, "pickup7": {"dn": 2, "prev_n": 155}}, {"week": "12-18 Jul", "avail": 546, "2026": {"r": 30186, "n": 182, "occ": 33.3, "adr": 166}, "2025": {"r": 25173, "n": 139, "occ": 25.5, "adr": 181}, "2024": {"r": 20655, "n": 133, "occ": 24.4, "adr": 155}, "pickup7": {"dn": 2, "prev_n": 180}}, {"week": "19-25 Jul", "avail": 546, "2026": {"r": 39590, "n": 217, "occ": 39.7, "adr": 182}, "2025": {"r": 30828, "n": 158, "occ": 28.9, "adr": 195}, "2024": {"r": 13603, "n": 81, "occ": 14.8, "adr": 168}, "pickup7": {"dn": 0, "prev_n": 217}}, {"week": "26Jul-01Aug", "avail": 546, "2026": {"r": 19387, "n": 112, "occ": 20.5, "adr": 173}, "2025": {"r": 12855, "n": 77, "occ": 14.1, "adr": 167}, "2024": {"r": 15007, "n": 97, "occ": 17.8, "adr": 155}, "pickup7": {"dn": 0, "prev_n": 112}}, {"week": "02-08 Aug", "avail": 546, "2026": {"r": 40031, "n": 227, "occ": 41.6, "adr": 176}, "2025": {"r": 36320, "n": 196, "occ": 35.9, "adr": 185}, "2024": {"r": 12026, "n": 71, "occ": 13.0, "adr": 169}, "pickup7": {"dn": 10, "prev_n": 217}}, {"week": "09-15 Aug", "avail": 546, "2026": {"r": 39956, "n": 173, "occ": 31.7, "adr": 231}, "2025": {"r": 28809, "n": 143, "occ": 26.2, "adr": 201}, "2024": {"r": 14270, "n": 69, "occ": 12.6, "adr": 207}, "pickup7": {"dn": 3, "prev_n": 170}}, {"week": "16-22 Aug", "avail": 546, "2026": {"r": 24691, "n": 105, "occ": 19.2, "adr": 235}, "2025": {"r": 30239, "n": 157, "occ": 28.8, "adr": 193}, "2024": {"r": 17372, "n": 88, "occ": 16.1, "adr": 197}, "pickup7": {"dn": 4, "prev_n": 101}}, {"week": "23-29 Aug", "avail": 546, "2026": {"r": 30028, "n": 136, "occ": 24.9, "adr": 221}, "2025": {"r": 16542, "n": 90, "occ": 16.5, "adr": 184}, "2024": {"r": 8224, "n": 61, "occ": 11.2, "adr": 135}, "pickup7": {"dn": 8, "prev_n": 128}}, {"week": "30Aug-05Sep", "avail": 546, "2026": {"r": 8147, "n": 56, "occ": 10.3, "adr": 145}, "2025": {"r": 3780, "n": 27, "occ": 4.9, "adr": 140}, "2024": {"r": 4847, "n": 49, "occ": 9.0, "adr": 99}, "pickup7": {"dn": null, "prev_n": null}}];
-
+const DATA = [{"week": "21-27 Jun", "avail": 546, "snaps": [{"date": "17 Jun", "2026": {"n": 190, "occ": 34.8, "adr": 157, "r": 29790}, "2025": {"n": 147, "occ": 26.9, "adr": 173}, "2024": {"n": 57, "occ": 10.4, "adr": 146}}, {"date": "20 Jun", "2026": {"n": 202, "occ": 37.0, "adr": 144, "r": 29079}, "2025": {"n": 171, "occ": 31.3, "adr": 159}, "2024": {"n": 80, "occ": 14.7, "adr": 123}}, {"date": "27 Jun", "2026": {"n": 291, "occ": 53.3, "adr": 167, "r": 48544}, "2025": {"n": 226, "occ": 41.4, "adr": 177}, "2024": {"n": 122, "occ": 22.3, "adr": 130}}], "cur": {"date": "27 Jun", "2026": {"n": 291, "occ": 53.3, "adr": 167, "r": 48544}, "2025": {"n": 226, "occ": 41.4, "adr": 177}, "2024": {"n": 122, "occ": 22.3, "adr": 130}}, "wk_pickup": {"dn": 89}}, {"week": "28Jun-04Jul", "avail": 546, "snaps": [{"date": "17 Jun", "2026": {"n": 147, "occ": 26.9, "adr": 179, "r": 26317}, "2025": {"n": 99, "occ": 18.1, "adr": 172}, "2024": {"n": 105, "occ": 19.2, "adr": 171}}, {"date": "20 Jun", "2026": {"n": 156, "occ": 28.6, "adr": 163, "r": 25375}, "2025": {"n": 101, "occ": 18.5, "adr": 156}, "2024": {"n": 112, "occ": 20.5, "adr": 151}}, {"date": "27 Jun", "2026": {"n": 189, "occ": 34.6, "adr": 181, "r": 34227}, "2025": {"n": 135, "occ": 24.7, "adr": 171}, "2024": {"n": 152, "occ": 27.8, "adr": 154}}], "cur": {"date": "27 Jun", "2026": {"n": 189, "occ": 34.6, "adr": 181, "r": 34227}, "2025": {"n": 135, "occ": 24.7, "adr": 171}, "2024": {"n": 152, "occ": 27.8, "adr": 154}}, "wk_pickup": {"dn": 33}}, {"week": "05-11 Jul", "avail": 546, "snaps": [{"date": "17 Jun", "2026": {"n": 155, "occ": 28.4, "adr": 206, "r": 31990}, "2025": {"n": 116, "occ": 21.2, "adr": 151}, "2024": {"n": 76, "occ": 13.9, "adr": 144}}, {"date": "20 Jun", "2026": {"n": 157, "occ": 28.8, "adr": 187, "r": 29322}, "2025": {"n": 122, "occ": 22.3, "adr": 142}, "2024": {"n": 84, "occ": 15.4, "adr": 128}}, {"date": "27 Jun", "2026": {"n": 167, "occ": 30.6, "adr": 201, "r": 33487}, "2025": {"n": 140, "occ": 25.6, "adr": 164}, "2024": {"n": 103, "occ": 18.9, "adr": 135}}], "cur": {"date": "27 Jun", "2026": {"n": 167, "occ": 30.6, "adr": 201, "r": 33487}, "2025": {"n": 140, "occ": 25.6, "adr": 164}, "2024": {"n": 103, "occ": 18.9, "adr": 135}}, "wk_pickup": {"dn": 10}}, {"week": "12-18 Jul", "avail": 546, "snaps": [{"date": "17 Jun", "2026": {"n": 180, "occ": 33.0, "adr": 183, "r": 32856}, "2025": {"n": 136, "occ": 24.9, "adr": 199}, "2024": {"n": 130, "occ": 23.8, "adr": 172}}, {"date": "20 Jun", "2026": {"n": 182, "occ": 33.3, "adr": 166, "r": 30186}, "2025": {"n": 139, "occ": 25.5, "adr": 181}, "2024": {"n": 133, "occ": 24.4, "adr": 155}}, {"date": "27 Jun", "2026": {"n": 184, "occ": 33.7, "adr": 173, "r": 31915}, "2025": {"n": 157, "occ": 28.8, "adr": 199}, "2024": {"n": 153, "occ": 28.0, "adr": 162}}], "cur": {"date": "27 Jun", "2026": {"n": 184, "occ": 33.7, "adr": 173, "r": 31915}, "2025": {"n": 157, "occ": 28.8, "adr": 199}, "2024": {"n": 153, "occ": 28.0, "adr": 162}}, "wk_pickup": {"dn": 2}}, {"week": "19-25 Jul", "avail": 546, "snaps": [{"date": "17 Jun", "2026": {"n": 217, "occ": 39.7, "adr": 201, "r": 43550}, "2025": {"n": 158, "occ": 28.9, "adr": 215}, "2024": {"n": 80, "occ": 14.7, "adr": 184}}, {"date": "20 Jun", "2026": {"n": 217, "occ": 39.7, "adr": 182, "r": 39590}, "2025": {"n": 158, "occ": 28.9, "adr": 195}, "2024": {"n": 81, "occ": 14.8, "adr": 168}}, {"date": "27 Jun", "2026": {"n": 233, "occ": 42.7, "adr": 207, "r": 48209}, "2025": {"n": 173, "occ": 31.7, "adr": 213}, "2024": {"n": 93, "occ": 17.0, "adr": 179}}], "cur": {"date": "27 Jun", "2026": {"n": 233, "occ": 42.7, "adr": 207, "r": 48209}, "2025": {"n": 173, "occ": 31.7, "adr": 213}, "2024": {"n": 93, "occ": 17.0, "adr": 179}}, "wk_pickup": {"dn": 16}}, {"week": "26Jul-01Aug", "avail": 546, "snaps": [{"date": "17 Jun", "2026": {"n": 112, "occ": 20.5, "adr": 190, "r": 21326}, "2025": {"n": 76, "occ": 13.9, "adr": 183}, "2024": {"n": 85, "occ": 15.6, "adr": 180}}, {"date": "20 Jun", "2026": {"n": 112, "occ": 20.5, "adr": 173, "r": 19387}, "2025": {"n": 77, "occ": 14.1, "adr": 167}, "2024": {"n": 97, "occ": 17.8, "adr": 155}}, {"date": "27 Jun", "2026": {"n": 122, "occ": 22.3, "adr": 213, "r": 25980}, "2025": {"n": 78, "occ": 14.3, "adr": 183}, "2024": {"n": 112, "occ": 20.5, "adr": 162}}], "cur": {"date": "27 Jun", "2026": {"n": 122, "occ": 22.3, "adr": 213, "r": 25980}, "2025": {"n": 78, "occ": 14.3, "adr": 183}, "2024": {"n": 112, "occ": 20.5, "adr": 162}}, "wk_pickup": {"dn": 10}}, {"week": "02-08 Aug", "avail": 546, "snaps": [{"date": "17 Jun", "2026": {"n": 217, "occ": 39.7, "adr": 194, "r": 42133}, "2025": {"n": 188, "occ": 34.4, "adr": 203}, "2024": {"n": 63, "occ": 11.5, "adr": 164}}, {"date": "20 Jun", "2026": {"n": 227, "occ": 41.6, "adr": 176, "r": 40031}, "2025": {"n": 196, "occ": 35.9, "adr": 185}, "2024": {"n": 71, "occ": 13.0, "adr": 169}}, {"date": "27 Jun", "2026": {"n": 251, "occ": 46.0, "adr": 196, "r": 49086}, "2025": {"n": 202, "occ": 37.0, "adr": 204}, "2024": {"n": 71, "occ": 13.0, "adr": 186}}], "cur": {"date": "27 Jun", "2026": {"n": 251, "occ": 46.0, "adr": 196, "r": 49086}, "2025": {"n": 202, "occ": 37.0, "adr": 204}, "2024": {"n": 71, "occ": 13.0, "adr": 186}}, "wk_pickup": {"dn": 24}}, {"week": "09-15 Aug", "avail": 546, "snaps": [{"date": "17 Jun", "2026": {"n": 170, "occ": 31.1, "adr": 254, "r": 43135}, "2025": {"n": 139, "occ": 25.5, "adr": 222}, "2024": {"n": 61, "occ": 11.2, "adr": 206}}, {"date": "20 Jun", "2026": {"n": 173, "occ": 31.7, "adr": 231, "r": 39956}, "2025": {"n": 143, "occ": 26.2, "adr": 201}, "2024": {"n": 69, "occ": 12.6, "adr": 207}}, {"date": "27 Jun", "2026": {"n": 190, "occ": 34.8, "adr": 255, "r": 48526}, "2025": {"n": 157, "occ": 28.8, "adr": 231}, "2024": {"n": 78, "occ": 14.3, "adr": 221}}], "cur": {"date": "27 Jun", "2026": {"n": 190, "occ": 34.8, "adr": 255, "r": 48526}, "2025": {"n": 157, "occ": 28.8, "adr": 231}, "2024": {"n": 78, "occ": 14.3, "adr": 221}}, "wk_pickup": {"dn": 17}}, {"week": "16-22 Aug", "avail": 546, "snaps": [{"date": "17 Jun", "2026": {"n": 101, "occ": 18.5, "adr": 261, "r": 26337}, "2025": {"n": 153, "occ": 28.0, "adr": 213}, "2024": {"n": 81, "occ": 14.8, "adr": 200}}, {"date": "20 Jun", "2026": {"n": 105, "occ": 19.2, "adr": 235, "r": 24691}, "2025": {"n": 157, "occ": 28.8, "adr": 193}, "2024": {"n": 88, "occ": 16.1, "adr": 197}}, {"date": "27 Jun", "2026": {"n": 120, "occ": 22.0, "adr": 252, "r": 30264}, "2025": {"n": 178, "occ": 32.6, "adr": 217}, "2024": {"n": 89, "occ": 16.3, "adr": 216}}], "cur": {"date": "27 Jun", "2026": {"n": 120, "occ": 22.0, "adr": 252, "r": 30264}, "2025": {"n": 178, "occ": 32.6, "adr": 217}, "2024": {"n": 89, "occ": 16.3, "adr": 216}}, "wk_pickup": {"dn": 15}}, {"week": "23-29 Aug", "avail": 546, "snaps": [{"date": "17 Jun", "2026": {"n": 128, "occ": 23.4, "adr": 250, "r": 31942}, "2025": {"n": 90, "occ": 16.5, "adr": 202}, "2024": {"n": 59, "occ": 10.8, "adr": 147}}, {"date": "20 Jun", "2026": {"n": 136, "occ": 24.9, "adr": 221, "r": 30028}, "2025": {"n": 90, "occ": 16.5, "adr": 184}, "2024": {"n": 61, "occ": 11.2, "adr": 135}}, {"date": "27 Jun", "2026": {"n": 145, "occ": 26.6, "adr": 243, "r": 35269}, "2025": {"n": 97, "occ": 17.8, "adr": 199}, "2024": {"n": 61, "occ": 11.2, "adr": 148}}], "cur": {"date": "27 Jun", "2026": {"n": 145, "occ": 26.6, "adr": 243, "r": 35269}, "2025": {"n": 97, "occ": 17.8, "adr": 199}, "2024": {"n": 61, "occ": 11.2, "adr": 148}}, "wk_pickup": {"dn": 9}}, {"week": "30Aug-05Sep", "avail": 546, "snaps": [null, {"date": "20 Jun", "2026": {"n": 56, "occ": 10.3, "adr": 145, "r": 8147}, "2025": {"n": 27, "occ": 4.9, "adr": 140}, "2024": {"n": 49, "occ": 9.0, "adr": 99}}, {"date": "27 Jun", "2026": {"n": 56, "occ": 10.3, "adr": 160, "r": 8962}, "2025": {"n": 27, "occ": 4.9, "adr": 154}, "2024": {"n": 49, "occ": 9.0, "adr": 109}}], "cur": {"date": "27 Jun", "2026": {"n": 56, "occ": 10.3, "adr": 160, "r": 8962}, "2025": {"n": 27, "occ": 4.9, "adr": 154}, "2024": {"n": 49, "occ": 9.0, "adr": 109}}, "wk_pickup": {"dn": 0}}];
 const C26='#C4A97A', C25='#6B8FAA', C24='#B5AE9C';
 const labels = DATA.map(d=>d.week);
+const SNAPS = ['17 Jun','20 Jun','27 Jun'];
 
-// ── Summary strip ──
-const sum = {26:{n:0,r:0},25:{n:0,r:0}};
-DATA.forEach(d=>{ sum[26].n+=d['2026'].n; sum[26].r+=d['2026'].r; sum[25].n+=d['2025'].n; sum[25].r+=d['2025'].r; });
-const availTot = DATA.reduce((a,d)=>a+d.avail,0);
-const occ26=(sum[26].n/availTot*100), occ25=(sum[25].n/availTot*100);
-const adr26=sum[26].r/sum[26].n, adr25=sum[25].r/sum[25].n;
-const pickupTot = DATA.reduce((a,d)=>a+(d.pickup7.dn||0),0);
-
-function arrow(v){return v>0?'▲':'▼';}
-const strip = [
-  {l:'Average occupancy',v:occ26.toFixed(1)+'%',d:`${arrow(occ26-occ25)} ${Math.abs(occ26-occ25).toFixed(1)}pp vs 2025`,up:occ26>=occ25},
-  {l:'Average ADR (Retta)',v:'€'+adr26.toFixed(0),d:`${arrow(adr26-adr25)} ${(Math.abs(adr26-adr25)/adr25*100).toFixed(1)}% vs 2025`,up:adr26>=adr25},
-  {l:'Nights sold',v:sum[26].n.toLocaleString('en-US'),d:`${arrow(sum[26].n-sum[25].n)} ${((sum[26].n/sum[25].n-1)*100).toFixed(0)}% vs 2025`,up:sum[26].n>=sum[25].n},
-  {l:'Pickup since 17 Jun',v:'+'+pickupTot+' nights',d:'over 3 days · nights only',up:true},
+// Summary strip — based on latest snapshot
+let sumN26=0,sumN25=0,sumR26=0,sumR25=0,availTot=0,pickupTot=0;
+DATA.forEach(d=>{
+  const c=d.cur;
+  sumN26+=c['2026'].n; sumN25+=c['2025'].n; sumR26+=c['2026'].r||0;
+  sumR25+= (c['2025'].adr*c['2025'].n)||0;
+  availTot+=d.avail;
+  pickupTot+=(d.wk_pickup.dn||0);
+});
+const occ26=sumN26/availTot*100, occ25=sumN25/availTot*100;
+const adr26=sumR26/sumN26;
+function arr(v){return v>0?'▲':'▼';}
+const strip=[
+  {l:'Avg occupancy',v:occ26.toFixed(1)+'%',d:`${arr(occ26-occ25)} ${Math.abs(occ26-occ25).toFixed(1)}pp vs 2025`,up:occ26>=occ25},
+  {l:'Avg ADR (Retta)',v:'€'+adr26.toFixed(0),d:'latest snapshot',up:true},
+  {l:'Nights sold',v:sumN26.toLocaleString('en-US'),d:`${arr(sumN26-sumN25)} ${((sumN26/sumN25-1)*100).toFixed(0)}% vs 2025`,up:sumN26>=sumN25},
+  {l:'Pickup last 7 days',v:'+'+pickupTot+' nights',d:'20→27 Jun',up:true},
 ];
-document.getElementById('strip').innerHTML = strip.map(s=>`
-  <div class="strip-c">
-    <div class="strip-l">${s.l}</div>
-    <div class="strip-v">${s.v}</div>
-    <div class="strip-d ${s.up?'up':'down'}">${s.d}</div>
-  </div>`).join('');
+document.getElementById('strip').innerHTML=strip.map(s=>`<div class="strip-c"><div class="strip-l">${s.l}</div><div class="strip-v">${s.v}</div><div class="strip-d ${s.up?'up':'down'}">${s.d}</div></div>`).join('');
 
-// ── Chart defaults ──
 Chart.defaults.font.family="'Jost',sans-serif";
 Chart.defaults.font.size=11;
 Chart.defaults.color='#8A8A72';
 const grid='rgba(0,0,0,.06)';
 
-// Occupancy chart
+// Occupancy chart (latest)
 new Chart(document.getElementById('occChart'),{
   type:'bar',
   data:{labels,datasets:[
-    {label:'2026',data:DATA.map(d=>d['2026'].occ),backgroundColor:C26,borderRadius:4},
-    {label:'2025',data:DATA.map(d=>d['2025'].occ),backgroundColor:C25,borderRadius:4},
-    {label:'2024',data:DATA.map(d=>d['2024'].occ),backgroundColor:C24,borderRadius:4},
+    {label:'2026',data:DATA.map(d=>d.cur['2026'].occ),backgroundColor:C26,borderRadius:4},
+    {label:'2025',data:DATA.map(d=>d.cur['2025'].occ),backgroundColor:C25,borderRadius:4},
+    {label:'2024',data:DATA.map(d=>d.cur['2024'].occ),backgroundColor:C24,borderRadius:4},
   ]},
   options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toFixed(1)+'%'}}},
     scales:{x:{grid:{display:false}},y:{grid:{color:grid},ticks:{callback:v=>v+'%'},title:{display:true,text:'Occupancy %'}}}}
 });
 
-// ADR chart
-new Chart(document.getElementById('adrChart'),{
+// Consolidated fill curve — one line per week, x = snapshots
+const weekColors=['#C4A97A','#B5905A','#6B8FAA','#4A7FB5','#1D9E75','#22A06B','#E0A030','#D98030','#D4574A','#B5443A','#7B61FF'];
+new Chart(document.getElementById('curveChart'),{
   type:'line',
-  data:{labels,datasets:[
-    {label:'2026',data:DATA.map(d=>d['2026'].adr),borderColor:C26,backgroundColor:C26,borderWidth:3,pointRadius:4,pointBackgroundColor:C26,tension:.3},
-    {label:'2025',data:DATA.map(d=>d['2025'].adr),borderColor:C25,backgroundColor:C25,borderWidth:2,pointRadius:3,tension:.3},
-    {label:'2024',data:DATA.map(d=>d['2024'].adr),borderColor:C24,backgroundColor:C24,borderWidth:2,pointRadius:3,borderDash:[5,4],tension:.3},
-  ]},
-  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+': €'+c.raw.toFixed(0)}}},
-    scales:{x:{grid:{display:false}},y:{grid:{color:grid},ticks:{callback:v=>'€'+v},title:{display:true,text:'ADR Retta (€)'}}}}
+  data:{labels:SNAPS,datasets:DATA.map((d,i)=>({
+    label:d.week,
+    data:d.snaps.map(s=>s?s['2026'].occ:null),
+    borderColor:weekColors[i%weekColors.length],
+    backgroundColor:weekColors[i%weekColors.length],
+    borderWidth:2,pointRadius:3,tension:.25,spanGaps:true
+  }))},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',intersect:false},
+    plugins:{legend:{display:true,position:'right',labels:{font:{size:10},boxWidth:8,usePointStyle:true,pointStyle:'circle'}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.raw!==null?c.raw.toFixed(0)+'%':'—')}}},
+    scales:{x:{grid:{display:false},title:{display:true,text:'Snapshot'}},
+      y:{grid:{color:grid},ticks:{callback:v=>v+'%'},title:{display:true,text:'Occupancy %'},beginAtZero:true}}}
 });
 
-// Pace chart (bars = nights in, line = entry ADR)
-new Chart(document.getElementById('paceChart'),{
+// Weekly pickup bar
+new Chart(document.getElementById('pickupChart'),{
   type:'bar',
-  data:{labels,datasets:[
-    {label:'Nights picked up',data:DATA.map(d=>d.pickup7.dn),backgroundColor:'#1D9E75',borderRadius:4},
-  ]},
+  data:{labels,datasets:[{label:'Nights picked up',data:DATA.map(d=>d.wk_pickup.dn),backgroundColor:'#1D9E75',borderRadius:4}]},
   options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw===null?'new week (no prior)':'+'+c.raw+' nights'}}},
-    scales:{x:{grid:{display:false}},
-      y:{grid:{color:grid},title:{display:true,text:'Nights picked up'},beginAtZero:true}}}
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw===null?'new week':'+'+c.raw+' nights'}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:grid},title:{display:true,text:'Nights picked up (7d)'},beginAtZero:true}}}
 });
 
-// ── Weekly cards ──
+// Strategy classifier
 function strategy(d){
-  const o26=d['2026'].occ, o25=d['2025'].occ, a26=d['2026'].adr, a25=d['2025'].adr, pace=d.pickup7.dn||0;
-  // Watch: below last year + slow pickup
-  if(o26 < o25 - 3 && pace < 5) return {tag:'Watch',cls:'tag-watch'};
-  // Raise: high occ (>=last year) but ADR down
-  if(o26 >= o25 && a26 < a25 - 4 && o26 >= 28) return {tag:'Raise price',cls:'tag-raise'};
-  // Push: low occupancy
+  const o26=d.cur['2026'].occ,o25=d.cur['2025'].occ,a26=d.cur['2026'].adr,a25=d.cur['2025'].adr,pk=d.wk_pickup.dn||0;
+  if(o26 < o25 - 3) return {tag:'Watch',cls:'tag-watch'};
+  if(o26 >= o25 && a26 < a25 - 4 && o26 >= 30) return {tag:'Raise price',cls:'tag-raise'};
   if(o26 < 23) return {tag:'Generate demand',cls:'tag-push'};
-  // Hold otherwise
   return {tag:'Stay course',cls:'tag-hold'};
 }
-function occColor(o26,o25){ return o26>=o25 ? '#1D9E75' : '#D4574A'; }
 
+// Week cards
+const maxPickup=Math.max(...DATA.map(d=>d.wk_pickup.dn||0));
 document.getElementById('weeks').innerHTML = DATA.map(d=>{
-  const o26=d['2026'].occ, o25=d['2025'].occ, a26=d['2026'].adr, a25=d['2025'].adr;
-  const s=strategy(d);
-  const vsOcc=o26-o25, vsAdr=a26-a25;
-  const pace=d.pickup7;
-  const fillW=Math.min(o26,100);
-  const prevPos=Math.min(o25,100);
-  return `
-  <div class="wk">
-    <div class="wk-top">
-      <div class="wk-name">${d.week}</div>
-      <div class="wk-tag ${s.cls}">${s.tag}</div>
-    </div>
+  const c=d.cur, o26=c['2026'].occ,o25=c['2025'].occ,a26=c['2026'].adr,a25=c['2025'].adr;
+  const s=strategy(d), vsOcc=o26-o25, vsAdr=a26-a25;
+  const occColor=o26>=o25?'#1D9E75':'#D4574A';
+  // sparkline rows: occupancy at each snapshot
+  const maxOcc=Math.max(...d.snaps.filter(x=>x).map(x=>x['2026'].occ));
+  const sparkRows=d.snaps.map((sn,i)=>{
+    if(!sn) return '';
+    const w=maxOcc?(sn['2026'].occ/maxOcc*100):0;
+    return `<div class="spark-row"><span class="spark-d">${SNAPS[i]}</span><div class="spark-bar" style="width:${Math.max(w,3)}%"></div><span class="spark-v">${sn['2026'].occ.toFixed(0)}%</span></div>`;
+  }).join('');
+  const pk=d.wk_pickup.dn;
+  return `<div class="wk">
+    <div class="wk-top"><div class="wk-name">${d.week}</div><div class="wk-tag ${s.cls}">${s.tag}</div></div>
     <div class="wk-body">
       <div class="wk-occ"><div class="wk-occ-v">${o26.toFixed(0)}%</div><div class="wk-occ-l">occupied</div></div>
       <div class="wk-vs" style="color:${vsOcc>=0?'var(--green)':'var(--red)'}">${vsOcc>=0?'▲':'▼'} ${Math.abs(vsOcc).toFixed(1)}pp vs 2025</div>
-      <div class="bar-track">
-        <div class="bar-fill" style="width:${fillW}%;background:${occColor(o26,o25)}"></div>
-        <div class="bar-prev" style="left:${prevPos}%"></div>
-      </div>
-      <div class="wk-row"><span class="lab">ADR (Retta)</span><span class="val">€${a26.toFixed(0)} <span style="color:${vsAdr>=0?'var(--green)':'var(--red)'};font-size:11px">(${vsAdr>=0?'+':''}${vsAdr.toFixed(0)})</span></span></div>
-      <div class="wk-row"><span class="lab">Nights sold</span><span class="val">${d['2026'].n} / ${d.avail}</span></div>
-      <div class="wk-pace">${pace.dn===null?'New week in monitoring':'Since 17 Jun: <b>+'+pace.dn+' nights</b> (from '+pace.prev_n+')'}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.min(o26,100)}%;background:${occColor}"></div><div class="bar-prev" style="left:${Math.min(o25,100)}%"></div></div>
+      <div class="wk-row"><span class="lab">ADR (Retta)</span><span class="val">€${a26} <span style="color:${vsAdr>=0?'var(--green)':'var(--red)'};font-size:11px">(${vsAdr>=0?'+':''}${vsAdr})</span></span></div>
+      <div class="wk-row"><span class="lab">Nights sold</span><span class="val">${c['2026'].n} / ${d.avail}</span></div>
+      <div class="spark"><div class="spark-h">Fill curve</div>${sparkRows}</div>
+      <div class="wk-pickup">${pk===null?'New week in monitoring':'Last 7 days: +'+pk+' nights'}</div>
     </div>
   </div>`;
 }).join('');
-</script>
 
+// Strategy notes (auto-grouped)
+const groups={raise:[],hold:[],push:[],watch:[]};
+DATA.forEach(d=>{const t=strategy(d).tag;if(t==='Raise price')groups.raise.push(d.week);else if(t==='Generate demand')groups.push.push(d.week);else if(t==='Watch')groups.watch.push(d.week);else groups.hold.push(d.week);});
+const stratHTML=[
+  {k:'Raise the price',c:'var(--green)',list:groups.raise,txt:'High or rising occupancy (at/above 2025) with room to push rate. Pickup is still strong — raise rates on remaining rooms.'},
+  {k:'Stay the course',c:'var(--blue)',list:groups.hold,txt:'Working well: solid pace and healthy price. On the mid-August peak, push price and apply minimum-stay.'},
+  {k:'Generate demand',c:'var(--amber)',list:groups.push,txt:'Lower occupancy — work on volume with packages and promotions before the date approaches.'},
+  {k:'Watch closely',c:'var(--red)',list:groups.watch,txt:'Below 2025 at the same point. Monitor closely; if it does not recover, a targeted offer may be needed to unlock occupancy.'},
+].filter(g=>g.list.length);
+document.getElementById('strat').innerHTML=stratHTML.map(g=>`<div class="strat-row"><div class="strat-k"><span class="kdot" style="background:${g.c}"></span>${g.k}</div><div class="strat-v"><b>${g.list.join(' · ')||'—'}.</b> ${g.txt}</div></div>`).join('');
+</script>
 </body>
 </html>
