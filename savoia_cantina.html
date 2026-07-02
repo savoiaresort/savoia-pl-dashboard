@@ -395,80 +395,57 @@ const WINES = [
 ];
 
 const SALES_RAW = [
-  {desc:"PROSECCO SAVOIA CALICE",camera:"Bar",qty:6,tot:42,wid:141},
-  {desc:"LANGHE CHARDONNAY LE RONDINI",camera:"102",qty:1,tot:30,wid:null},
-  {desc:"SAMMARCELLO PIGNATELLO IGP",camera:"119",qty:1,tot:25,wid:null},
-  {desc:"SOMMO LANGHE ARNEIS DOC",camera:"119",qty:1,tot:20,wid:138},
-  {desc:"ARVEJA LANGHE ARNEIS DOC",camera:"120",qty:1,tot:36,wid:34},
-  {desc:"VITO PRIMITIVO",camera:"122",qty:1,tot:32,wid:111},
-  {desc:"VITO PRIMITIVO",camera:"124",qty:1,tot:32,wid:111},
-  {desc:"GREPPO DI SOTTO SANGIOVESE DOC",camera:"126",qty:1,tot:65,wid:60},
-
-
-
-  {desc:"ROSE CUVE",camera:"130",qty:1,tot:20,wid:140},
-  {desc:"LANGHE ARNEIS LE RONDINI",camera:"201",qty:1,tot:30,wid:null},
-
-
-  {desc:"LUGANA I FRATI 375ML",camera:"204",qty:1,tot:20,wid:48},
-  {desc:"VALDOBBIADENE SUPERIORE DOCG",camera:"205",qty:2,tot:60,wid:14},
-  {desc:"ALTA LANGA EXTRA BRUT FONTANABIANCA",camera:"206",qty:1,tot:35,wid:127},
-  {desc:"ROSA DEI FRATI DOC 750ML",camera:"212",qty:1,tot:32,wid:20},
-
-  {desc:"PROSECCO SAVOIA CALICE",camera:"213",qty:1,tot:7,wid:141},
-  {desc:"ROSA DEI FRATI DOC 375ML",camera:"213",qty:1,tot:20,wid:21},
-  {desc:"ROSSO DI MONTALCINO BIO",camera:"213",qty:1,tot:46,wid:73},
-
-
-  {desc:"AMORMIO BARBERA D'ASTI DOCG",camera:"214",qty:1,tot:36,wid:101},
-  {desc:"ROSA DEI FRATI DOC 750ML",camera:"215",qty:1,tot:32,wid:20},
-  {desc:"ANTHILIA SICILIA DOC",camera:"216",qty:1,tot:32,wid:41},
-
-
-
-  {desc:"PROSECCO SAVOIA CALICE",camera:"218",qty:6,tot:42,wid:141},
-  {desc:"ROSA DEI FRATI DOC 750ML",camera:"218",qty:1,tot:32,wid:20},
-  {desc:"ROSA DEI FRATI DOC 375ML",camera:"218",qty:1,tot:20,wid:21},
-
-  {desc:"BRIC AMEL LANGHE DOC 375ML",camera:"220",qty:1,tot:20,wid:46},
-  {desc:"FRANCIACORTA BRUT DOCG 375ML",camera:"221",qty:1,tot:30,wid:15},
-  {desc:"BARBARESCO DOCG FONTANABIANCA",camera:"222",qty:1,tot:50,wid:124},
-  {desc:"BRIC AMEL LANGHE DOC 375ML",camera:"222",qty:1,tot:20,wid:46},
-  {desc:"CHATEAUNEUF DU PAPE AOC",camera:"222",qty:1,tot:90,wid:55},
-  {desc:"GAVI DOCG 370ML",camera:"222",qty:1,tot:20,wid:47},
-  {desc:"LUGANA I FRATI CA DEI FRATI 750ML",camera:"222",qty:1,tot:34,wid:36},
-  {desc:"NEBBIOLO D'ALBA MICHET 375ML",camera:"222",qty:1,tot:20,wid:116},
-  {desc:"EXTRA DRY ROSE GUERRIERI",camera:"223",qty:1,tot:33,wid:13},
-  {desc:"NEBBIOLO D'ALBA MICHET DOC 750ML",camera:"223",qty:1,tot:40,wid:88},
-  {desc:"PROSECCO SAVOIA CALICE",camera:"223",qty:1,tot:7,wid:141},
-  {desc:"ROSA DEI FRATI DOC 375ML",camera:"223",qty:1,tot:20,wid:21},
-
-  {desc:"GAVI DOCG 370ML",camera:"224",qty:1,tot:20,wid:47},
-  {desc:"RUVEI BARBERA D'ALBA 750ML",camera:"224",qty:1,tot:20,wid:93},
-  {desc:"ALIE ROSE TOSCANA IGT",camera:"227",qty:1,tot:34,wid:19},
-  {desc:"NIRO CABERNET MERLOT E NERO DI TROIA",camera:"227",qty:1,tot:32,wid:109},
-  {desc:"NUDO CANNONAU DI SARDEGNA ROSATO",camera:"227",qty:1,tot:36,wid:17},
-  {desc:"PROSECCO SAVOIA CALICE",camera:"227",qty:2,tot:14,wid:141},
-  {desc:"ROSA DEI FRATI DOC 375ML",camera:"227",qty:1,tot:20,wid:21},
-  {desc:"PINOT BIANCO TOSCANA IGP",camera:"228",qty:1,tot:36,wid:35},
-
-
-
-
-
-
-  {desc:"ASKA BOLGHERI DOC",camera:"231",qty:1,tot:30,wid:130},
-  {desc:"VALPOLICELLA CLASSICO SUPERIORE DOC",camera:"231",qty:1,tot:25,wid:132},
-  {desc:"PROSECCO SAVOIA CALICE",camera:"231",qty:1,tot:7,wid:141},
-  {desc:"PROSECCO SAVOIA CALICE",camera:"232",qty:1,tot:7,wid:141},
-
-  {desc:"GUERRIERO NERO IGT",camera:"233",qty:1,tot:40,wid:87},
-  {desc:"Vino al calice (tutti i calici)",camera:"varie camere",qty:101,tot:844,wid:999},
-  {desc:"CHIANTI SUPERIORE DOCG",camera:"222",qty:1,tot:20,wid:null},
-  {desc:"GEWURZSTRAMINER ALTOLAGO",camera:"222",qty:1,tot:20,wid:137},
-  {desc:"LANGHE ARNEIS LE RONDINI",camera:"224",qty:1,tot:30,wid:null},
-  {desc:"LANGHE ARNEIS LE RONDINI",camera:"231",qty:1,tot:30,wid:null},
-  {desc:"LANGHE CHARDONNAY LE RONDINI",camera:"231",qty:2,tot:60,wid:null},
+  // === BOTTIGLIE (abbinate a inventario) ===
+  {desc:"PROSECCO SAVOIA CALICE",camera:"varie",qty:35,tot:245,wid:141},
+  {desc:"ROSA DEI FRATI DOC (½ bott.)",camera:"varie",qty:15,tot:300,wid:21},
+  {desc:"ROSA DEI FRATI DOC",camera:"varie",qty:6,tot:192,wid:20},
+  {desc:"VINO AL CALICE (tutti i calici)",camera:"varie",qty:140,tot:1164,wid:999},
+  {desc:"VALDOBBIADENE SUPERIORE DOCG Millesimato",camera:"varie",qty:4,tot:120,wid:14},
+  {desc:"LANGHE ARNEIS LE RONDINI (calici)",camera:"varie",qty:32,tot:270,wid:null,isCalice:true},
+  {desc:"LANGHE CHARDONNAY LE RONDINI (calici)",camera:"varie",qty:21,tot:182,wid:null,isCalice:true},
+  {desc:"GEWÜRZTRAMINER",camera:"varie",qty:4,tot:160,wid:27},
+  {desc:"BRIC AMEL LANGHE DOC (½ bott.)",camera:"varie",qty:4,tot:80,wid:46},
+  {desc:"NEBBIOLO D'ALBA 'Michet' DOC",camera:"varie",qty:2,tot:80,wid:88},
+  {desc:"NUDO CANNONAU DI SARDEGNA DOC rosato",camera:"varie",qty:2,tot:72,wid:17},
+  {desc:"LUGANA 'I Frati' DOC",camera:"varie",qty:2,tot:68,wid:36},
+  {desc:"GREPPO DI SOTTO Sangiovese DOC",camera:"varie",qty:1,tot:65,wid:60},
+  {desc:"BAROLO MONFORTE D'ALBA DOCG",camera:"varie",qty:1,tot:65,wid:64},
+  {desc:"CHATEAUNEUF DU PAPE AOC",camera:"varie",qty:1,tot:90,wid:55},
+  {desc:"LUGANA 'I Frati' DOC (½ bott.)",camera:"varie",qty:3,tot:60,wid:48},
+  {desc:"DOLCETTO D'ALBA Madonna del Dono",camera:"varie",qty:2,tot:60,wid:113},
+  {desc:"GAVI DOCG (½ bott.)",camera:"varie",qty:3,tot:60,wid:47},
+  {desc:"BARBARESCO DOCG",camera:"varie",qty:1,tot:50,wid:124},
+  {desc:"ROSSO DI MONTALCINO DOC (Bio)",camera:"varie",qty:1,tot:46,wid:73},
+  {desc:"GEWURZSTRAMINER ALTOLAGO MERLOT",camera:"varie",qty:2,tot:40,wid:137},
+  {desc:"GUERRIERO NERO IGT",camera:"varie",qty:1,tot:40,wid:87},
+  {desc:"LUGANA DOC 'Oasi Mantellina'",camera:"varie",qty:1,tot:36,wid:29},
+  {desc:"ARVEJA LANGHE ARNEIS DOC",camera:"varie",qty:1,tot:36,wid:34},
+  {desc:"AMORMIO BARBERA D'ASTI DOCG",camera:"varie",qty:1,tot:36,wid:101},
+  {desc:"PINOT BIANCO TOSCANA IGP",camera:"varie",qty:1,tot:36,wid:35},
+  {desc:"VALPOLICELLA RIPASSO DOC Corte Giara",camera:"varie",qty:1,tot:35,wid:126},
+  {desc:"NEBBIOLO LANGHE DOC",camera:"varie",qty:1,tot:35,wid:100},
+  {desc:"ALTA LANGA EXTRA BRUT DOCG",camera:"varie",qty:1,tot:35,wid:127},
+  {desc:"RUCHÈ DI CASTAGNOLE MONFERRATO",camera:"varie",qty:1,tot:35,wid:96},
+  {desc:"ALÌE ROSÉ TOSCANA IGT",camera:"varie",qty:1,tot:34,wid:19},
+  {desc:"EXTRA DRY ROSÉ",camera:"varie",qty:1,tot:33,wid:13},
+  {desc:"ANTHILIA SICILIA DOC",camera:"varie",qty:1,tot:32,wid:41},
+  {desc:"FALANGHINA DEL SANNIO",camera:"varie",qty:1,tot:32,wid:39},
+  {desc:"NIRÒ CABERNET MERLOT E NERO DI TROIA",camera:"varie",qty:1,tot:32,wid:109},
+  {desc:"TAURASI DOCG",camera:"varie",qty:1,tot:30,wid:129},
+  {desc:"SOLOSOLE VERMENTINO BOLGHERI",camera:"varie",qty:1,tot:30,wid:128},
+  {desc:"FRANCIACORTA BRUT DOCG (½ bott.)",camera:"varie",qty:1,tot:30,wid:15},
+  {desc:"BOLGHERI ROSSO ASKA DOC",camera:"varie",qty:1,tot:30,wid:130},
+  {desc:"CASTELLO POMINO BIANCO DOC",camera:"varie",qty:1,tot:29,wid:45},
+  {desc:"SAMMARCELLO PIGNATELLO IGP",camera:"varie",qty:1,tot:25,wid:null},
+  {desc:"VALPOLICELLA CLASSICO SUPERIORE DOC",camera:"varie",qty:1,tot:25,wid:132},
+  {desc:"N.ZERO RIESLING ITALICO VNA WINES",camera:"varie",qty:1,tot:25,wid:119},
+  {desc:"FRIULANO DOC",camera:"varie",qty:1,tot:20,wid:135},
+  {desc:"SOMMO LANGHE ARNEIS DOC",camera:"varie",qty:1,tot:20,wid:138},
+  {desc:"ROSÈ CUVÈ",camera:"varie",qty:1,tot:20,wid:140},
+  {desc:"CHIANTI SUPERIORE POGGIO DEL MORO",camera:"varie",qty:1,tot:20,wid:null},
+  {desc:"NEBBIOLO D'ALBA 'Michet' DOC (½ bott.)",camera:"varie",qty:1,tot:20,wid:116},
+  {desc:"RUVEI BARBERA D'ALBA",camera:"varie",qty:1,tot:20,wid:93},
+  {desc:"VITO PRIMITIVO",camera:"varie",qty:2,tot:64,wid:111},
 ];
 
 const CAT_COLORS = {
@@ -600,6 +577,7 @@ function renderInventario() {
   // Calcola metriche globali
   // Per mescita: giac=bottiglie, pv=prezzo calice → valore bottiglia = pv × CALICI_PER_BOTTIGLIA
   let totInv=0, totAcq=0, totBott=0, profTot=0, missingPA=0;
+  let vendBottiglie=0, vendCalici=0;
   WINES.forEach(w=>{
     const isCaliceW = w.formato==='calice'||w.formato==='calice 150ml';
     totInv += w.giac * w.pv * (isCaliceW ? CALICI_PER_BOTTIGLIA : 1);
@@ -610,7 +588,13 @@ function renderInventario() {
     const s = soldMap[w.id]||{qty:0,rev:0};
     if(pa && s.qty>0) profTot += s.rev - s.qty*pa;
     if(!paRaw) missingPA++;
+    if(s.qty>0){
+      if(isCaliceW) vendCalici += s.qty;
+      else vendBottiglie += s.qty;
+    }
   });
+  // Add Le Rondini calici from SALES_RAW (wid:null but isCalice:true)
+  SALES_RAW.forEach(s=>{ if(s.isCalice) vendCalici += s.qty; });
   const totInvNetto = Math.round(totInv / 1.10);
 
   // Calcola % per categoria
@@ -619,7 +603,9 @@ function renderInventario() {
 
   let html = `
   <div class="metrics-strip">
-    <div class="metric-pill"><div class="mp-label">Bottiglie</div><div class="mp-val">${totBott.toLocaleString('it')}</div></div>
+    <div class="metric-pill"><div class="mp-label">Stock bott.</div><div class="mp-val">${totBott.toLocaleString('it')}</div></div>
+    <div class="metric-pill"><div class="mp-label">Bott. vendute</div><div class="mp-val">${Math.round(vendBottiglie)}</div></div>
+    <div class="metric-pill"><div class="mp-label">Calici vend.</div><div class="mp-val">${vendCalici} (${Math.round(vendCalici/CALICI_PER_BOTTIGLIA)}bt)</div></div>
     <div class="metric-pill"><div class="mp-label">Stock vendita</div><div class="mp-val gold">€${Math.round(totInv/1000)}k</div></div>
     <div class="metric-pill"><div class="mp-label">Stock netto -IVA</div><div class="mp-val gold">€${Math.round(totInvNetto/1000)}k</div></div>
     <div class="metric-pill" title="Valore parziale: ${missingPA} vini senza PA"><div class="mp-label">Stock acquisto${missingPA>0?' ⚠':''}</div><div class="mp-val amber">€${Math.round(totAcq/1000)}k${missingPA>0?'<span style="font-size:9px;display:block;color:#BA7517">'+missingPA+' PA mancanti</span>':''}</div></div>
@@ -795,7 +781,7 @@ function vendCard(s) {
   const pa = w ? paEff(w) : null;
   const prof = pa!=null ? s.tot - s.qty*pa : null;
   const profCls = prof==null?'':'color:'+(prof>=0?'#155724':'#721c24');
-  const isCalice = w ? (w.formato==='calice'||w.formato==='calice 150ml') : s.desc.toLowerCase().includes('calice');
+  const isCalice = w ? (w.formato==='calice'||w.formato==='calice 150ml') : (s.desc.toLowerCase().includes('calice') || s.isCalice);
   const unitLabel = isCalice ? 'calici' : 'bott.';
   const bottiglieEquiv = isCalice ? (s.qty/CALICI_PER_BOTTIGLIA).toFixed(1)+' bott. equiv.' : '';
   return `<div class="vend-card">
@@ -1008,7 +994,11 @@ function renderSommario() {
     let inc=0,costo=0,vend=0,giac=0,missing=0;
     wines.forEach(w=>{
       const pa=paEff(w), paRawSom=prices[w.id], s=soldMap[w.id]||{qty:0,rev:0};
-      inc+=s.rev; vend+=s.qty; giac+=w.giac;
+      const isCaliceW = w.formato==='calice'||w.formato==='calice 150ml';
+      inc+=s.rev;
+      // Calici: converti in bottiglie equivalenti per il conteggio
+      vend += isCaliceW ? s.qty/CALICI_PER_BOTTIGLIA : s.qty;
+      giac+=w.giac;
       if(pa) costo+=s.qty*pa;
       else if(s.qty>0) missing++;
     });
