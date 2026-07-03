@@ -391,6 +391,8 @@ const WINES = [
   {id:150,nome:"Grillo",prod:"",anno:"2024",cat:"Mescita",reg:"Italia",regione:"Italia",alc:"13.0%",formato:"calice",giac:50,pv:7,pa:3.87},
   {id:151,nome:"Caplana Gavi",prod:"",anno:"",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"",formato:"calice",giac:36,pv:7,pa:5.52},
   {id:152,nome:"Barbera Despet",prod:"",anno:"",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"",formato:"calice",giac:36,pv:7,pa:5.36},
+  {id:153,nome:"Langhe Arneis Le Rondini",prod:"Terre del Barolo",anno:"2024",cat:"Bianchi",reg:"Piemonte",regione:"Langhe, Piemonte",alc:"13.0%",formato:"0,75 L",giac:0,pv:30,pa:15},
+  {id:154,nome:"Langhe Chardonnay Le Rondini",prod:"Terre del Barolo",anno:"2024",cat:"Bianchi",reg:"Piemonte",regione:"Langhe, Piemonte",alc:"13.0%",formato:"0,75 L",giac:0,pv:30,pa:15},
   {id:999,nome:"Vino al calice (mescita)",prod:"Vari · carrello",anno:"",cat:"Mescita",reg:"Piemonte",regione:"Piemonte",alc:"",formato:"calice 150ml",giac:0,pv:8,pa:4},
 ];
 
@@ -401,8 +403,8 @@ const SALES_RAW = [
   {desc:"ROSA DEI FRATI DOC",camera:"varie",qty:6,tot:192,wid:20},
   {desc:"VINO AL CALICE (tutti i calici)",camera:"varie",qty:140,tot:1164,wid:999},
   {desc:"VALDOBBIADENE SUPERIORE DOCG Millesimato",camera:"varie",qty:4,tot:120,wid:14},
-  {desc:"LANGHE ARNEIS LE RONDINI (calici)",camera:"varie",qty:32,tot:270,wid:null,isCalice:true},
-  {desc:"LANGHE CHARDONNAY LE RONDINI (calici)",camera:"varie",qty:21,tot:182,wid:null,isCalice:true},
+  {desc:"LANGHE ARNEIS LE RONDINI",camera:"varie",qty:9,tot:270,wid:153},
+  {desc:"LANGHE CHARDONNAY LE RONDINI",camera:"varie",qty:6,tot:182,wid:154},
   {desc:"GEWÜRZTRAMINER",camera:"varie",qty:4,tot:160,wid:27},
   {desc:"BRIC AMEL LANGHE DOC (½ bott.)",camera:"varie",qty:4,tot:80,wid:46},
   {desc:"NEBBIOLO D'ALBA 'Michet' DOC",camera:"varie",qty:2,tot:80,wid:88},
@@ -593,8 +595,7 @@ function renderInventario() {
       else vendBottiglie += s.qty;
     }
   });
-  // Add Le Rondini calici from SALES_RAW (wid:null but isCalice:true)
-  SALES_RAW.forEach(s=>{ if(s.isCalice) vendCalici += s.qty; });
+
   const totInvNetto = Math.round(totInv / 1.10);
 
   // Calcola % per categoria
@@ -781,7 +782,7 @@ function vendCard(s) {
   const pa = w ? paEff(w) : null;
   const prof = pa!=null ? s.tot - s.qty*pa : null;
   const profCls = prof==null?'':'color:'+(prof>=0?'#155724':'#721c24');
-  const isCalice = w ? (w.formato==='calice'||w.formato==='calice 150ml') : (s.desc.toLowerCase().includes('calice') || s.isCalice);
+  const isCalice = w ? (w.formato==='calice'||w.formato==='calice 150ml') : s.desc.toLowerCase().includes('calice');
   const unitLabel = isCalice ? 'calici' : 'bott.';
   const bottiglieEquiv = isCalice ? (s.qty/CALICI_PER_BOTTIGLIA).toFixed(1)+' bott. equiv.' : '';
   return `<div class="vend-card">
