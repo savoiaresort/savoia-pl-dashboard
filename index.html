@@ -176,12 +176,12 @@ td:first-child{text-align:left}
 <!-- OVERVIEW -->
 <div id="tab-overview" class="tabpanel on">
   <div class="sec">
-    <div class="sh"><div class="shb"></div><div class="sht">Key KPIs W25/26 — YTD Dec–Apr</div></div>
+    <div class="sh"><div class="shb"></div><div class="sht">Key KPIs W25/26 — YTD Dec–Jun</div></div>
     <div class="krow" id="krow-ov"></div>
   </div>
   <div class="two-col sec">
     <div>
-      <div class="sh"><div class="shb"></div><div class="sht">P&L Waterfall W25/26 · YTD Dec–Apr</div></div>
+      <div class="sh"><div class="shb"></div><div class="sht">P&L Waterfall W25/26 · YTD Dec–Jun</div></div>
       <div class="card cascade" id="cascade"></div>
     </div>
     <div>
@@ -191,7 +191,7 @@ td:first-child{text-align:left}
   </div>
   <div class="sec">
     <div class="card tw">
-      <div class="th"><div class="tt">P&L Summary 4 Seasons — YTD Dec–Apr</div><div class="tsubt">scroll → for all columns</div></div>
+      <div class="th"><div class="tt">P&L Summary 4 Seasons — YTD Dec–Jun</div><div class="tsubt">scroll → for all columns</div></div>
       <div class="tbl-scroll"><table id="pl-tbl"></table></div>
     </div>
   </div>
@@ -200,11 +200,11 @@ td:first-child{text-align:left}
 <!-- COSTI -->
 <div id="tab-costi" class="tabpanel">
   <div class="sec">
-    <div class="sh"><div class="shb" style="background:#E53935"></div><div class="sht">Department Costs — W25/26 YTD Dec–Apr</div></div>
+    <div class="sh"><div class="shb" style="background:#E53935"></div><div class="sht">Department Costs — W25/26 YTD Dec–Jun</div></div>
     <div class="krow" id="krow-costi"></div>
   </div>
   <div class="sec">
-    <div class="sh"><div class="shb" style="background:#E53935"></div><div class="sht">Cost Trend by Department · YTD Dec–Apr</div></div>
+    <div class="sh"><div class="shb" style="background:#E53935"></div><div class="sht">Cost Trend by Department · YTD Dec–Jun</div></div>
     <div class="card csec">
       <div class="leg-row" id="stack-leg"></div>
       <div class="cw"><canvas id="stack-chart" aria-label="Costi stacked per anno"></canvas></div>
@@ -219,12 +219,12 @@ td:first-child{text-align:left}
   </div>
   <div class="sec">
     <div class="card tw">
-      <div class="th"><div class="tt">Cost Detail — YTD Dec–Apr</div><div class="tsubt">€ · % of revenue</div></div>
+      <div class="th"><div class="tt">Cost Detail — YTD Dec–Jun</div><div class="tsubt">€ · % of revenue</div></div>
       <div class="tbl-scroll"><table id="cost-tbl"></table></div>
     </div>
   </div>
   <div class="sec">
-    <div class="sh"><div class="shb" style="background:#E53935"></div><div class="sht">Room Division — Cost per Room Occupied · YTD Dec–Apr</div></div>
+    <div class="sh"><div class="shb" style="background:#E53935"></div><div class="sht">Room Division — Cost per Room Occupied · YTD Dec–Jun</div></div>
     <div class="krow" id="krow-room-detail"></div>
   </div>
   <div class="sec">
@@ -235,7 +235,7 @@ td:first-child{text-align:left}
   </div>
   <div class="sec">
     <div class="card tw">
-      <div class="th"><div class="tt">Room Other Costs per Room Occupied · YTD Dec–Apr</div><div class="tsubt">€ / room occupied</div></div>
+      <div class="th"><div class="tt">Room Other Costs per Room Occupied · YTD Dec–Jun</div><div class="tsubt">€ / room occupied</div></div>
       <div class="tbl-scroll"><table id="room-detail-tbl"></table></div>
     </div>
   </div>
@@ -296,7 +296,7 @@ td:first-child{text-align:left}
 <!-- YTD -->
 <div id="tab-ytd" class="tabpanel">
   <div class="card csec">
-    <div class="sh"><div class="shb"></div><div class="sht">YTD Winter — Confronto Dic→Apr</div></div>
+    <div class="sh"><div class="shb"></div><div class="sht">YTD Winter — Confronto Dec→Jun</div></div>
     <div class="mprow" id="y-pills"></div>
     <div class="cw"><canvas id="yc" aria-label="YTD confronto"></canvas></div>
   </div>
@@ -305,7 +305,7 @@ td:first-child{text-align:left}
 <!-- ANALYSIS -->
 <div id="tab-analysis" class="tabpanel">
   <div class="sec">
-    <div class="sh"><div class="shb" style="background:#2B5ED6"></div><div class="sht">Performance Analysis — W25/26 vs W24/25 · YTD Dec–Apr</div></div>
+    <div class="sh"><div class="shb" style="background:#2B5ED6"></div><div class="sht">Performance Analysis — W25/26 vs W24/25 · YTD Dec–Jun</div></div>
     <div id="analysis-content">
       <div class="ai-loading" id="analysis-loading">
         <div class="ai-spinner"></div>
@@ -336,7 +336,7 @@ const MN=['Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct
 const YRS=['22-23','23-24','24-25','25-26'];
 const YL={'22-23':'W22/23','23-24':'W23/24','24-25':'W24/25','25-26':'W25/26'};
 const COLS={'22-23':'#9B8E7A','23-24':'#6B8FAA','24-25':'#7A9B6E','25-26':'#C4A97A'};
-const W=[0,1,2,3,4,5,6], S=[7,8,9,10,11], YTD=[1,2,3,4,5];
+const W=[0,1,2,3,4,5,6], S=[7,8,9,10,11], YTD=[1,2,3,4,5,6,7];
 const TBL_YRS=['25-26','24-25','23-24','22-23']; // newest first for tables
 
 const D={
@@ -1093,7 +1093,7 @@ function renderTabChart(tab){
   const COST_KEYS_SET=new Set(['wages','undivisible','roomCosts','fbCosts','engineering','admin','smCosts','laundry','amenities','roomSetting','consMat','roomWages','fbCos','fbWages']);
   const ytdVals=YRS.map(y=>pv(y,k,YTD,md.sum));
   const datasets=[{
-    type:'bar',label:'YTD Dec–Apr',data:ytdVals,
+    type:'bar',label:'YTD Dec–Jun',data:ytdVals,
     backgroundColor:YRS.map(y=>COLS[y]+'cc'),borderColor:YRS.map(y=>COLS[y]),
     borderWidth:1.5,borderRadius:6,yAxisID:'y'
   }];
@@ -1239,7 +1239,7 @@ function computeAnalysis(){
   while(positives.length<3) positives.push({title:'Undistributed Expense Control',metric:`${(und26/rev26*100).toFixed(1)}% of rev`,detail:`Total undistributed expenses at ${fmt(und26,'eur')} represent ${(und26/rev26*100).toFixed(1)}% of revenue, vs ${(und25/rev25*100).toFixed(1)}% in W25.`});
   while(watch.length<2) watch.push({title:'GIH Growth',metric:`${Math.round(FB['25-26'].gih).toLocaleString('it')} guests`,detail:`Guests in house grew to ${Math.round(FB['25-26'].gih).toLocaleString('it')} in W25/26 vs ${Math.round(FB['24-25'].gih).toLocaleString('it')} — a ${pct(FB['25-26'].gih,FB['24-25'].gih).toFixed(1)}% increase. Monitor service quality and per-guest spend.`});
 
-  const summary=`W25/26 YTD (Dec–Apr) shows ${revChg>0?'strong revenue growth of +'+revChg.toFixed(1)+'%':'a revenue change of '+revChg.toFixed(1)+'%'}, with GOP reaching ${fmt(gop26,'eur')} at a ${gop26m.toFixed(1)}% margin — ${gopChg>0?'up '+gopChg.toFixed(1)+'pp':'down '+Math.abs(gopChg).toFixed(1)+'pp'} vs W24/25. Payroll efficiency ${wageChg<0?'improved':'worsened'} (${wagesPct26.toFixed(1)}% of revenue). ${'TRevPOR reached €'+tpo26?.toFixed(0)+' and TRevPAR €'+tp26?.toFixed(0)+', reflecting strong total revenue capture.'}`;
+  const summary=`W25/26 YTD (Dec–Jun) shows ${revChg>0?'strong revenue growth of +'+revChg.toFixed(1)+'%':'a revenue change of '+revChg.toFixed(1)+'%'}, with GOP reaching ${fmt(gop26,'eur')} at a ${gop26m.toFixed(1)}% margin — ${gopChg>0?'up '+gopChg.toFixed(1)+'pp':'down '+Math.abs(gopChg).toFixed(1)+'pp'} vs W24/25. Payroll efficiency ${wageChg<0?'improved':'worsened'} (${wagesPct26.toFixed(1)}% of revenue). ${'TRevPOR reached €'+tpo26?.toFixed(0)+' and TRevPAR €'+tp26?.toFixed(0)+', reflecting strong total revenue capture.'}`;
 
   return {summary, positives, negatives, watch};
 }
