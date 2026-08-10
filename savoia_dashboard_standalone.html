@@ -48,89 +48,89 @@ const W_MONTHS = Object.keys(W_MONTH_WEEKS);
 
 const W_RAW = {
   "2026": [
-    { week: 49, inventory: 156, occ_rooms: 113, occ_pct: 72.4, guests: 330, adl: 231, pkg_rev: 25359, extra_rev: 6438, spa_rev: 330, total_rev: 31797, adr: 281.4 },
-    { week: 50, inventory: 546, occ_rooms: 284, occ_pct: 52.0, guests: 684, adl: 510, pkg_rev: 55888, extra_rev: 18802, spa_rev: 923, total_rev: 74690, adr: 263.0 },
-    { week: 51, inventory: 546, occ_rooms: 179, occ_pct: 32.8, guests: 469, adl: 362, pkg_rev: 34913, extra_rev: 14108, spa_rev: 632, total_rev: 49021, adr: 273.9 },
-    { week: 52, inventory: 546, occ_rooms: 501, occ_pct: 91.8, guests: 1427, adl: 1033, pkg_rev: 144495, extra_rev: 32376, spa_rev: 1695, total_rev: 176871, adr: 353.0 },
-    { week: 1, inventory: 546, occ_rooms: 530, occ_pct: 97.1, guests: 1602, adl: 1119, pkg_rev: 214250, extra_rev: 48386, spa_rev: 2911, total_rev: 262636, adr: 495.5 },
-    { week: 2, inventory: 546, occ_rooms: 447, occ_pct: 81.9, guests: 1319, adl: 989, pkg_rev: 123601, extra_rev: 30290, spa_rev: 1662, total_rev: 153892, adr: 344.3 },
-    { week: 3, inventory: 546, occ_rooms: 403, occ_pct: 73.8, guests: 1051, adl: 826, pkg_rev: 75854, extra_rev: 22076, spa_rev: 1178.5, total_rev: 97930, adr: 243.0 },
-    { week: 4, inventory: 546, occ_rooms: 462, occ_pct: 84.6, guests: 1373, adl: 1267, pkg_rev: 84426, extra_rev: 19131, spa_rev: 147, total_rev: 103557, adr: 224.1 },
-    { week: 5, inventory: 546, occ_rooms: 483, occ_pct: 88.5, guests: 1309, adl: 956, pkg_rev: 94407, extra_rev: 23544, spa_rev: 957.5, total_rev: 117951, adr: 244.2 },
-    { week: 6, inventory: 546, occ_rooms: 478, occ_pct: 87.5, guests: 1379, adl: 872, pkg_rev: 86297, extra_rev: 23084, spa_rev: 1132, total_rev: 109381, adr: 228.8 },
-    { week: 7, inventory: 546, occ_rooms: 498, occ_pct: 91.2, guests: 1399, adl: 989, pkg_rev: 100125, extra_rev: 30283, spa_rev: 1668, total_rev: 130407, adr: 261.9 },
-    { week: 8, inventory: 553, occ_rooms: 543, occ_pct: 98.2, guests: 1547, adl: 847, pkg_rev: 110000, extra_rev: 26205, spa_rev: 424, total_rev: 136205, adr: 250.8 },
-    { week: 9, inventory: 546, occ_rooms: 407, occ_pct: 74.5, guests: 1119, adl: 806, pkg_rev: 115000, extra_rev: 1651, spa_rev: 1934, total_rev: 116651, adr: 286.6 },
-    { week: 10, inventory: 546, occ_rooms: 421, occ_pct: 77.1, guests: 1108, adl: 868, pkg_rev: 86466, extra_rev: 19239, spa_rev: 1257, total_rev: 105706, adr: 251.1 },
-    { week: 11, inventory: 546, occ_rooms: 507, occ_pct: 92.9, guests: 1420, adl: 913, pkg_rev: 84513, extra_rev: 25827, spa_rev: 1132, total_rev: 110340, adr: 217.6 },
-    { week: 12, inventory: 546, occ_rooms: 279, occ_pct: 51.1, guests: 695, adl: 517, pkg_rev: 51181, extra_rev: 12808, spa_rev: 665, total_rev: 63989, adr: 229.4 },
-    { week: 13, inventory: 546, occ_rooms: 138, occ_pct: 25.3, guests: 283, adl: 219, pkg_rev: 20705, extra_rev: 8480, spa_rev: 548, total_rev: 29185, adr: 211.5 },
-    { week: 14, inventory: 546, occ_rooms: 81, occ_pct: 14.8, guests: 235, adl: 163, pkg_rev: 18401, extra_rev: 4496, spa_rev: 325, total_rev: 22897, adr: 282.7 },
-    { week: 15, inventory: 546, occ_rooms: 504, occ_pct: 92.3, guests: 1498, adl: 840, pkg_rev: 90000, extra_rev: 25820, spa_rev: 244, total_rev: 115820, adr: 229.8 },
+    { week: 49, inventory: 156, occ_rooms: 113, occ_pct: 72.4, guests: 330, adl: 231, chd: 71, pkg_rev: 25359, extra_base: 6438, rental: 0, spa_rev: 330, extra_rev: 6768, total_rev: 32127, adr: 284.3 },
+    { week: 50, inventory: 546, occ_rooms: 284, occ_pct: 52.0, guests: 684, adl: 510, chd: 135, pkg_rev: 55888, extra_base: 18802, rental: 18290, spa_rev: 923, extra_rev: 38015, total_rev: 93903, adr: 330.6 },
+    { week: 51, inventory: 546, occ_rooms: 179, occ_pct: 32.8, guests: 469, adl: 362, chd: 88, pkg_rev: 34913, extra_base: 14108, rental: 0, spa_rev: 632, extra_rev: 14740, total_rev: 49653, adr: 277.4 },
+    { week: 52, inventory: 546, occ_rooms: 501, occ_pct: 91.8, guests: 1427, adl: 1033, chd: 342, pkg_rev: 144495, extra_base: 32376, rental: 0, spa_rev: 1695, extra_rev: 34071, total_rev: 178566, adr: 356.4 },
+    { week: 1, inventory: 546, occ_rooms: 530, occ_pct: 97.1, guests: 1602, adl: 1119, chd: 408, pkg_rev: 214250, extra_base: 48386, rental: 0, spa_rev: 2911, extra_rev: 51297, total_rev: 265547, adr: 501.0 },
+    { week: 2, inventory: 546, occ_rooms: 447, occ_pct: 81.9, guests: 1319, adl: 989, chd: 245, pkg_rev: 123601, extra_base: 30290, rental: 0, spa_rev: 1662, extra_rev: 31952, total_rev: 155554, adr: 348.0 },
+    { week: 3, inventory: 546, occ_rooms: 403, occ_pct: 73.8, guests: 1051, adl: 826, chd: 179, pkg_rev: 75854, extra_base: 22076, rental: 0, spa_rev: 1178.5, extra_rev: 23254, total_rev: 99108, adr: 245.9 },
+    { week: 4, inventory: 546, occ_rooms: 462, occ_pct: 84.6, guests: 1373, adl: 1267, chd: 99, pkg_rev: 84426, extra_base: 19131, rental: 0, spa_rev: 147, extra_rev: 19278, total_rev: 103704, adr: 224.5 },
+    { week: 5, inventory: 546, occ_rooms: 483, occ_pct: 88.5, guests: 1309, adl: 956, chd: 285, pkg_rev: 94407, extra_base: 23544, rental: 0, spa_rev: 957.5, extra_rev: 24502, total_rev: 118908, adr: 246.2 },
+    { week: 6, inventory: 546, occ_rooms: 478, occ_pct: 87.5, guests: 1379, adl: 872, chd: 400, pkg_rev: 86297, extra_base: 23084, rental: 0, spa_rev: 1132, extra_rev: 24216, total_rev: 110513, adr: 231.2 },
+    { week: 7, inventory: 546, occ_rooms: 498, occ_pct: 91.2, guests: 1399, adl: 989, chd: 300, pkg_rev: 100125, extra_base: 30283, rental: 0, spa_rev: 1668, extra_rev: 31951, total_rev: 132075, adr: 265.2 },
+    { week: 8, inventory: 553, occ_rooms: 543, occ_pct: 98.2, guests: 1547, adl: 847, chd: 616, pkg_rev: 110000, extra_base: 26205, rental: 0, spa_rev: 424, extra_rev: 26629, total_rev: 136629, adr: 251.6 },
+    { week: 9, inventory: 546, occ_rooms: 407, occ_pct: 74.5, guests: 1119, adl: 806, chd: 254, pkg_rev: 115000, extra_base: 1651, rental: 0, spa_rev: 1934, extra_rev: 3585, total_rev: 118585, adr: 291.4 },
+    { week: 10, inventory: 546, occ_rooms: 421, occ_pct: 77.1, guests: 1108, adl: 868, chd: 182, pkg_rev: 86466, extra_base: 19239, rental: 0, spa_rev: 1257, extra_rev: 20496, total_rev: 106963, adr: 254.1 },
+    { week: 11, inventory: 546, occ_rooms: 507, occ_pct: 92.9, guests: 1420, adl: 913, chd: 398, pkg_rev: 84513, extra_base: 25827, rental: 0, spa_rev: 1132, extra_rev: 26959, total_rev: 111472, adr: 219.9 },
+    { week: 12, inventory: 546, occ_rooms: 279, occ_pct: 51.1, guests: 695, adl: 517, chd: 153, pkg_rev: 51181, extra_base: 12808, rental: 0, spa_rev: 665, extra_rev: 13473, total_rev: 64654, adr: 231.7 },
+    { week: 13, inventory: 546, occ_rooms: 138, occ_pct: 25.3, guests: 283, adl: 219, chd: 57, pkg_rev: 20705, extra_base: 8480, rental: 0, spa_rev: 548, extra_rev: 9028, total_rev: 29733, adr: 215.5 },
+    { week: 14, inventory: 546, occ_rooms: 81, occ_pct: 14.8, guests: 235, adl: 163, chd: 56, pkg_rev: 18401, extra_base: 4496, rental: 0, spa_rev: 325, extra_rev: 4821, total_rev: 23222, adr: 286.7 },
+    { week: 15, inventory: 546, occ_rooms: 504, occ_pct: 92.3, guests: 1498, adl: 840, chd: 560, pkg_rev: 90000, extra_base: 25820, rental: 0, spa_rev: 244, extra_rev: 26064, total_rev: 116064, adr: 230.3 },
   ],
   "2025": [
-    { week: 49, inventory: 234, occ_rooms: 83, occ_pct: 35.5, guests: 145, adl: 134, pkg_rev: 7458, extra_rev: 18446, spa_rev: 171.1, total_rev: 25904, adr: 312.1 },
-    { week: 50, inventory: 546, occ_rooms: 154, occ_pct: 28.2, guests: 362, adl: 297, pkg_rev: 25005, extra_rev: 10035, spa_rev: 366, total_rev: 35040, adr: 227.5 },
-    { week: 51, inventory: 546, occ_rooms: 187, occ_pct: 34.2, guests: 484, adl: 367, pkg_rev: 30636, extra_rev: 9401, spa_rev: 179, total_rev: 40038, adr: 214.1 },
-    { week: 52, inventory: 546, occ_rooms: 480, occ_pct: 87.9, guests: 1383, adl: 1032, pkg_rev: 146490, extra_rev: 29461, spa_rev: 1124, total_rev: 175952, adr: 366.6 },
-    { week: 1, inventory: 546, occ_rooms: 539, occ_pct: 98.7, guests: 1567, adl: 1098, pkg_rev: 203343, extra_rev: 39181, spa_rev: 1388.5, total_rev: 242524, adr: 450.0 },
-    { week: 2, inventory: 546, occ_rooms: 378, occ_pct: 69.2, guests: 1035, adl: 791, pkg_rev: 82310, extra_rev: 19681, spa_rev: 963, total_rev: 101991, adr: 269.8 },
-    { week: 3, inventory: 546, occ_rooms: 300, occ_pct: 54.9, guests: 723, adl: 613, pkg_rev: 53217, extra_rev: 17131, spa_rev: 655, total_rev: 70349, adr: 234.5 },
-    { week: 4, inventory: 546, occ_rooms: 499, occ_pct: 91.4, guests: 1147, adl: 1147, pkg_rev: 84660, extra_rev: 15293, spa_rev: 45, total_rev: 99953, adr: 200.3 },
-    { week: 5, inventory: 546, occ_rooms: 499, occ_pct: 91.4, guests: 1460, adl: 928, pkg_rev: 88904, extra_rev: 24669, spa_rev: 720, total_rev: 113574, adr: 227.6 },
-    { week: 6, inventory: 553, occ_rooms: 528, occ_pct: 95.5, guests: 1856, adl: 992, pkg_rev: 96695, extra_rev: 22870, spa_rev: 562.4, total_rev: 119565, adr: 226.4 },
-    { week: 7, inventory: 546, occ_rooms: 413, occ_pct: 75.6, guests: 1281, adl: 799, pkg_rev: 71840, extra_rev: 25815, spa_rev: 480.4, total_rev: 97655, adr: 236.5 },
-    { week: 8, inventory: 546, occ_rooms: 536, occ_pct: 98.2, guests: 1786, adl: 1019, pkg_rev: 100000, extra_rev: 3841, spa_rev: 1907.4, total_rev: 103841, adr: 193.7 },
-    { week: 9, inventory: 553, occ_rooms: 531, occ_pct: 96.0, guests: 1761, adl: 1021, pkg_rev: 80000, extra_rev: 3003, spa_rev: 1748, total_rev: 83003, adr: 156.3 },
-    { week: 10, inventory: 546, occ_rooms: 511, occ_pct: 93.6, guests: 1519, adl: 854, pkg_rev: 100000, extra_rev: 23914, spa_rev: 77, total_rev: 123914, adr: 242.5 },
-    { week: 11, inventory: 546, occ_rooms: 352, occ_pct: 64.5, guests: 908, adl: 696, pkg_rev: 61398, extra_rev: 19166, spa_rev: 1185, total_rev: 80565, adr: 228.9 },
-    { week: 12, inventory: 546, occ_rooms: 371, occ_pct: 67.9, guests: 1155, adl: 700, pkg_rev: 60000, extra_rev: 14892, spa_rev: 720, total_rev: 74892, adr: 201.9 },
-    { week: 13, inventory: 546, occ_rooms: 105, occ_pct: 19.2, guests: 244, adl: 221, pkg_rev: 18269, extra_rev: 7643, spa_rev: 600, total_rev: 25912, adr: 246.8 },
-    { week: 14, inventory: 546, occ_rooms: 76, occ_pct: 13.9, guests: 201, adl: 143, pkg_rev: 13382, extra_rev: 4937, spa_rev: 202, total_rev: 18319, adr: 241.0 },
-    { week: 15, inventory: 546, occ_rooms: 532, occ_pct: 97.4, guests: 1442, adl: 784, pkg_rev: 80000, extra_rev: 27141, spa_rev: 110, total_rev: 107141, adr: 201.4 },
+    { week: 49, inventory: 234, occ_rooms: 83, occ_pct: 35.5, guests: 145, adl: 134, chd: 8, pkg_rev: 7458, extra_base: 18446, rental: 0, spa_rev: 171.1, extra_rev: 18617, total_rev: 26075, adr: 314.2 },
+    { week: 50, inventory: 546, occ_rooms: 154, occ_pct: 28.2, guests: 362, adl: 297, chd: 36, pkg_rev: 25005, extra_base: 10035, rental: 18300, spa_rev: 366, extra_rev: 28701, total_rev: 53706, adr: 348.7 },
+    { week: 51, inventory: 546, occ_rooms: 187, occ_pct: 34.2, guests: 484, adl: 367, chd: 98, pkg_rev: 30636, extra_base: 9401, rental: 0, spa_rev: 179, extra_rev: 9580, total_rev: 40217, adr: 215.1 },
+    { week: 52, inventory: 546, occ_rooms: 480, occ_pct: 87.9, guests: 1383, adl: 1032, chd: 285, pkg_rev: 146490, extra_base: 29461, rental: 0, spa_rev: 1124, extra_rev: 30585, total_rev: 177076, adr: 368.9 },
+    { week: 1, inventory: 546, occ_rooms: 539, occ_pct: 98.7, guests: 1567, adl: 1098, chd: 376, pkg_rev: 203343, extra_base: 39181, rental: 0, spa_rev: 1388.5, extra_rev: 40570, total_rev: 243913, adr: 452.5 },
+    { week: 2, inventory: 546, occ_rooms: 378, occ_pct: 69.2, guests: 1035, adl: 791, chd: 192, pkg_rev: 82310, extra_base: 19681, rental: 0, spa_rev: 963, extra_rev: 20644, total_rev: 102954, adr: 272.4 },
+    { week: 3, inventory: 546, occ_rooms: 300, occ_pct: 54.9, guests: 723, adl: 613, chd: 86, pkg_rev: 53217, extra_base: 17131, rental: 0, spa_rev: 655, extra_rev: 17786, total_rev: 71004, adr: 236.7 },
+    { week: 4, inventory: 546, occ_rooms: 499, occ_pct: 91.4, guests: 1147, adl: 1147, chd: 0, pkg_rev: 84660, extra_base: 15293, rental: 0, spa_rev: 45, extra_rev: 15338, total_rev: 99998, adr: 200.4 },
+    { week: 5, inventory: 546, occ_rooms: 499, occ_pct: 91.4, guests: 1460, adl: 928, chd: 399, pkg_rev: 88904, extra_base: 24669, rental: 0, spa_rev: 720, extra_rev: 25389, total_rev: 114294, adr: 229.0 },
+    { week: 6, inventory: 553, occ_rooms: 528, occ_pct: 95.5, guests: 1856, adl: 992, chd: 419, pkg_rev: 96695, extra_base: 22870, rental: 0, spa_rev: 562.4, extra_rev: 23433, total_rev: 120127, adr: 227.5 },
+    { week: 7, inventory: 546, occ_rooms: 413, occ_pct: 75.6, guests: 1281, adl: 799, chd: 391, pkg_rev: 71840, extra_base: 25815, rental: 0, spa_rev: 480.4, extra_rev: 26296, total_rev: 98136, adr: 237.6 },
+    { week: 8, inventory: 546, occ_rooms: 536, occ_pct: 98.2, guests: 1786, adl: 1019, chd: 606, pkg_rev: 100000, extra_base: 3841, rental: 0, spa_rev: 1907.4, extra_rev: 5748, total_rev: 105748, adr: 197.3 },
+    { week: 10, inventory: 546, occ_rooms: 511, occ_pct: 93.6, guests: 1519, adl: 854, chd: 602, pkg_rev: 100000, extra_base: 23914, rental: 0, spa_rev: 77, extra_rev: 23991, total_rev: 123991, adr: 242.6 },
+    { week: 11, inventory: 546, occ_rooms: 352, occ_pct: 64.5, guests: 908, adl: 696, chd: 153, pkg_rev: 61398, extra_base: 19166, rental: 0, spa_rev: 1185, extra_rev: 20352, total_rev: 81750, adr: 232.2 },
+    { week: 12, inventory: 546, occ_rooms: 371, occ_pct: 67.9, guests: 1155, adl: 700, chd: 336, pkg_rev: 60000, extra_base: 14892, rental: 0, spa_rev: 720, extra_rev: 15612, total_rev: 75612, adr: 203.8 },
+    { week: 13, inventory: 546, occ_rooms: 105, occ_pct: 19.2, guests: 244, adl: 221, chd: 17, pkg_rev: 18269, extra_base: 7643, rental: 0, spa_rev: 600, extra_rev: 8243, total_rev: 26512, adr: 252.5 },
+    { week: 14, inventory: 546, occ_rooms: 76, occ_pct: 13.9, guests: 201, adl: 143, chd: 45, pkg_rev: 13382, extra_base: 4937, rental: 0, spa_rev: 202, extra_rev: 5139, total_rev: 18521, adr: 243.7 },
+    { week: 15, inventory: 546, occ_rooms: 532, occ_pct: 97.4, guests: 1442, adl: 784, chd: 574, pkg_rev: 80000, extra_base: 27141, rental: 0, spa_rev: 110, extra_rev: 27251, total_rev: 107251, adr: 201.6 },
   ],
   "2024": [
-    { week: 49, inventory: 312, occ_rooms: 220, occ_pct: 70.5, guests: 678, adl: 457, pkg_rev: 47357, extra_rev: 14567, spa_rev: 886.1, total_rev: 61924, adr: 281.5 },
-    { week: 50, inventory: 546, occ_rooms: 162, occ_pct: 29.7, guests: 385, adl: 357, pkg_rev: 26546, extra_rev: 10933, spa_rev: 100, total_rev: 37479, adr: 231.4 },
-    { week: 51, inventory: 546, occ_rooms: 178, occ_pct: 32.6, guests: 485, adl: 392, pkg_rev: 30432, extra_rev: 14060, spa_rev: 900, total_rev: 44492, adr: 250.0 },
-    { week: 52, inventory: 546, occ_rooms: 466, occ_pct: 85.3, guests: 1356, adl: 996, pkg_rev: 143955, extra_rev: 30575, spa_rev: 2234, total_rev: 174531, adr: 374.5 },
-    { week: 1, inventory: 546, occ_rooms: 525, occ_pct: 96.2, guests: 1584, adl: 1093, pkg_rev: 191095, extra_rev: 40682, spa_rev: 3523, total_rev: 231777, adr: 441.5 },
-    { week: 2, inventory: 553, occ_rooms: 251, occ_pct: 45.4, guests: 649, adl: 498, pkg_rev: 38735, extra_rev: 13307, spa_rev: 920, total_rev: 52043, adr: 207.3 },
-    { week: 3, inventory: 553, occ_rooms: 297, occ_pct: 53.7, guests: 686, adl: 550, pkg_rev: 47302, extra_rev: 15372, spa_rev: 913.3, total_rev: 62675, adr: 211.0 },
-    { week: 4, inventory: 553, occ_rooms: 391, occ_pct: 70.7, guests: 965, adl: 773, pkg_rev: 63653, extra_rev: 19495, spa_rev: 1074.3, total_rev: 83148, adr: 212.7 },
-    { week: 5, inventory: 553, occ_rooms: 441, occ_pct: 79.7, guests: 1390, adl: 857, pkg_rev: 71501, extra_rev: 20037, spa_rev: 95, total_rev: 91538, adr: 207.6 },
-    { week: 6, inventory: 553, occ_rooms: 492, occ_pct: 89.0, guests: 1474, adl: 967, pkg_rev: 76985, extra_rev: 22036, spa_rev: 1733.3, total_rev: 99022, adr: 201.3 },
-    { week: 7, inventory: 553, occ_rooms: 525, occ_pct: 94.9, guests: 1472, adl: 813, pkg_rev: 97216, extra_rev: 20604, spa_rev: 607, total_rev: 117820, adr: 224.4 },
-    { week: 8, inventory: 553, occ_rooms: 552, occ_pct: 99.8, guests: 1736, adl: 987, pkg_rev: 103660, extra_rev: 2536, spa_rev: 1389, total_rev: 106196, adr: 192.4 },
-    { week: 9, inventory: 553, occ_rooms: 411, occ_pct: 74.3, guests: 1125, adl: 922, pkg_rev: 77853, extra_rev: 25134, spa_rev: 929.8, total_rev: 102987, adr: 250.6 },
-    { week: 10, inventory: 553, occ_rooms: 532, occ_pct: 96.2, guests: 1547, adl: 973, pkg_rev: 60000, extra_rev: 19227, spa_rev: 330, total_rev: 79227, adr: 148.9 },
-    { week: 11, inventory: 553, occ_rooms: 250, occ_pct: 45.2, guests: 573, adl: 533, pkg_rev: 32372, extra_rev: 33205, spa_rev: 765, total_rev: 65577, adr: 262.3 },
-    { week: 12, inventory: 553, occ_rooms: 170, occ_pct: 30.7, guests: 404, adl: 335, pkg_rev: 25626, extra_rev: 10194, spa_rev: 301.5, total_rev: 35821, adr: 210.7 },
-    { week: 13, inventory: 553, occ_rooms: 206, occ_pct: 37.3, guests: 558, adl: 423, pkg_rev: 34635, extra_rev: 11417, spa_rev: 700, total_rev: 46051, adr: 223.6 },
-    { week: 14, inventory: 553, occ_rooms: 532, occ_pct: 96.2, guests: 1421, adl: 854, pkg_rev: 75137, extra_rev: 23947, spa_rev: 530, total_rev: 99084, adr: 186.2 },
+    { week: 49, inventory: 312, occ_rooms: 220, occ_pct: 70.5, guests: 678, adl: 457, chd: 148, pkg_rev: 47357, extra_base: 14567, rental: 0, spa_rev: 886.1, extra_rev: 15453, total_rev: 62810, adr: 285.5 },
+    { week: 50, inventory: 546, occ_rooms: 162, occ_pct: 29.7, guests: 385, adl: 357, chd: 21, pkg_rev: 26546, extra_base: 10933, rental: 0, spa_rev: 100, extra_rev: 11033, total_rev: 37579, adr: 232.0 },
+    { week: 51, inventory: 546, occ_rooms: 178, occ_pct: 32.6, guests: 485, adl: 392, chd: 76, pkg_rev: 30432, extra_base: 14060, rental: 15250, spa_rev: 900, extra_rev: 30210, total_rev: 60642, adr: 340.7 },
+    { week: 52, inventory: 546, occ_rooms: 466, occ_pct: 85.3, guests: 1356, adl: 996, chd: 307, pkg_rev: 143955, extra_base: 30575, rental: 0, spa_rev: 2234, extra_rev: 32809, total_rev: 176765, adr: 379.3 },
+    { week: 1, inventory: 546, occ_rooms: 525, occ_pct: 96.2, guests: 1584, adl: 1093, chd: 386, pkg_rev: 191095, extra_base: 40682, rental: 0, spa_rev: 3523, extra_rev: 44205, total_rev: 235300, adr: 448.2 },
+    { week: 2, inventory: 553, occ_rooms: 251, occ_pct: 45.4, guests: 649, adl: 498, chd: 112, pkg_rev: 38735, extra_base: 13307, rental: 0, spa_rev: 920, extra_rev: 14227, total_rev: 52963, adr: 211.0 },
+    { week: 3, inventory: 553, occ_rooms: 297, occ_pct: 53.7, guests: 686, adl: 550, chd: 114, pkg_rev: 47302, extra_base: 15372, rental: 0, spa_rev: 913.3, extra_rev: 16286, total_rev: 63588, adr: 214.1 },
+    { week: 4, inventory: 553, occ_rooms: 391, occ_pct: 70.7, guests: 965, adl: 773, chd: 149, pkg_rev: 63653, extra_base: 19495, rental: 0, spa_rev: 1074.3, extra_rev: 20569, total_rev: 84222, adr: 215.4 },
+    { week: 5, inventory: 553, occ_rooms: 441, occ_pct: 79.7, guests: 1390, adl: 857, chd: 430, pkg_rev: 71501, extra_base: 20037, rental: 0, spa_rev: 95, extra_rev: 20132, total_rev: 91633, adr: 207.8 },
+    { week: 6, inventory: 553, occ_rooms: 492, occ_pct: 89.0, guests: 1474, adl: 967, chd: 414, pkg_rev: 76985, extra_base: 22036, rental: 0, spa_rev: 1733.3, extra_rev: 23770, total_rev: 100755, adr: 204.8 },
+    { week: 7, inventory: 553, occ_rooms: 525, occ_pct: 94.9, guests: 1472, adl: 813, chd: 585, pkg_rev: 97216, extra_base: 20604, rental: 0, spa_rev: 607, extra_rev: 21211, total_rev: 118427, adr: 225.6 },
+    { week: 8, inventory: 553, occ_rooms: 552, occ_pct: 99.8, guests: 1736, adl: 987, chd: 581, pkg_rev: 103660, extra_base: 2536, rental: 0, spa_rev: 1389, extra_rev: 3925, total_rev: 107585, adr: 194.9 },
+    { week: 9, inventory: 553, occ_rooms: 411, occ_pct: 74.3, guests: 1125, adl: 922, chd: 180, pkg_rev: 77853, extra_base: 25134, rental: 0, spa_rev: 929.8, extra_rev: 26064, total_rev: 103917, adr: 252.8 },
+    { week: 10, inventory: 553, occ_rooms: 532, occ_pct: 96.2, guests: 1547, adl: 973, chd: 413, pkg_rev: 60000, extra_base: 19227, rental: 0, spa_rev: 330, extra_rev: 19557, total_rev: 79557, adr: 149.5 },
+    { week: 11, inventory: 553, occ_rooms: 250, occ_pct: 45.2, guests: 573, adl: 533, chd: 36, pkg_rev: 32372, extra_base: 33205, rental: 0, spa_rev: 765, extra_rev: 33970, total_rev: 66342, adr: 265.4 },
+    { week: 12, inventory: 553, occ_rooms: 170, occ_pct: 30.7, guests: 404, adl: 335, chd: 50, pkg_rev: 25626, extra_base: 10194, rental: 0, spa_rev: 301.5, extra_rev: 10496, total_rev: 36122, adr: 212.5 },
+    { week: 13, inventory: 553, occ_rooms: 206, occ_pct: 37.3, guests: 558, adl: 423, chd: 111, pkg_rev: 34635, extra_base: 11417, rental: 0, spa_rev: 700, extra_rev: 12117, total_rev: 46751, adr: 226.9 },
+    { week: 14, inventory: 553, occ_rooms: 532, occ_pct: 96.2, guests: 1421, adl: 854, chd: 476, pkg_rev: 75137, extra_base: 23947, rental: 0, spa_rev: 530, extra_rev: 24477, total_rev: 99614, adr: 187.2 },
+    { week: 15, inventory: 0, occ_rooms: 0, occ_pct: 0, guests: 0, adl: 0, chd: 0, pkg_rev: 0, extra_base: 0, rental: 0, spa_rev: 0, extra_rev: 0, total_rev: 0, adr: 0 },
   ],
   "2023": [
-    { week: 49, inventory: 702, occ_rooms: 248, occ_pct: 35.3, guests: 619, adl: 516, pkg_rev: 42912, extra_rev: 11367, spa_rev: 1438, total_rev: 54279, adr: 218.9 },
-    { week: 50, inventory: 546, occ_rooms: 111, occ_pct: 20.3, guests: 245, adl: 224, pkg_rev: 13189, extra_rev: 6084, spa_rev: 646, total_rev: 19272, adr: 173.6 },
-    { week: 51, inventory: 546, occ_rooms: 230, occ_pct: 42.1, guests: 628, adl: 485, pkg_rev: 35937, extra_rev: 9064, spa_rev: 1078, total_rev: 45002, adr: 195.7 },
-    { week: 52, inventory: 546, occ_rooms: 522, occ_pct: 95.6, guests: 1494, adl: 1135, pkg_rev: 165099, extra_rev: 27815, spa_rev: 3582.5, total_rev: 192914, adr: 369.6 },
-    { week: 1, inventory: 546, occ_rooms: 545, occ_pct: 99.8, guests: 1555, adl: 1022, pkg_rev: 144026, extra_rev: 22006, spa_rev: 2623.3, total_rev: 166033, adr: 304.6 },
-    { week: 2, inventory: 553, occ_rooms: 247, occ_pct: 44.7, guests: 604, adl: 516, pkg_rev: 38995, extra_rev: 9346, spa_rev: 941, total_rev: 48341, adr: 195.7 },
-    { week: 3, inventory: 553, occ_rooms: 273, occ_pct: 49.4, guests: 641, adl: 569, pkg_rev: 42590, extra_rev: 15444, spa_rev: 1101.6, total_rev: 58034, adr: 212.6 },
-    { week: 4, inventory: 553, occ_rooms: 380, occ_pct: 68.7, guests: 833, adl: 760, pkg_rev: 61428, extra_rev: 17674, spa_rev: 1686.2, total_rev: 79101, adr: 208.2 },
-    { week: 5, inventory: 553, occ_rooms: 546, occ_pct: 98.7, guests: 1673, adl: 1085, pkg_rev: 68000, extra_rev: 16679, spa_rev: 697.5, total_rev: 84679, adr: 155.1 },
-    { week: 6, inventory: 553, occ_rooms: 512, occ_pct: 92.6, guests: 1440, adl: 964, pkg_rev: 79129, extra_rev: 22483, spa_rev: 1322.7, total_rev: 101612, adr: 198.5 },
-    { week: 7, inventory: 553, occ_rooms: 516, occ_pct: 93.3, guests: 1635, adl: 1046, pkg_rev: 77535, extra_rev: 2098, spa_rev: 1139.7, total_rev: 79633, adr: 154.3 },
-    { week: 8, inventory: 553, occ_rooms: 540, occ_pct: 97.6, guests: 1402, adl: 758, pkg_rev: 92867, extra_rev: 31614, spa_rev: 400.2, total_rev: 124482, adr: 230.5 },
-    { week: 9, inventory: 553, occ_rooms: 410, occ_pct: 74.1, guests: 1062, adl: 858, pkg_rev: 64941, extra_rev: 35198, spa_rev: 958.8, total_rev: 100139, adr: 244.2 },
-    { week: 10, inventory: 553, occ_rooms: 393, occ_pct: 71.1, guests: 1024, adl: 873, pkg_rev: 61106, extra_rev: 19920, spa_rev: 1156.2, total_rev: 81026, adr: 206.2 },
-    { week: 11, inventory: 553, occ_rooms: 258, occ_pct: 46.7, guests: 615, adl: 520, pkg_rev: 40246, extra_rev: 10091, spa_rev: 908.7, total_rev: 50338, adr: 195.1 },
-    { week: 12, inventory: 553, occ_rooms: 115, occ_pct: 20.8, guests: 267, adl: 231, pkg_rev: 14221, extra_rev: 5081, spa_rev: 294.2, total_rev: 19302, adr: 167.8 },
-    { week: 13, inventory: 553, occ_rooms: 76, occ_pct: 13.7, guests: 178, adl: 159, pkg_rev: 8347, extra_rev: 10002, spa_rev: 335.2, total_rev: 18350, adr: 241.4 },
-    { week: 14, inventory: 780, occ_rooms: 597, occ_pct: 76.5, guests: 1523, adl: 900, pkg_rev: 80016, extra_rev: 22493, spa_rev: 388.2, total_rev: 102509, adr: 171.7 },
+    { week: 49, inventory: 702, occ_rooms: 248, occ_pct: 35.3, guests: 619, adl: 516, chd: 86, pkg_rev: 42912, extra_base: 11367, rental: 0, spa_rev: 1438, extra_rev: 12805, total_rev: 55717, adr: 224.7 },
+    { week: 50, inventory: 546, occ_rooms: 111, occ_pct: 20.3, guests: 245, adl: 224, chd: 14, pkg_rev: 13189, extra_base: 6084, rental: 0, spa_rev: 646, extra_rev: 6730, total_rev: 19918, adr: 179.4 },
+    { week: 51, inventory: 546, occ_rooms: 230, occ_pct: 42.1, guests: 628, adl: 485, chd: 120, pkg_rev: 35937, extra_base: 9064, rental: 0, spa_rev: 1078, extra_rev: 10142, total_rev: 46080, adr: 200.3 },
+    { week: 52, inventory: 546, occ_rooms: 522, occ_pct: 95.6, guests: 1494, adl: 1135, chd: 308, pkg_rev: 165099, extra_base: 27815, rental: 0, spa_rev: 3582.5, extra_rev: 31398, total_rev: 196497, adr: 376.4 },
+    { week: 1, inventory: 546, occ_rooms: 545, occ_pct: 99.8, guests: 1555, adl: 1022, chd: 429, pkg_rev: 144026, extra_base: 22006, rental: 0, spa_rev: 2623.3, extra_rev: 24630, total_rev: 168656, adr: 309.5 },
+    { week: 2, inventory: 553, occ_rooms: 247, occ_pct: 44.7, guests: 604, adl: 516, chd: 57, pkg_rev: 38995, extra_base: 9346, rental: 0, spa_rev: 941, extra_rev: 10287, total_rev: 49282, adr: 199.5 },
+    { week: 3, inventory: 553, occ_rooms: 273, occ_pct: 49.4, guests: 641, adl: 569, chd: 60, pkg_rev: 42590, extra_base: 15444, rental: 0, spa_rev: 1101.6, extra_rev: 16546, total_rev: 59136, adr: 216.6 },
+    { week: 4, inventory: 553, occ_rooms: 380, occ_pct: 68.7, guests: 833, adl: 760, chd: 47, pkg_rev: 61428, extra_base: 17674, rental: 0, spa_rev: 1686.2, extra_rev: 19360, total_rev: 80788, adr: 212.6 },
+    { week: 5, inventory: 553, occ_rooms: 546, occ_pct: 98.7, guests: 1673, adl: 1085, chd: 490, pkg_rev: 68000, extra_base: 16679, rental: 0, spa_rev: 697.5, extra_rev: 17376, total_rev: 85376, adr: 156.4 },
+    { week: 6, inventory: 553, occ_rooms: 512, occ_pct: 92.6, guests: 1440, adl: 964, chd: 364, pkg_rev: 79129, extra_base: 22483, rental: 0, spa_rev: 1322.7, extra_rev: 23806, total_rev: 102935, adr: 201.0 },
+    { week: 7, inventory: 553, occ_rooms: 516, occ_pct: 93.3, guests: 1635, adl: 1046, chd: 441, pkg_rev: 77535, extra_base: 2098, rental: 0, spa_rev: 1139.7, extra_rev: 3238, total_rev: 80773, adr: 156.5 },
+    { week: 8, inventory: 553, occ_rooms: 540, occ_pct: 97.6, guests: 1402, adl: 758, chd: 581, pkg_rev: 92867, extra_base: 31614, rental: 3660, spa_rev: 400.2, extra_rev: 35674, total_rev: 128542, adr: 238.0 },
+    { week: 9, inventory: 553, occ_rooms: 410, occ_pct: 74.1, guests: 1062, adl: 858, chd: 180, pkg_rev: 64941, extra_base: 35198, rental: 0, spa_rev: 958.8, extra_rev: 36157, total_rev: 101098, adr: 246.6 },
+    { week: 10, inventory: 553, occ_rooms: 393, occ_pct: 71.1, guests: 1024, adl: 873, chd: 122, pkg_rev: 61106, extra_base: 19920, rental: 0, spa_rev: 1156.2, extra_rev: 21076, total_rev: 82182, adr: 209.1 },
+    { week: 11, inventory: 553, occ_rooms: 258, occ_pct: 46.7, guests: 615, adl: 520, chd: 80, pkg_rev: 40246, extra_base: 10091, rental: 0, spa_rev: 908.7, extra_rev: 11000, total_rev: 51246, adr: 198.6 },
+    { week: 12, inventory: 553, occ_rooms: 115, occ_pct: 20.8, guests: 267, adl: 231, chd: 24, pkg_rev: 14221, extra_base: 5081, rental: 0, spa_rev: 294.2, extra_rev: 5375, total_rev: 19596, adr: 170.4 },
+    { week: 13, inventory: 553, occ_rooms: 76, occ_pct: 13.7, guests: 178, adl: 159, chd: 15, pkg_rev: 8347, extra_base: 10002, rental: 0, spa_rev: 335.2, extra_rev: 10338, total_rev: 18685, adr: 245.9 },
+    { week: 14, inventory: 780, occ_rooms: 597, occ_pct: 76.5, guests: 1523, adl: 900, chd: 574, pkg_rev: 80016, extra_base: 22493, rental: 0, spa_rev: 388.2, extra_rev: 22881, total_rev: 102897, adr: 172.4 },
+    { week: 15, inventory: 0, occ_rooms: 0, occ_pct: 0, guests: 0, adl: 0, chd: 0, pkg_rev: 742, extra_base: -50, rental: 0, spa_rev: 0.2, extra_rev: -50, total_rev: 693, adr: 0 },
   ],
 };
-
 // Food (Stellato+Volpe FOOD) and Beverage (Stellato+Volpe BEVERAGE) weekly — 2024-2026 only
 // Note: the 22/23 season has no per-outlet breakdown in the source file, so it is not included here
 const W_FB_DATA = {
@@ -158,7 +158,7 @@ const W_FB_DATA = {
   "2025": {
     49: { guests: 145, adl: 134, chd: 8, weighted_hc: 138.0, food_rev: 15110, food_extra: 13370, bev_rev: 2531, spa_rev: 171.1 },
     50: { guests: 362, adl: 297, chd: 36, weighted_hc: 315.0, food_rev: 14696, food_extra: 5448, bev_rev: 3737, spa_rev: 366 },
-    51: { guests: 484, adl: 367, chd: 98, weighted_hc: 416.0, food_rev: 15814, food_extra: 5092, bev_rev: 2653, spa_rev: 179 },
+    51: { guests: 484, adl: 367, chd: 98, weighted_hc: 416.0, food_rev: 15814, food_extra: 5092, bev_rev: 2654, spa_rev: 179 },
     52: { guests: 1383, adl: 1032, chd: 285, weighted_hc: 1174.5, food_rev: 62210, food_extra: 19014, bev_rev: 6608, spa_rev: 1124 },
     1: { guests: 1567, adl: 1098, chd: 376, weighted_hc: 1286.0, food_rev: 74254, food_extra: 28342, bev_rev: 7677, spa_rev: 1388.5 },
     2: { guests: 1035, adl: 791, chd: 192, weighted_hc: 887.0, food_rev: 36275, food_extra: 11063, bev_rev: 6092, spa_rev: 963 },
@@ -168,19 +168,18 @@ const W_FB_DATA = {
     6: { guests: 1856, adl: 992, chd: 419, weighted_hc: 1201.5, food_rev: 56547, food_extra: 9633, bev_rev: 11181, spa_rev: 562.4 },
     7: { guests: 1281, adl: 799, chd: 391, weighted_hc: 994.5, food_rev: 47886, food_extra: 6219, bev_rev: 13493, spa_rev: 480.4 },
     8: { guests: 1786, adl: 1019, chd: 606, weighted_hc: 1322.0, food_rev: 1056, food_extra: 1056, bev_rev: 695, spa_rev: 1907.4 },
-    9: { guests: 1761, adl: 1021, chd: 553, weighted_hc: 1297.5, food_rev: 865, food_extra: 17, bev_rev: 648, spa_rev: 1748 },
     10: { guests: 1519, adl: 854, chd: 602, weighted_hc: 1155.0, food_rev: 56308, food_extra: 8190, bev_rev: 14285, spa_rev: 77 },
     11: { guests: 908, adl: 696, chd: 153, weighted_hc: 772.5, food_rev: 33998, food_extra: 10594, bev_rev: 6344, spa_rev: 1185 },
-    12: { guests: 1155, adl: 700, chd: 336, weighted_hc: 868.0, food_rev: 42709, food_extra: 4349, bev_rev: 9724, spa_rev: 720 },
+    12: { guests: 1155, adl: 700, chd: 336, weighted_hc: 868.0, food_rev: 42709, food_extra: 4349, bev_rev: 9725, spa_rev: 720 },
     13: { guests: 244, adl: 221, chd: 17, weighted_hc: 229.5, food_rev: 9576, food_extra: 2844, bev_rev: 2326, spa_rev: 600 },
     14: { guests: 201, adl: 143, chd: 45, weighted_hc: 165.5, food_rev: 7158, food_extra: 2519, bev_rev: 1588, spa_rev: 202 },
     15: { guests: 1442, adl: 784, chd: 574, weighted_hc: 1071.0, food_rev: 53471, food_extra: 8727, bev_rev: 16625, spa_rev: 110 },
   },
   "2024": {
     49: { guests: 678, adl: 457, chd: 148, weighted_hc: 531.0, food_rev: 23620, food_extra: 9683, bev_rev: 3011, spa_rev: 886.1 },
-    50: { guests: 385, adl: 357, chd: 21, weighted_hc: 367.5, food_rev: 10514, food_extra: 5454, bev_rev: 5228, spa_rev: 100 },
+    50: { guests: 385, adl: 357, chd: 21, weighted_hc: 367.5, food_rev: 10514, food_extra: 5454, bev_rev: 5227, spa_rev: 100 },
     51: { guests: 485, adl: 392, chd: 76, weighted_hc: 430.0, food_rev: 17592, food_extra: 6963, bev_rev: 4347, spa_rev: 900 },
-    52: { guests: 1356, adl: 996, chd: 307, weighted_hc: 1149.5, food_rev: 59195, food_extra: 18628, bev_rev: 10903, spa_rev: 2234 },
+    52: { guests: 1356, adl: 996, chd: 307, weighted_hc: 1149.5, food_rev: 59195, food_extra: 18628, bev_rev: 10904, spa_rev: 2234 },
     1: { guests: 1584, adl: 1093, chd: 386, weighted_hc: 1286.0, food_rev: 81704, food_extra: 26323, bev_rev: 12517, spa_rev: 3523 },
     2: { guests: 649, adl: 498, chd: 112, weighted_hc: 554.0, food_rev: 23026, food_extra: 7226, bev_rev: 4538, spa_rev: 920 },
     3: { guests: 686, adl: 550, chd: 114, weighted_hc: 607.0, food_rev: 24980, food_extra: 10117, bev_rev: 3941, spa_rev: 913.3 },
@@ -189,12 +188,13 @@ const W_FB_DATA = {
     6: { guests: 1474, adl: 967, chd: 414, weighted_hc: 1174.0, food_rev: 60885, food_extra: 7208, bev_rev: 11413, spa_rev: 1733.3 },
     7: { guests: 1472, adl: 813, chd: 585, weighted_hc: 1105.5, food_rev: 59091, food_extra: 5137, bev_rev: 14681, spa_rev: 607 },
     8: { guests: 1736, adl: 987, chd: 581, weighted_hc: 1277.5, food_rev: 63109, food_extra: 563, bev_rev: 635, spa_rev: 1389 },
-    9: { guests: 1125, adl: 922, chd: 180, weighted_hc: 1012.0, food_rev: 39937, food_extra: 15283, bev_rev: 8028, spa_rev: 929.8 },
+    9: { guests: 1125, adl: 922, chd: 180, weighted_hc: 1012.0, food_rev: 39937, food_extra: 15283, bev_rev: 8027, spa_rev: 929.8 },
     10: { guests: 1547, adl: 973, chd: 413, weighted_hc: 1179.5, food_rev: 64305, food_extra: 5491, bev_rev: 12024, spa_rev: 330 },
     11: { guests: 573, adl: 533, chd: 36, weighted_hc: 551.0, food_rev: 24478, food_extra: 14728, bev_rev: 12486, spa_rev: 765 },
     12: { guests: 404, adl: 335, chd: 50, weighted_hc: 360.0, food_rev: 15751, food_extra: 5303, bev_rev: 3587, spa_rev: 301.5 },
     13: { guests: 558, adl: 423, chd: 111, weighted_hc: 478.5, food_rev: 24785, food_extra: 7277, bev_rev: 3417, spa_rev: 700 },
     14: { guests: 1421, adl: 854, chd: 476, weighted_hc: 1092.0, food_rev: 60911, food_extra: 6829, bev_rev: 16309, spa_rev: 530 },
+    15: { guests: 0, adl: 0, chd: 0, weighted_hc: 0.0, food_rev: 0, food_extra: 0, bev_rev: 0, spa_rev: 0 },
   },
 };
 const W_WEEK_LABELS = {
@@ -223,108 +223,106 @@ const S_MONTHS = Object.keys(S_MONTH_WEEKS);
 
 const S_RAW = {
   "2026": [
-    { week: 23, inventory: 156, occ_rooms: 29, occ_pct: 18.6, guests: 59, adl: 50, pkg_rev: 4659, extra_rev: 1386, spa_rev: 90, total_rev: 6045, adr: 208.4 },
-    { week: 24, inventory: 546, occ_rooms: 159, occ_pct: 29.1, guests: 308, adl: 252, pkg_rev: 24453, extra_rev: 6176, spa_rev: 344, total_rev: 30628, adr: 192.6 },
-    { week: 25, inventory: 546, occ_rooms: 114, occ_pct: 20.9, guests: 245, adl: 206, pkg_rev: 19320, extra_rev: 5388, spa_rev: 392, total_rev: 24708, adr: 216.7 },
-    { week: 26, inventory: 546, occ_rooms: 291, occ_pct: 53.3, guests: 602, adl: 507, pkg_rev: 48544, extra_rev: 11046, spa_rev: 334, total_rev: 59590, adr: 204.8 },
-    { week: 27, inventory: 546, occ_rooms: 282, occ_pct: 51.6, guests: 715, adl: 559, pkg_rev: 49919, extra_rev: 17033, spa_rev: 852, total_rev: 66952, adr: 237.4 },
-    { week: 28, inventory: 546, occ_rooms: 261, occ_pct: 47.8, guests: 592, adl: 508, pkg_rev: 50086, extra_rev: 21567, spa_rev: 956, total_rev: 71653, adr: 274.5 },
-    { week: 29, inventory: 546, occ_rooms: 400, occ_pct: 73.3, guests: 889, adl: 736, pkg_rev: 73833, extra_rev: 19551, spa_rev: 612, total_rev: 93383, adr: 233.5 },
-    { week: 30, inventory: 546, occ_rooms: 421, occ_pct: 77.1, guests: 957, adl: 797, pkg_rev: 80251, extra_rev: 21177, spa_rev: 1049, total_rev: 101427, adr: 240.9 },
-    { week: 31, inventory: 546, occ_rooms: 356, occ_pct: 65.2, guests: 902, adl: 723, pkg_rev: 67550, extra_rev: 16984, spa_rev: 1032, total_rev: 84533, adr: 237.5 },
-    { week: 32, inventory: 546, occ_rooms: 482, occ_pct: 88.3, guests: 1211, adl: 946, pkg_rev: 101795, extra_rev: 23553, spa_rev: 1089, total_rev: 125348, adr: 260.1 },
+    { week: 23, inventory: 156, occ_rooms: 29, occ_pct: 18.6, guests: 59, adl: 50, chd: 5, pkg_rev: 4659, extra_base: 1386, rental: 0, spa_rev: 90, extra_rev: 1476, total_rev: 6135, adr: 211.6 },
+    { week: 24, inventory: 546, occ_rooms: 159, occ_pct: 29.1, guests: 308, adl: 252, chd: 46, pkg_rev: 24453, extra_base: 6176, rental: 0, spa_rev: 344, extra_rev: 6520, total_rev: 30972, adr: 194.8 },
+    { week: 25, inventory: 546, occ_rooms: 114, occ_pct: 20.9, guests: 245, adl: 206, chd: 28, pkg_rev: 19320, extra_base: 5388, rental: 0, spa_rev: 392, extra_rev: 5780, total_rev: 25100, adr: 220.2 },
+    { week: 26, inventory: 546, occ_rooms: 291, occ_pct: 53.3, guests: 602, adl: 507, chd: 65, pkg_rev: 48544, extra_base: 11046, rental: 0, spa_rev: 334, extra_rev: 11380, total_rev: 59924, adr: 205.9 },
+    { week: 27, inventory: 546, occ_rooms: 282, occ_pct: 51.6, guests: 715, adl: 559, chd: 117, pkg_rev: 49919, extra_base: 17033, rental: 0, spa_rev: 852, extra_rev: 17885, total_rev: 67804, adr: 240.4 },
+    { week: 28, inventory: 546, occ_rooms: 261, occ_pct: 47.8, guests: 592, adl: 508, chd: 69, pkg_rev: 50086, extra_base: 21567, rental: 0, spa_rev: 956, extra_rev: 22523, total_rev: 72609, adr: 278.2 },
+    { week: 29, inventory: 546, occ_rooms: 400, occ_pct: 73.3, guests: 889, adl: 736, chd: 132, pkg_rev: 73833, extra_base: 19551, rental: 0, spa_rev: 612, extra_rev: 20163, total_rev: 93995, adr: 235.0 },
+    { week: 30, inventory: 546, occ_rooms: 421, occ_pct: 77.1, guests: 957, adl: 797, chd: 128, pkg_rev: 80251, extra_base: 21177, rental: 0, spa_rev: 1049, extra_rev: 22226, total_rev: 102476, adr: 243.4 },
+    { week: 31, inventory: 546, occ_rooms: 356, occ_pct: 65.2, guests: 902, adl: 723, chd: 129, pkg_rev: 67550, extra_base: 16984, rental: 0, spa_rev: 1032, extra_rev: 18016, total_rev: 85565, adr: 240.4 },
+    { week: 32, inventory: 546, occ_rooms: 482, occ_pct: 88.3, guests: 1211, adl: 946, chd: 195, pkg_rev: 101795, extra_base: 23553, rental: 0, spa_rev: 1089, extra_rev: 24642, total_rev: 126437, adr: 262.3 },
   ],
   "2025": [
-    { week: 23, inventory: 546, occ_rooms: 86, occ_pct: 15.8, guests: 206, adl: 169, pkg_rev: 14849, extra_rev: 4333, spa_rev: 252, total_rev: 19183, adr: 223.1 },
-    { week: 24, inventory: 546, occ_rooms: 270, occ_pct: 49.5, guests: 609, adl: 532, pkg_rev: 42181, extra_rev: 10034, spa_rev: 867, total_rev: 52216, adr: 193.4 },
-    { week: 25, inventory: 546, occ_rooms: 134, occ_pct: 24.5, guests: 335, adl: 265, pkg_rev: 21317, extra_rev: 11301, spa_rev: 665, total_rev: 32618, adr: 243.4 },
-    { week: 26, inventory: 546, occ_rooms: 226, occ_pct: 41.4, guests: 508, adl: 411, pkg_rev: 40052, extra_rev: 10166, spa_rev: 934, total_rev: 50218, adr: 222.2 },
-    { week: 27, inventory: 546, occ_rooms: 193, occ_pct: 35.3, guests: 472, adl: 402, pkg_rev: 31263, extra_rev: 12507, spa_rev: 1004, total_rev: 43770, adr: 226.8 },
-    { week: 28, inventory: 546, occ_rooms: 222, occ_pct: 40.7, guests: 547, adl: 452, pkg_rev: 35514, extra_rev: 11443, spa_rev: 400, total_rev: 46957, adr: 211.5 },
-    { week: 29, inventory: 546, occ_rooms: 286, occ_pct: 52.4, guests: 694, adl: 575, pkg_rev: 52172, extra_rev: 13042, spa_rev: 559, total_rev: 65214, adr: 228.0 },
-    { week: 30, inventory: 546, occ_rooms: 361, occ_pct: 66.1, guests: 928, adl: 678, pkg_rev: 66429, extra_rev: 15519, spa_rev: 1010, total_rev: 81948, adr: 227.0 },
-    { week: 31, inventory: 546, occ_rooms: 331, occ_pct: 60.6, guests: 811, adl: 624, pkg_rev: 56958, extra_rev: 15833, spa_rev: 862, total_rev: 72790, adr: 219.9 },
-    { week: 32, inventory: 546, occ_rooms: 442, occ_pct: 81.0, guests: 1230, adl: 954, pkg_rev: 83496, extra_rev: 21254, spa_rev: 1266, total_rev: 104750, adr: 237.0 },
+    { week: 23, inventory: 546, occ_rooms: 86, occ_pct: 15.8, guests: 206, adl: 169, chd: 23, pkg_rev: 14849, extra_base: 4333, rental: 0, spa_rev: 252, extra_rev: 4585, total_rev: 19435, adr: 226.0 },
+    { week: 24, inventory: 546, occ_rooms: 270, occ_pct: 49.5, guests: 609, adl: 532, chd: 64, pkg_rev: 42181, extra_base: 10034, rental: 0, spa_rev: 867, extra_rev: 10901, total_rev: 53083, adr: 196.6 },
+    { week: 25, inventory: 546, occ_rooms: 134, occ_pct: 24.5, guests: 335, adl: 265, chd: 55, pkg_rev: 21317, extra_base: 11301, rental: 0, spa_rev: 665, extra_rev: 11966, total_rev: 33283, adr: 248.4 },
+    { week: 26, inventory: 546, occ_rooms: 226, occ_pct: 41.4, guests: 508, adl: 411, chd: 65, pkg_rev: 40052, extra_base: 10166, rental: 0, spa_rev: 934, extra_rev: 11100, total_rev: 51152, adr: 226.3 },
+    { week: 27, inventory: 546, occ_rooms: 193, occ_pct: 35.3, guests: 472, adl: 402, chd: 43, pkg_rev: 31263, extra_base: 12507, rental: 0, spa_rev: 1004, extra_rev: 13511, total_rev: 44774, adr: 232.0 },
+    { week: 28, inventory: 546, occ_rooms: 222, occ_pct: 40.7, guests: 547, adl: 452, chd: 70, pkg_rev: 35514, extra_base: 11443, rental: 0, spa_rev: 400, extra_rev: 11843, total_rev: 47357, adr: 213.3 },
+    { week: 29, inventory: 546, occ_rooms: 286, occ_pct: 52.4, guests: 694, adl: 575, chd: 84, pkg_rev: 52172, extra_base: 13042, rental: 0, spa_rev: 559, extra_rev: 13601, total_rev: 65773, adr: 230.0 },
+    { week: 30, inventory: 546, occ_rooms: 361, occ_pct: 66.1, guests: 928, adl: 678, chd: 190, pkg_rev: 66429, extra_base: 15519, rental: 0, spa_rev: 1010, extra_rev: 16529, total_rev: 82958, adr: 229.8 },
+    { week: 31, inventory: 546, occ_rooms: 331, occ_pct: 60.6, guests: 811, adl: 624, chd: 133, pkg_rev: 56958, extra_base: 15833, rental: 0, spa_rev: 862, extra_rev: 16695, total_rev: 73652, adr: 222.5 },
+    { week: 32, inventory: 546, occ_rooms: 442, occ_pct: 81.0, guests: 1230, adl: 954, chd: 194, pkg_rev: 83496, extra_base: 21254, rental: 0, spa_rev: 1266, extra_rev: 22520, total_rev: 106016, adr: 239.9 },
   ],
   "2024": [
-    { week: 23, inventory: 156, occ_rooms: 22, occ_pct: 14.1, guests: 47, adl: 38, pkg_rev: 2781, extra_rev: 806, spa_rev: 27, total_rev: 3587, adr: 163.0 },
-    { week: 24, inventory: 546, occ_rooms: 151, occ_pct: 27.7, guests: 307, adl: 255, pkg_rev: 21157, extra_rev: 9330, spa_rev: 430, total_rev: 30486, adr: 201.9 },
-    { week: 25, inventory: 546, occ_rooms: 145, occ_pct: 26.6, guests: 290, adl: 266, pkg_rev: 22674, extra_rev: 5595, spa_rev: 180, total_rev: 28270, adr: 195.0 },
-    { week: 26, inventory: 546, occ_rooms: 124, occ_pct: 22.7, guests: 228, adl: 207, pkg_rev: 13176, extra_rev: 2369, spa_rev: 283, total_rev: 15545, adr: 125.4 },
-    { week: 27, inventory: 546, occ_rooms: 213, occ_pct: 39.0, guests: 428, adl: 376, pkg_rev: 30432, extra_rev: 15888, spa_rev: 386, total_rev: 46320, adr: 217.5 },
-    { week: 28, inventory: 546, occ_rooms: 208, occ_pct: 38.1, guests: 498, adl: 423, pkg_rev: 28629, extra_rev: 9376, spa_rev: 252, total_rev: 38006, adr: 182.7 },
-    { week: 29, inventory: 546, occ_rooms: 313, occ_pct: 57.3, guests: 799, adl: 627, pkg_rev: 47389, extra_rev: 17883, spa_rev: 672, total_rev: 65272, adr: 208.5 },
-    { week: 30, inventory: 546, occ_rooms: 304, occ_pct: 55.7, guests: 766, adl: 597, pkg_rev: 47774, extra_rev: 13154, spa_rev: 602, total_rev: 60929, adr: 200.4 },
-    { week: 31, inventory: 546, occ_rooms: 392, occ_pct: 71.8, guests: 962, adl: 745, pkg_rev: 60810, extra_rev: 16110, spa_rev: 492, total_rev: 76920, adr: 196.2 },
-    { week: 32, inventory: 546, occ_rooms: 337, occ_pct: 61.7, guests: 834, adl: 650, pkg_rev: 61236, extra_rev: 18313, spa_rev: 954, total_rev: 79550, adr: 236.1 },
+    { week: 23, inventory: 156, occ_rooms: 22, occ_pct: 14.1, guests: 47, adl: 38, chd: 8, pkg_rev: 2781, extra_base: 806, rental: 0, spa_rev: 27, extra_rev: 832, total_rev: 3614, adr: 164.3 },
+    { week: 24, inventory: 546, occ_rooms: 151, occ_pct: 27.7, guests: 307, adl: 255, chd: 42, pkg_rev: 21157, extra_base: 9330, rental: 0, spa_rev: 430, extra_rev: 9760, total_rev: 30916, adr: 204.7 },
+    { week: 25, inventory: 546, occ_rooms: 145, occ_pct: 26.6, guests: 290, adl: 266, chd: 22, pkg_rev: 22674, extra_base: 5595, rental: 0, spa_rev: 180, extra_rev: 5775, total_rev: 28450, adr: 196.2 },
+    { week: 26, inventory: 546, occ_rooms: 124, occ_pct: 22.7, guests: 228, adl: 207, chd: 16, pkg_rev: 13176, extra_base: 2369, rental: 0, spa_rev: 283, extra_rev: 2652, total_rev: 15828, adr: 127.6 },
+    { week: 27, inventory: 546, occ_rooms: 213, occ_pct: 39.0, guests: 428, adl: 376, chd: 37, pkg_rev: 30432, extra_base: 15888, rental: 0, spa_rev: 386, extra_rev: 16274, total_rev: 46706, adr: 219.3 },
+    { week: 28, inventory: 546, occ_rooms: 208, occ_pct: 38.1, guests: 498, adl: 423, chd: 54, pkg_rev: 28629, extra_base: 9376, rental: 0, spa_rev: 252, extra_rev: 9628, total_rev: 38258, adr: 183.9 },
+    { week: 29, inventory: 546, occ_rooms: 313, occ_pct: 57.3, guests: 799, adl: 627, chd: 110, pkg_rev: 47389, extra_base: 17883, rental: 0, spa_rev: 672, extra_rev: 18555, total_rev: 65944, adr: 210.7 },
+    { week: 30, inventory: 546, occ_rooms: 304, occ_pct: 55.7, guests: 766, adl: 597, chd: 124, pkg_rev: 47774, extra_base: 13154, rental: 0, spa_rev: 602, extra_rev: 13756, total_rev: 61531, adr: 202.4 },
+    { week: 31, inventory: 546, occ_rooms: 392, occ_pct: 71.8, guests: 962, adl: 745, chd: 159, pkg_rev: 60810, extra_base: 16110, rental: 0, spa_rev: 492, extra_rev: 16602, total_rev: 77412, adr: 197.5 },
+    { week: 32, inventory: 546, occ_rooms: 337, occ_pct: 61.7, guests: 834, adl: 650, chd: 139, pkg_rev: 61236, extra_base: 18313, rental: 0, spa_rev: 954, extra_rev: 19267, total_rev: 80504, adr: 238.9 },
   ],
   "2023": [
-    { week: 23, inventory: 546, occ_rooms: 79, occ_pct: 14.5, guests: 173, adl: 155, pkg_rev: 8994, extra_rev: 7562, spa_rev: 762, total_rev: 16556, adr: 209.6 },
-    { week: 24, inventory: 546, occ_rooms: 264, occ_pct: 48.4, guests: 490, adl: 449, pkg_rev: 30275, extra_rev: 11599, spa_rev: 352, total_rev: 41874, adr: 158.6 },
-    { week: 25, inventory: 546, occ_rooms: 192, occ_pct: 35.2, guests: 402, adl: 358, pkg_rev: 23171, extra_rev: 11223, spa_rev: 692.5, total_rev: 34394, adr: 179.1 },
-    { week: 26, inventory: 546, occ_rooms: 205, occ_pct: 37.5, guests: 461, adl: 399, pkg_rev: 25298, extra_rev: 10575, spa_rev: 555, total_rev: 35873, adr: 175.0 },
-    { week: 27, inventory: 546, occ_rooms: 332, occ_pct: 60.8, guests: 771, adl: 678, pkg_rev: 40655, extra_rev: 14711, spa_rev: 206, total_rev: 55365, adr: 166.8 },
-    { week: 28, inventory: 546, occ_rooms: 356, occ_pct: 65.2, guests: 812, adl: 705, pkg_rev: 48308, extra_rev: 21494, spa_rev: 1202, total_rev: 69803, adr: 196.1 },
-    { week: 29, inventory: 546, occ_rooms: 438, occ_pct: 80.2, guests: 1008, adl: 894, pkg_rev: 64511, extra_rev: 25534, spa_rev: 1093, total_rev: 90046, adr: 205.6 },
-    { week: 30, inventory: 546, occ_rooms: 419, occ_pct: 76.7, guests: 1076, adl: 865, pkg_rev: 63039, extra_rev: 21937, spa_rev: 1153, total_rev: 84977, adr: 202.8 },
-    { week: 31, inventory: 546, occ_rooms: 449, occ_pct: 82.2, guests: 1146, adl: 856, pkg_rev: 77051, extra_rev: 22497, spa_rev: 1314, total_rev: 99549, adr: 221.7 },
-    { week: 32, inventory: 546, occ_rooms: 477, occ_pct: 87.4, guests: 1224, adl: 984, pkg_rev: 92919, extra_rev: 23858, spa_rev: 1606.5, total_rev: 116777, adr: 244.8 },
+    { week: 23, inventory: 546, occ_rooms: 79, occ_pct: 14.5, guests: 173, adl: 155, chd: 14, pkg_rev: 8994, extra_base: 7562, rental: 0, spa_rev: 762, extra_rev: 8324, total_rev: 17318, adr: 219.2 },
+    { week: 24, inventory: 546, occ_rooms: 264, occ_pct: 48.4, guests: 490, adl: 449, chd: 32, pkg_rev: 30275, extra_base: 11599, rental: 0, spa_rev: 352, extra_rev: 11951, total_rev: 42226, adr: 159.9 },
+    { week: 25, inventory: 546, occ_rooms: 192, occ_pct: 35.2, guests: 402, adl: 358, chd: 25, pkg_rev: 23171, extra_base: 11223, rental: 0, spa_rev: 692.5, extra_rev: 11915, total_rev: 35086, adr: 182.7 },
+    { week: 26, inventory: 546, occ_rooms: 205, occ_pct: 37.5, guests: 461, adl: 399, chd: 50, pkg_rev: 25298, extra_base: 10575, rental: 0, spa_rev: 555, extra_rev: 11130, total_rev: 36428, adr: 177.7 },
+    { week: 27, inventory: 546, occ_rooms: 332, occ_pct: 60.8, guests: 771, adl: 678, chd: 62, pkg_rev: 40655, extra_base: 14711, rental: 4270, spa_rev: 206, extra_rev: 19187, total_rev: 59841, adr: 180.2 },
+    { week: 28, inventory: 546, occ_rooms: 356, occ_pct: 65.2, guests: 812, adl: 705, chd: 74, pkg_rev: 48308, extra_base: 21494, rental: 0, spa_rev: 1202, extra_rev: 22696, total_rev: 71005, adr: 199.5 },
+    { week: 29, inventory: 546, occ_rooms: 438, occ_pct: 80.2, guests: 1008, adl: 894, chd: 81, pkg_rev: 64511, extra_base: 25534, rental: 14, spa_rev: 1093, extra_rev: 26641, total_rev: 91153, adr: 208.1 },
+    { week: 30, inventory: 546, occ_rooms: 419, occ_pct: 76.7, guests: 1076, adl: 865, chd: 164, pkg_rev: 63039, extra_base: 21937, rental: 0, spa_rev: 1153, extra_rev: 23090, total_rev: 86130, adr: 205.6 },
+    { week: 31, inventory: 546, occ_rooms: 449, occ_pct: 82.2, guests: 1146, adl: 856, chd: 258, pkg_rev: 77051, extra_base: 22497, rental: 0, spa_rev: 1314, extra_rev: 23811, total_rev: 100863, adr: 224.6 },
+    { week: 32, inventory: 546, occ_rooms: 477, occ_pct: 87.4, guests: 1224, adl: 984, chd: 181, pkg_rev: 92919, extra_base: 23858, rental: 0, spa_rev: 1606.5, extra_rev: 25464, total_rev: 118383, adr: 248.2 },
   ],
 };
-
 // Food (Stellato+Volpe FOOD) and Beverage (Stellato+Volpe BEVERAGE) weekly — 2023-2026
 // Note: 2023 beverage data is incomplete in the source file after week 24 (recorded as 0)
 const S_FB_DATA = {
   "2026": {
-    23: { guests: 59, adl: 50, food_rev: 827, bev_rev: 265, spa_rev: 90 },
-    24: { guests: 308, adl: 252, food_rev: 2995, bev_rev: 1048, spa_rev: 344 },
-    25: { guests: 245, adl: 206, food_rev: 2539, bev_rev: 1253, spa_rev: 392 },
-    26: { guests: 602, adl: 507, food_rev: 4469, bev_rev: 2452, spa_rev: 334 },
-    27: { guests: 715, adl: 559, food_rev: 10194, bev_rev: 2696, spa_rev: 852 },
-    28: { guests: 592, adl: 508, food_rev: 10108, bev_rev: 6152, spa_rev: 956 },
-    29: { guests: 889, adl: 736, food_rev: 11731, bev_rev: 3999, spa_rev: 612 },
-    30: { guests: 957, adl: 797, food_rev: 11990, bev_rev: 3696, spa_rev: 1049 },
-    31: { guests: 902, adl: 723, food_rev: 8350, bev_rev: 3196, spa_rev: 1032 },
-    32: { guests: 1211, adl: 946, food_rev: 15421, bev_rev: 2946, spa_rev: 1089 },
+    23: { guests: 59, adl: 50, chd: 5, weighted_hc: 52.5, food_rev: 2235, food_extra: 827, bev_rev: 524, spa_rev: 90 },
+    24: { guests: 308, adl: 252, chd: 46, weighted_hc: 275.0, food_rev: 8841, food_extra: 2995, bev_rev: 2372, spa_rev: 344 },
+    25: { guests: 245, adl: 206, chd: 28, weighted_hc: 220.0, food_rev: 10523, food_extra: 2539, bev_rev: 2157, spa_rev: 392 },
+    26: { guests: 602, adl: 507, chd: 65, weighted_hc: 539.5, food_rev: 25690, food_extra: 4469, bev_rev: 4084, spa_rev: 334 },
+    27: { guests: 715, adl: 559, chd: 117, weighted_hc: 617.5, food_rev: 34000, food_extra: 10194, bev_rev: 4752, spa_rev: 852 },
+    28: { guests: 592, adl: 508, chd: 69, weighted_hc: 542.5, food_rev: 26182, food_extra: 10108, bev_rev: 9073, spa_rev: 956 },
+    29: { guests: 889, adl: 736, chd: 132, weighted_hc: 802.0, food_rev: 38431, food_extra: 11731, bev_rev: 5750, spa_rev: 612 },
+    30: { guests: 957, adl: 797, chd: 128, weighted_hc: 861.0, food_rev: 44703, food_extra: 11990, bev_rev: 6020, spa_rev: 1049 },
+    31: { guests: 902, adl: 723, chd: 129, weighted_hc: 787.5, food_rev: 37366, food_extra: 8350, bev_rev: 5474, spa_rev: 1032 },
+    32: { guests: 1211, adl: 946, chd: 195, weighted_hc: 1043.5, food_rev: 57661, food_extra: 15421, bev_rev: 5752, spa_rev: 1089 },
   },
   "2025": {
-    23: { guests: 206, adl: 169, food_rev: 2016, bev_rev: 794, spa_rev: 252 },
-    24: { guests: 609, adl: 532, food_rev: 5374, bev_rev: 1252, spa_rev: 867 },
-    25: { guests: 335, adl: 265, food_rev: 6198, bev_rev: 2027, spa_rev: 665 },
-    26: { guests: 508, adl: 411, food_rev: 4688, bev_rev: 2263, spa_rev: 934 },
-    27: { guests: 472, adl: 402, food_rev: 7447, bev_rev: 1680, spa_rev: 1004 },
-    28: { guests: 547, adl: 452, food_rev: 5683, bev_rev: 1086, spa_rev: 400 },
-    29: { guests: 694, adl: 575, food_rev: 7666, bev_rev: 1540, spa_rev: 559 },
-    30: { guests: 928, adl: 678, food_rev: 9527, bev_rev: 1784, spa_rev: 1010 },
-    31: { guests: 811, adl: 624, food_rev: 10234, bev_rev: 1612, spa_rev: 862 },
-    32: { guests: 1230, adl: 954, food_rev: 12909, bev_rev: 1895, spa_rev: 1266 },
+    23: { guests: 206, adl: 169, chd: 23, weighted_hc: 180.5, food_rev: 7005, food_extra: 2016, bev_rev: 1600, spa_rev: 252 },
+    24: { guests: 609, adl: 532, chd: 64, weighted_hc: 564.0, food_rev: 15262, food_extra: 5374, bev_rev: 3574, spa_rev: 867 },
+    25: { guests: 335, adl: 265, chd: 55, weighted_hc: 292.5, food_rev: 13122, food_extra: 6198, bev_rev: 2938, spa_rev: 665 },
+    26: { guests: 508, adl: 411, chd: 65, weighted_hc: 443.5, food_rev: 19816, food_extra: 4688, bev_rev: 4542, spa_rev: 934 },
+    27: { guests: 472, adl: 402, chd: 43, weighted_hc: 423.5, food_rev: 19062, food_extra: 7447, bev_rev: 4028, spa_rev: 1004 },
+    28: { guests: 547, adl: 452, chd: 70, weighted_hc: 487.0, food_rev: 20042, food_extra: 5683, bev_rev: 2702, spa_rev: 400 },
+    29: { guests: 694, adl: 575, chd: 84, weighted_hc: 617.0, food_rev: 26174, food_extra: 7666, bev_rev: 4028, spa_rev: 559 },
+    30: { guests: 928, adl: 678, chd: 190, weighted_hc: 773.0, food_rev: 35584, food_extra: 9527, bev_rev: 3772, spa_rev: 1010 },
+    31: { guests: 811, adl: 624, chd: 133, weighted_hc: 690.5, food_rev: 33284, food_extra: 10234, bev_rev: 4252, spa_rev: 862 },
+    32: { guests: 1230, adl: 954, chd: 194, weighted_hc: 1051.0, food_rev: 45267, food_extra: 12909, bev_rev: 5930, spa_rev: 1266 },
   },
   "2024": {
-    23: { guests: 47, adl: 38, food_rev: 430, bev_rev: 212, spa_rev: 27 },
-    24: { guests: 307, adl: 255, food_rev: 5926, bev_rev: 2013, spa_rev: 430 },
-    25: { guests: 290, adl: 266, food_rev: 2137, bev_rev: 1864, spa_rev: 180 },
-    26: { guests: 228, adl: 207, food_rev: 388, bev_rev: 590, spa_rev: 283 },
-    27: { guests: 428, adl: 376, food_rev: 7886, bev_rev: 2052, spa_rev: 386 },
-    28: { guests: 498, adl: 423, food_rev: 5697, bev_rev: 1194, spa_rev: 252 },
-    29: { guests: 799, adl: 627, food_rev: 10460, bev_rev: 2336, spa_rev: 672 },
-    30: { guests: 766, adl: 597, food_rev: 7524, bev_rev: 2042, spa_rev: 602 },
-    31: { guests: 962, adl: 745, food_rev: 8920, bev_rev: 2410, spa_rev: 492 },
-    32: { guests: 834, adl: 650, food_rev: 11548, bev_rev: 2311, spa_rev: 954 },
+    23: { guests: 47, adl: 38, chd: 8, weighted_hc: 42.0, food_rev: 1544, food_extra: 430, bev_rev: 240, spa_rev: 27 },
+    24: { guests: 307, adl: 255, chd: 42, weighted_hc: 276.0, food_rev: 11080, food_extra: 5926, bev_rev: 2658, spa_rev: 430 },
+    25: { guests: 290, adl: 266, chd: 22, weighted_hc: 277.0, food_rev: 11380, food_extra: 2137, bev_rev: 2806, spa_rev: 180 },
+    26: { guests: 228, adl: 207, chd: 16, weighted_hc: 215.0, food_rev: 6122, food_extra: 388, bev_rev: 1209, spa_rev: 283 },
+    27: { guests: 428, adl: 376, chd: 37, weighted_hc: 394.5, food_rev: 17226, food_extra: 7886, bev_rev: 3833, spa_rev: 386 },
+    28: { guests: 498, adl: 423, chd: 54, weighted_hc: 450.0, food_rev: 16264, food_extra: 5697, bev_rev: 2364, spa_rev: 252 },
+    29: { guests: 799, adl: 627, chd: 110, weighted_hc: 682.0, food_rev: 29040, food_extra: 10460, bev_rev: 5100, spa_rev: 672 },
+    30: { guests: 766, adl: 597, chd: 124, weighted_hc: 659.0, food_rev: 27594, food_extra: 7524, bev_rev: 3808, spa_rev: 602 },
+    31: { guests: 962, adl: 745, chd: 159, weighted_hc: 824.5, food_rev: 34366, food_extra: 8920, bev_rev: 5084, spa_rev: 492 },
+    32: { guests: 834, adl: 650, chd: 139, weighted_hc: 719.5, food_rev: 31979, food_extra: 11548, bev_rev: 4904, spa_rev: 954 },
   },
   "2023": {
-    23: { guests: 173, adl: 155, food_rev: 1550, bev_rev: 2857, spa_rev: 762 },
-    24: { guests: 490, adl: 449, food_rev: 3772, bev_rev: 6877, spa_rev: 352 },
-    25: { guests: 402, adl: 358, food_rev: 5680, bev_rev: 0, spa_rev: 692.5 },
-    26: { guests: 461, adl: 399, food_rev: 3795, bev_rev: 0, spa_rev: 555 },
-    27: { guests: 771, adl: 678, food_rev: 6933, bev_rev: 0, spa_rev: 206 },
-    28: { guests: 812, adl: 705, food_rev: 9396, bev_rev: 0, spa_rev: 1202 },
-    29: { guests: 1008, adl: 894, food_rev: 14706, bev_rev: 0, spa_rev: 1093 },
-    30: { guests: 1076, adl: 865, food_rev: 12359, bev_rev: 0, spa_rev: 1153 },
-    31: { guests: 1146, adl: 856, food_rev: 10411, bev_rev: 0, spa_rev: 1314 },
-    32: { guests: 1224, adl: 984, food_rev: 16041, bev_rev: 0, spa_rev: 1606.5 },
+    23: { guests: 173, adl: 155, chd: 14, weighted_hc: 162.0, food_rev: 4979, food_extra: 1550, bev_rev: 2857, spa_rev: 762 },
+    24: { guests: 490, adl: 449, chd: 32, weighted_hc: 465.0, food_rev: 10561, food_extra: 3772, bev_rev: 6877, spa_rev: 352 },
+    25: { guests: 402, adl: 358, chd: 25, weighted_hc: 370.5, food_rev: 11437, food_extra: 5680, bev_rev: 5326, spa_rev: 692.5 },
+    26: { guests: 461, adl: 399, chd: 50, weighted_hc: 424.0, food_rev: 12580, food_extra: 3795, bev_rev: 6019, spa_rev: 555 },
+    27: { guests: 771, adl: 678, chd: 62, weighted_hc: 709.0, food_rev: 19994, food_extra: 6933, bev_rev: 7046, spa_rev: 206 },
+    28: { guests: 812, adl: 705, chd: 74, weighted_hc: 742.0, food_rev: 22898, food_extra: 9396, bev_rev: 8823, spa_rev: 1202 },
+    29: { guests: 1008, adl: 894, chd: 81, weighted_hc: 934.5, food_rev: 32870, food_extra: 14706, bev_rev: 9138, spa_rev: 1093 },
+    30: { guests: 1076, adl: 865, chd: 164, weighted_hc: 947.0, food_rev: 31481, food_extra: 12359, bev_rev: 7778, spa_rev: 1153 },
+    31: { guests: 1146, adl: 856, chd: 258, weighted_hc: 985.0, food_rev: 34382, food_extra: 10411, bev_rev: 10941, spa_rev: 1314 },
+    32: { guests: 1224, adl: 984, chd: 181, weighted_hc: 1074.5, food_rev: 41740, food_extra: 16041, bev_rev: 6204, spa_rev: 1606.5 },
   },
 };
-
 const S_WEEK_LABELS = { 23: "W23", 24: "W24", 25: "W25", 26: "W26", 27: "W27", 28: "W28", 29: "W29", 30: "W30", 31: "W31", 32: "W32" };
 const S_WEEK_DATES = {
   23: "Jun 5-6", 24: "Jun 7-13", 25: "Jun 14-20", 26: "Jun 21-27", 27: "Jun28-Jul4",
@@ -512,13 +510,15 @@ function w_fbTotalsForWeeks(year, weeks) {
   return { guests, adl, weightedHc, food, foodExtra, bev, spa, foodPerGuest: weightedHc ? food / weightedHc : 0, bevPerAdult: adl ? bev / adl : 0, spaPerAdult: adl ? spa / adl : 0 };
 }
 function w_deptForWeeks(year, weeks) {
+  const rows = W_RAW[year].filter((r) => weeks.includes(r.week));
   const t = w_totalsForWeeks(year, weeks);
   const fb = w_fbTotalsForWeeks(year, weeks);
   const hasDetail = !!W_FB_DATA[year];
-  const fnb = hasDetail ? fb.foodExtra + fb.bev : 0;
+  const rental = w_sum(rows, "rental");
   const spa = t.spa;
-  const other = hasDetail ? Math.max(0, t.extra - fnb - spa) : Math.max(0, t.extra - spa);
-  return { pkg: t.pkg, fnb, other, spa, hasDetail };
+  const fnb = hasDetail ? fb.foodExtra + fb.bev : 0;
+  const other = Math.max(0, t.extra - fnb - spa - rental);
+  return { pkg: t.pkg, fnb, other, rental, spa, hasDetail };
 }
 
 function w_totals(year) {
@@ -620,7 +620,7 @@ function WinterPage() {
   const deptData = useMemo(() => {
     return W_YEARS.map((y) => {
       const d = w_deptForWeeks(y, activeWeeks);
-      return { year: y, "Rooms & Package": d.pkg, "F&B": d.fnb, "Other Dept.": d.other, "Spa": d.spa, hasDetail: d.hasDetail };
+      return { year: y, "Rooms & Package": d.pkg, "F&B": d.fnb, "Rental": d.rental, "Other Dept.": d.other, "Spa": d.spa, hasDetail: d.hasDetail };
     });
   }, [period]);
 
@@ -725,6 +725,7 @@ function WinterPage() {
         <Legend wrapperStyle={{ fontSize: 12 }} />
         <Bar dataKey="Rooms & Package" stackId="a" fill="#1E3229" />
         <Bar dataKey="F&B" stackId="a" fill="#A9673C" />
+        <Bar dataKey="Rental" stackId="a" fill="#7E8B6B" />
         <Bar dataKey="Other Dept." stackId="a" fill="#C9A876" />
         <Bar dataKey="Spa" stackId="a" fill="#D8B79A" radius={[3, 3, 0, 0]} />
       </BarChart>
@@ -994,13 +995,15 @@ function s_fbTotalsForWeeks(year, weeks) {
   return { guests, adl, food, bev, spa, foodPerGuest: guests ? food / guests : 0, bevPerAdult: adl ? bev / adl : 0, spaPerAdult: adl ? spa / adl : 0 };
 }
 function s_deptForWeeks(year, weeks) {
+  const rows = S_RAW[year].filter((r) => weeks.includes(r.week));
   const t = s_totalsForWeeks(year, weeks);
   const fb = s_fbTotalsForWeeks(year, weeks);
   const hasDetail = !!S_FB_DATA[year];
-  const fnb = hasDetail ? fb.food + fb.bev : 0;
+  const rental = s_sum(rows, "rental");
   const spa = t.spa;
-  const other = hasDetail ? Math.max(0, t.extra - fnb - spa) : Math.max(0, t.extra - spa);
-  return { pkg: t.pkg, fnb, other, spa, hasDetail };
+  const fnb = hasDetail ? fb.food + fb.bev : 0;
+  const other = Math.max(0, t.extra - fnb - spa - rental);
+  return { pkg: t.pkg, fnb, other, rental, spa, hasDetail };
 }
 
 function s_totals(year) {
@@ -1095,7 +1098,7 @@ function SummerPage() {
   const deptData = useMemo(() => {
     return S_YEARS.map((y) => {
       const d = s_deptForWeeks(y, activeWeeks);
-      return { year: y, "Rooms & Package": d.pkg, "F&B": d.fnb, "Other Dept.": d.other, "Spa": d.spa, hasDetail: d.hasDetail };
+      return { year: y, "Rooms & Package": d.pkg, "F&B": d.fnb, "Rental": d.rental, "Other Dept.": d.other, "Spa": d.spa, hasDetail: d.hasDetail };
     });
   }, [period]);
 
@@ -1196,6 +1199,7 @@ function SummerPage() {
         <Legend wrapperStyle={{ fontSize: 12 }} />
         <Bar dataKey="Rooms & Package" stackId="a" fill="#1E3229" />
         <Bar dataKey="F&B" stackId="a" fill="#A9673C" />
+        <Bar dataKey="Rental" stackId="a" fill="#7E8B6B" />
         <Bar dataKey="Other Dept." stackId="a" fill="#C9A876" />
         <Bar dataKey="Spa" stackId="a" fill="#D8B79A" radius={[3, 3, 0, 0]} />
       </BarChart>
