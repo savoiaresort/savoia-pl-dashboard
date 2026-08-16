@@ -32,7 +32,7 @@ const {
 
 
 // =============================================================================
-// DATA — extracted from SALES_CMPRSN_summer_26_fino_al_8_aug.xlsx
+// DATA — extracted from SALES_CMPRSN.xlsx (updated through week 33, 15 Aug 2026)
 // Prefixes: W_ = Winter season data, S_ = Summer season data, A_ = Annual (KPI's sheet)
 // =============================================================================
 
@@ -107,7 +107,6 @@ const W_RAW = {
     { week: 12, inventory: 553, occ_rooms: 170, occ_pct: 30.7, guests: 404, adl: 335, chd: 50, pkg_rev: 25626, extra_base: 10194, rental: 0, spa_rev: 301.5, extra_rev: 10496, total_rev: 36122, adr: 212.5 },
     { week: 13, inventory: 553, occ_rooms: 206, occ_pct: 37.3, guests: 558, adl: 423, chd: 111, pkg_rev: 34635, extra_base: 11417, rental: 0, spa_rev: 700, extra_rev: 12117, total_rev: 46751, adr: 226.9 },
     { week: 14, inventory: 553, occ_rooms: 532, occ_pct: 96.2, guests: 1421, adl: 854, chd: 476, pkg_rev: 75137, extra_base: 23947, rental: 0, spa_rev: 530, extra_rev: 24477, total_rev: 99614, adr: 187.2 },
-    { week: 15, inventory: 0, occ_rooms: 0, occ_pct: 0, guests: 0, adl: 0, chd: 0, pkg_rev: 0, extra_base: 0, rental: 0, spa_rev: 0, extra_rev: 0, total_rev: 0, adr: 0 },
   ],
   "2023": [
     { week: 49, inventory: 702, occ_rooms: 248, occ_pct: 35.3, guests: 619, adl: 516, chd: 86, pkg_rev: 42912, extra_base: 11367, rental: 0, spa_rev: 1438, extra_rev: 12805, total_rev: 55717, adr: 224.7 },
@@ -128,7 +127,6 @@ const W_RAW = {
     { week: 12, inventory: 553, occ_rooms: 115, occ_pct: 20.8, guests: 267, adl: 231, chd: 24, pkg_rev: 14221, extra_base: 5081, rental: 0, spa_rev: 294.2, extra_rev: 5375, total_rev: 19596, adr: 170.4 },
     { week: 13, inventory: 553, occ_rooms: 76, occ_pct: 13.7, guests: 178, adl: 159, chd: 15, pkg_rev: 8347, extra_base: 10002, rental: 0, spa_rev: 335.2, extra_rev: 10338, total_rev: 18685, adr: 245.9 },
     { week: 14, inventory: 780, occ_rooms: 597, occ_pct: 76.5, guests: 1523, adl: 900, chd: 574, pkg_rev: 80016, extra_base: 22493, rental: 0, spa_rev: 388.2, extra_rev: 22881, total_rev: 102897, adr: 172.4 },
-    { week: 15, inventory: 0, occ_rooms: 0, occ_pct: 0, guests: 0, adl: 0, chd: 0, pkg_rev: 742, extra_base: -50, rental: 0, spa_rev: 0.2, extra_rev: -50, total_rev: 693, adr: 0 },
   ],
 };
 // Food (Stellato+Volpe FOOD) and Beverage (Stellato+Volpe BEVERAGE) weekly — 2024-2026 only
@@ -194,7 +192,6 @@ const W_FB_DATA = {
     12: { guests: 404, adl: 335, chd: 50, weighted_hc: 360.0, food_rev: 15751, food_extra: 5303, bev_rev: 3587, spa_rev: 301.5 },
     13: { guests: 558, adl: 423, chd: 111, weighted_hc: 478.5, food_rev: 24785, food_extra: 7277, bev_rev: 3417, spa_rev: 700 },
     14: { guests: 1421, adl: 854, chd: 476, weighted_hc: 1092.0, food_rev: 60911, food_extra: 6829, bev_rev: 16309, spa_rev: 530 },
-    15: { guests: 0, adl: 0, chd: 0, weighted_hc: 0.0, food_rev: 0, food_extra: 0, bev_rev: 0, spa_rev: 0 },
   },
 };
 const W_WEEK_LABELS = {
@@ -213,11 +210,11 @@ const W_YEARS = ["2023", "2024", "2025", "2026"];
 const W_FB_YEARS = ["2026", "2025", "2024"];
 const W_YEAR_COLOR = { "2023": "#B9AFA0", "2024": "#8C8271", "2025": "#A9673C", "2026": "#1E3229" };
 
-const S_WEEK_SEQ = [23, 24, 25, 26, 27, 28, 29, 30, 31, 32];
+const S_WEEK_SEQ = [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33];
 const S_MONTH_WEEKS = {
   "June": [23, 24, 25, 26],
   "July": [27, 28, 29, 30],
-  "August": [31, 32],
+  "August": [31, 32, 33],
 };
 const S_MONTHS = Object.keys(S_MONTH_WEEKS);
 
@@ -233,6 +230,7 @@ const S_RAW = {
     { week: 30, inventory: 546, occ_rooms: 421, occ_pct: 77.1, guests: 957, adl: 797, chd: 128, pkg_rev: 80251, extra_base: 21177, rental: 0, spa_rev: 1049, extra_rev: 22226, total_rev: 102476, adr: 243.4 },
     { week: 31, inventory: 546, occ_rooms: 356, occ_pct: 65.2, guests: 902, adl: 723, chd: 129, pkg_rev: 67550, extra_base: 16984, rental: 0, spa_rev: 1032, extra_rev: 18016, total_rev: 85565, adr: 240.4 },
     { week: 32, inventory: 546, occ_rooms: 482, occ_pct: 88.3, guests: 1211, adl: 946, chd: 195, pkg_rev: 101795, extra_base: 23553, rental: 0, spa_rev: 1089, extra_rev: 24642, total_rev: 126437, adr: 262.3 },
+    { week: 33, inventory: 539, occ_rooms: 531, occ_pct: 98.5, guests: 1406, adl: 1079, chd: 232, pkg_rev: 150135, extra_base: 33236, rental: 0, spa_rev: 2203, extra_rev: 35439, total_rev: 185574, adr: 349.5 },
   ],
   "2025": [
     { week: 23, inventory: 546, occ_rooms: 86, occ_pct: 15.8, guests: 206, adl: 169, chd: 23, pkg_rev: 14849, extra_base: 4333, rental: 0, spa_rev: 252, extra_rev: 4585, total_rev: 19435, adr: 226.0 },
@@ -245,6 +243,7 @@ const S_RAW = {
     { week: 30, inventory: 546, occ_rooms: 361, occ_pct: 66.1, guests: 928, adl: 678, chd: 190, pkg_rev: 66429, extra_base: 15519, rental: 0, spa_rev: 1010, extra_rev: 16529, total_rev: 82958, adr: 229.8 },
     { week: 31, inventory: 546, occ_rooms: 331, occ_pct: 60.6, guests: 811, adl: 624, chd: 133, pkg_rev: 56958, extra_base: 15833, rental: 0, spa_rev: 862, extra_rev: 16695, total_rev: 73652, adr: 222.5 },
     { week: 32, inventory: 546, occ_rooms: 442, occ_pct: 81.0, guests: 1230, adl: 954, chd: 194, pkg_rev: 83496, extra_base: 21254, rental: 0, spa_rev: 1266, extra_rev: 22520, total_rev: 106016, adr: 239.9 },
+    { week: 33, inventory: 539, occ_rooms: 528, occ_pct: 98.0, guests: 1475, adl: 1098, chd: 249, pkg_rev: 113314, extra_base: 33223, rental: 0, spa_rev: 1725, extra_rev: 34948, total_rev: 148262, adr: 280.8 },
   ],
   "2024": [
     { week: 23, inventory: 156, occ_rooms: 22, occ_pct: 14.1, guests: 47, adl: 38, chd: 8, pkg_rev: 2781, extra_base: 806, rental: 0, spa_rev: 27, extra_rev: 832, total_rev: 3614, adr: 164.3 },
@@ -257,6 +256,7 @@ const S_RAW = {
     { week: 30, inventory: 546, occ_rooms: 304, occ_pct: 55.7, guests: 766, adl: 597, chd: 124, pkg_rev: 47774, extra_base: 13154, rental: 0, spa_rev: 602, extra_rev: 13756, total_rev: 61531, adr: 202.4 },
     { week: 31, inventory: 546, occ_rooms: 392, occ_pct: 71.8, guests: 962, adl: 745, chd: 159, pkg_rev: 60810, extra_base: 16110, rental: 0, spa_rev: 492, extra_rev: 16602, total_rev: 77412, adr: 197.5 },
     { week: 32, inventory: 546, occ_rooms: 337, occ_pct: 61.7, guests: 834, adl: 650, chd: 139, pkg_rev: 61236, extra_base: 18313, rental: 0, spa_rev: 954, extra_rev: 19267, total_rev: 80504, adr: 238.9 },
+    { week: 33, inventory: 539, occ_rooms: 493, occ_pct: 91.5, guests: 1359, adl: 1041, chd: 227, pkg_rev: 107771, extra_base: 28754, rental: 0, spa_rev: 2573, extra_rev: 31327, total_rev: 139098, adr: 282.1 },
   ],
   "2023": [
     { week: 23, inventory: 546, occ_rooms: 79, occ_pct: 14.5, guests: 173, adl: 155, chd: 14, pkg_rev: 8994, extra_base: 7562, rental: 0, spa_rev: 762, extra_rev: 8324, total_rev: 17318, adr: 219.2 },
@@ -269,6 +269,7 @@ const S_RAW = {
     { week: 30, inventory: 546, occ_rooms: 419, occ_pct: 76.7, guests: 1076, adl: 865, chd: 164, pkg_rev: 63039, extra_base: 21937, rental: 0, spa_rev: 1153, extra_rev: 23090, total_rev: 86130, adr: 205.6 },
     { week: 31, inventory: 546, occ_rooms: 449, occ_pct: 82.2, guests: 1146, adl: 856, chd: 258, pkg_rev: 77051, extra_base: 22497, rental: 0, spa_rev: 1314, extra_rev: 23811, total_rev: 100863, adr: 224.6 },
     { week: 32, inventory: 546, occ_rooms: 477, occ_pct: 87.4, guests: 1224, adl: 984, chd: 181, pkg_rev: 92919, extra_base: 23858, rental: 0, spa_rev: 1606.5, extra_rev: 25464, total_rev: 118383, adr: 248.2 },
+    { week: 33, inventory: 539, occ_rooms: 502, occ_pct: 93.1, guests: 1346, adl: 1019, chd: 242, pkg_rev: 115373, extra_base: 24064, rental: 0, spa_rev: 1798, extra_rev: 25862, total_rev: 141236, adr: 281.3 },
   ],
 };
 // Food (Stellato+Volpe FOOD) and Beverage (Stellato+Volpe BEVERAGE) weekly — 2023-2026
@@ -285,6 +286,7 @@ const S_FB_DATA = {
     30: { guests: 957, adl: 797, chd: 128, weighted_hc: 861.0, food_rev: 44703, food_extra: 11990, bev_rev: 6020, spa_rev: 1049 },
     31: { guests: 902, adl: 723, chd: 129, weighted_hc: 787.5, food_rev: 37366, food_extra: 8350, bev_rev: 5474, spa_rev: 1032 },
     32: { guests: 1211, adl: 946, chd: 195, weighted_hc: 1043.5, food_rev: 57661, food_extra: 15421, bev_rev: 5752, spa_rev: 1089 },
+    33: { guests: 1406, adl: 1079, chd: 232, weighted_hc: 1195.0, food_rev: 78739, food_extra: 20337, bev_rev: 9382, spa_rev: 2203 },
   },
   "2025": {
     23: { guests: 206, adl: 169, chd: 23, weighted_hc: 180.5, food_rev: 7005, food_extra: 2016, bev_rev: 1600, spa_rev: 252 },
@@ -297,6 +299,7 @@ const S_FB_DATA = {
     30: { guests: 928, adl: 678, chd: 190, weighted_hc: 773.0, food_rev: 35584, food_extra: 9527, bev_rev: 3772, spa_rev: 1010 },
     31: { guests: 811, adl: 624, chd: 133, weighted_hc: 690.5, food_rev: 33284, food_extra: 10234, bev_rev: 4252, spa_rev: 862 },
     32: { guests: 1230, adl: 954, chd: 194, weighted_hc: 1051.0, food_rev: 45267, food_extra: 12909, bev_rev: 5930, spa_rev: 1266 },
+    33: { guests: 1475, adl: 1098, chd: 249, weighted_hc: 1222.5, food_rev: 60161, food_extra: 22989, bev_rev: 7012, spa_rev: 1725 },
   },
   "2024": {
     23: { guests: 47, adl: 38, chd: 8, weighted_hc: 42.0, food_rev: 1544, food_extra: 430, bev_rev: 240, spa_rev: 27 },
@@ -309,6 +312,7 @@ const S_FB_DATA = {
     30: { guests: 766, adl: 597, chd: 124, weighted_hc: 659.0, food_rev: 27594, food_extra: 7524, bev_rev: 3808, spa_rev: 602 },
     31: { guests: 962, adl: 745, chd: 159, weighted_hc: 824.5, food_rev: 34366, food_extra: 8920, bev_rev: 5084, spa_rev: 492 },
     32: { guests: 834, adl: 650, chd: 139, weighted_hc: 719.5, food_rev: 31979, food_extra: 11548, bev_rev: 4904, spa_rev: 954 },
+    33: { guests: 1359, adl: 1041, chd: 227, weighted_hc: 1154.5, food_rev: 55496, food_extra: 18328, bev_rev: 7340, spa_rev: 2573 },
   },
   "2023": {
     23: { guests: 173, adl: 155, chd: 14, weighted_hc: 162.0, food_rev: 4979, food_extra: 1550, bev_rev: 2857, spa_rev: 762 },
@@ -321,12 +325,14 @@ const S_FB_DATA = {
     30: { guests: 1076, adl: 865, chd: 164, weighted_hc: 947.0, food_rev: 31481, food_extra: 12359, bev_rev: 7778, spa_rev: 1153 },
     31: { guests: 1146, adl: 856, chd: 258, weighted_hc: 985.0, food_rev: 34382, food_extra: 10411, bev_rev: 10941, spa_rev: 1314 },
     32: { guests: 1224, adl: 984, chd: 181, weighted_hc: 1074.5, food_rev: 41740, food_extra: 16041, bev_rev: 6204, spa_rev: 1606.5 },
+    33: { guests: 1346, adl: 1019, chd: 242, weighted_hc: 1140.0, food_rev: 45938, food_extra: 11808, bev_rev: 10990, spa_rev: 1798 },
   },
 };
-const S_WEEK_LABELS = { 23: "W23", 24: "W24", 25: "W25", 26: "W26", 27: "W27", 28: "W28", 29: "W29", 30: "W30", 31: "W31", 32: "W32" };
+const S_WEEK_LABELS = { 23: "W23", 24: "W24", 25: "W25", 26: "W26", 27: "W27", 28: "W28", 29: "W29", 30: "W30", 31: "W31", 32: "W32", 33: "W33" };
 const S_WEEK_DATES = {
   23: "Jun 5-6", 24: "Jun 7-13", 25: "Jun 14-20", 26: "Jun 21-27", 27: "Jun28-Jul4",
   28: "Jul 5-11", 29: "Jul 12-18", 30: "Jul 19-25", 31: "Jul26-Aug1", 32: "Aug 2-8",
+  33: "Aug 9-15",
 };
 
 const S_YEARS = ["2023", "2024", "2025", "2026"];
@@ -335,27 +341,26 @@ const S_YEAR_COLOR = { "2023": "#B9AFA0", "2024": "#8C8271", "2025": "#A9673C", 
 
 const A_DATA = {
   "2026": {
-    SUMMER: { days: 65, inventory: 5070, occRooms: 2795, arrivals: 334, adult: 5284, chd: 914, inf: 282, guestInHouse: 6480, occPct: 55.1, alos: 8.37, dblOcc: 2.32, adr: 112.13, revpar: 61.82, trevpar: 132.35, trevpor: 240.08, roomsRevenue: 313402.12, pkgAllocation: 207006.49, totalRoomsPkg: 520408.61, extra: 150610.27, fnb: 125322, ood: 18538.27, spa: 6750, totalRevenue: 671018.88 },
+    SUMMER: { days: 71.91, inventory: 5609, occRooms: 3326, arrivals: 916, adult: 6363, chd: 1146, inf: 377, guestInHouse: 7886, occPct: 59.3, alos: 3.63, dblOcc: 2.37, adr: 121.81, revpar: 72.23, trevpar: 152.72, trevpor: 257.54, roomsRevenue: 405135.23, pkgAllocation: 265408.49, totalRoomsPkg: 670543.72, extra: 186049.07, fnb: 155270.5, ood: 21825.57, spa: 8953, totalRevenue: 856592.79 },
     WINTER: { days: 128.09, inventory: 9991, occRooms: 7258, arrivals: 2034, adult: 14327, chd: 4828, inf: 1092, guestInHouse: 20247, occPct: 72.6, alos: 3.57, dblOcc: 2.79, adr: 124.66, revpar: 90.56, trevpar: 204.88, trevpor: 282.03, roomsRevenue: 904788.05, pkgAllocation: 711092.67, totalRoomsPkg: 1615880.72, extra: 431100.55, fnb: 343951.5, ood: 67384.05, spa: 19765, totalRevenue: 2046981.27 },
-    ANNUAL: { days: 193.09, inventory: 15061, occRooms: 10053, arrivals: 2368, adult: 19611, chd: 5742, inf: 1374, guestInHouse: 26727, occPct: 66.7, alos: 4.25, dblOcc: 2.66, adr: 121.18, revpar: 80.88, trevpar: 180.47, trevpor: 270.37, roomsRevenue: 1218190.17, pkgAllocation: 918099.16, totalRoomsPkg: 2136289.33, extra: 581710.82, fnb: 469273.5, ood: 85922.32, spa: 26515, totalRevenue: 2718000.15 },
+    ANNUAL: { days: 200, inventory: 15600, occRooms: 10584, arrivals: 2950, adult: 20690, chd: 5974, inf: 1469, guestInHouse: 28133, occPct: 67.8, alos: 3.59, dblOcc: 2.66, adr: 123.76, revpar: 83.97, trevpar: 186.13, trevpor: 274.34, roomsRevenue: 1309923.28, pkgAllocation: 976501.16, totalRoomsPkg: 2286424.44, extra: 617149.62, fnb: 499222, ood: 89209.62, spa: 28718, totalRevenue: 2903574.06 },
   },
   "2025": {
-    SUMMER: { days: 102, inventory: 7738, occRooms: 4288, arrivals: 1898, adult: 8568, chd: 1656, inf: 630, guestInHouse: 10854, occPct: 55.4, alos: 2.26, dblOcc: 2.53, adr: 114.04, revpar: 63.20, trevpar: 131.77, trevpor: 237.79, roomsRevenue: 489023.01, pkgAllocation: 289710.83, totalRoomsPkg: 778733.84, extra: 240898.81, fnb: 203429.10, ood: 24053.71, spa: 13416, totalRevenue: 1019632.65 },
+    SUMMER: { days: 102, inventory: 7738, occRooms: 4288, arrivals: 1898, adult: 8568, chd: 1656, inf: 630, guestInHouse: 10854, occPct: 55.4, alos: 2.26, dblOcc: 2.53, adr: 114.04, revpar: 63.2, trevpar: 131.77, trevpor: 237.79, roomsRevenue: 489023.01, pkgAllocation: 289710.83, totalRoomsPkg: 778733.84, extra: 240898.81, fnb: 203429.1, ood: 24053.71, spa: 13416, totalRevenue: 1019632.65 },
     WINTER: { days: 128, inventory: 10090, occRooms: 7074, arrivals: 1764, adult: 13636, chd: 5176, inf: 1647, guestInHouse: 20459, occPct: 70.1, alos: 4.01, dblOcc: 2.89, adr: 126.62, revpar: 88.77, trevpar: 175.81, trevpor: 250.77, roomsRevenue: 895685.52, pkgAllocation: 507920.89, totalRoomsPkg: 1403606.41, extra: 370363.68, fnb: 295199.58, ood: 61960.26, spa: 13203.84, totalRevenue: 1773970.09 },
-    ANNUAL: { days: 230, inventory: 17828, occRooms: 11362, arrivals: 3662, adult: 22204, chd: 6832, inf: 2277, guestInHouse: 31313, occPct: 63.7, alos: 3.10, dblOcc: 2.76, adr: 121.87, revpar: 77.67, trevpar: 156.70, trevpor: 245.87, roomsRevenue: 1384708.53, pkgAllocation: 797631.72, totalRoomsPkg: 2182340.25, extra: 611262.49, fnb: 498628.68, ood: 86013.97, spa: 26619.84, totalRevenue: 2793602.74 },
+    ANNUAL: { days: 230, inventory: 17828, occRooms: 11362, arrivals: 3662, adult: 22204, chd: 6832, inf: 2277, guestInHouse: 31313, occPct: 63.7, alos: 3.1, dblOcc: 2.76, adr: 121.87, revpar: 77.67, trevpar: 156.7, trevpor: 245.87, roomsRevenue: 1384708.53, pkgAllocation: 797631.72, totalRoomsPkg: 2182340.25, extra: 611262.49, fnb: 498628.68, ood: 86013.97, spa: 26619.84, totalRevenue: 2793602.74 },
   },
   "2024": {
-    SUMMER: { days: 96, inventory: 7362, occRooms: 3974, arrivals: 1727, adult: 7647, chd: 1331, inf: 475, guestInHouse: 9453, occPct: 54.0, alos: 2.30, dblOcc: 2.38, adr: 100.17, revpar: 54.07, trevpar: 114.53, trevpor: 212.17, roomsRevenue: 398087.86, pkgAllocation: 245087.39, totalRoomsPkg: 643175.25, extra: 199986.44, fnb: 165905.50, ood: 23742.94, spa: 10338, totalRevenue: 843161.69 },
-    WINTER: { days: 124, inventory: 9685, occRooms: 6601, arrivals: 2255, adult: 12780, chd: 4589, inf: 1119, guestInHouse: 18488, occPct: 68.2, alos: 2.93, dblOcc: 2.80, adr: 100.73, revpar: 68.66, trevpar: 168.67, trevpor: 247.47, roomsRevenue: 664940.23, pkgAllocation: 579120.61, totalRoomsPkg: 1244060.84, extra: 389512.13, fnb: 317440.99, ood: 54139.76, spa: 17931.38, totalRevenue: 1633572.97 },
-    ANNUAL: { days: 220, inventory: 17047, occRooms: 10575, arrivals: 3982, adult: 20427, chd: 5920, inf: 1594, guestInHouse: 27941, occPct: 62.0, alos: 2.66, dblOcc: 2.64, adr: 100.52, revpar: 62.36, trevpar: 145.29, trevpor: 234.21, roomsRevenue: 1063028.09, pkgAllocation: 824208, totalRoomsPkg: 1887236.09, extra: 589498.57, fnb: 483346.49, ood: 77882.70, spa: 28269.38, totalRevenue: 2476734.66 },
+    SUMMER: { days: 96, inventory: 7362, occRooms: 3974, arrivals: 1727, adult: 7647, chd: 1331, inf: 475, guestInHouse: 9453, occPct: 54.0, alos: 2.3, dblOcc: 2.38, adr: 100.17, revpar: 54.07, trevpar: 114.53, trevpor: 212.17, roomsRevenue: 398087.86, pkgAllocation: 245087.39, totalRoomsPkg: 643175.25, extra: 199986.44, fnb: 165905.5, ood: 23742.94, spa: 10338, totalRevenue: 843161.69 },
+    WINTER: { days: 124, inventory: 9685, occRooms: 6601, arrivals: 2255, adult: 12780, chd: 4589, inf: 1119, guestInHouse: 18488, occPct: 68.2, alos: 2.93, dblOcc: 2.8, adr: 100.73, revpar: 68.66, trevpar: 168.67, trevpor: 247.47, roomsRevenue: 664940.23, pkgAllocation: 579120.61, totalRoomsPkg: 1244060.84, extra: 389512.13, fnb: 317440.99, ood: 54139.76, spa: 17931.38, totalRevenue: 1633572.97 },
+    ANNUAL: { days: 220, inventory: 17047, occRooms: 10575, arrivals: 3982, adult: 20427, chd: 5920, inf: 1594, guestInHouse: 27941, occPct: 62.0, alos: 2.66, dblOcc: 2.64, adr: 100.52, revpar: 62.36, trevpar: 145.29, trevpor: 234.21, roomsRevenue: 1063028.09, pkgAllocation: 824208, totalRoomsPkg: 1887236.09, extra: 589498.57, fnb: 483346.49, ood: 77882.7, spa: 28269.38, totalRevenue: 2476734.66 },
   },
   "2023": {
-    SUMMER: { days: 100, inventory: 7738, occRooms: 4816, arrivals: 2273, adult: 9531, chd: 1470, inf: 473, guestInHouse: 11474, occPct: 62.2, alos: 2.12, dblOcc: 2.38, adr: 114.53, revpar: 71.28, trevpar: 136.85, trevpor: 219.89, roomsRevenue: 551598.90, pkgAllocation: 219336.69, totalRoomsPkg: 770935.59, extra: 288043.48, fnb: 242283.39, ood: 33105.09, spa: 12655, totalRevenue: 1058979.07 },
-    WINTER: { days: 123, inventory: 10302, occRooms: 6519, arrivals: 2010, adult: 12621, chd: 3992, inf: 825, guestInHouse: 17438, occPct: 63.3, alos: 3.24, dblOcc: 2.67, adr: 107.18, revpar: 67.83, trevpar: 146.83, trevpor: 232.04, roomsRevenue: 698734.32, pkgAllocation: 432593.35, totalRoomsPkg: 1131327.67, extra: 381318.43, fnb: 278931.59, ood: 81688.64, spa: 20698.20, totalRevenue: 1512646.10 },
-    ANNUAL: { days: 223, inventory: 18040, occRooms: 11335, arrivals: 4283, adult: 22152, chd: 5462, inf: 1298, guestInHouse: 28912, occPct: 62.8, alos: 2.65, dblOcc: 2.55, adr: 110.31, revpar: 69.31, trevpar: 142.55, trevpor: 226.87, roomsRevenue: 1250333.22, pkgAllocation: 651930.04, totalRoomsPkg: 1902263.26, extra: 669361.91, fnb: 521214.98, ood: 114793.73, spa: 33353.20, totalRevenue: 2571625.17 },
+    SUMMER: { days: 100, inventory: 7738, occRooms: 4816, arrivals: 2273, adult: 9531, chd: 1470, inf: 473, guestInHouse: 11474, occPct: 62.2, alos: 2.12, dblOcc: 2.38, adr: 114.53, revpar: 71.28, trevpar: 136.85, trevpor: 219.89, roomsRevenue: 551598.9, pkgAllocation: 219336.69, totalRoomsPkg: 770935.59, extra: 288043.48, fnb: 242283.39, ood: 33105.09, spa: 12655, totalRevenue: 1058979.07 },
+    WINTER: { days: 123, inventory: 10302, occRooms: 6519, arrivals: 2010, adult: 12621, chd: 3992, inf: 825, guestInHouse: 17438, occPct: 63.3, alos: 3.24, dblOcc: 2.67, adr: 107.18, revpar: 67.83, trevpar: 146.83, trevpor: 232.04, roomsRevenue: 698734.32, pkgAllocation: 432593.35, totalRoomsPkg: 1131327.67, extra: 381318.43, fnb: 278931.59, ood: 81688.64, spa: 20698.2, totalRevenue: 1512646.1 },
+    ANNUAL: { days: 223, inventory: 18040, occRooms: 11335, arrivals: 4283, adult: 22152, chd: 5462, inf: 1298, guestInHouse: 28912, occPct: 62.8, alos: 2.65, dblOcc: 2.55, adr: 110.31, revpar: 69.31, trevpar: 142.55, trevpor: 226.87, roomsRevenue: 1250333.22, pkgAllocation: 651930.04, totalRoomsPkg: 1902263.26, extra: 669361.91, fnb: 521214.98, ood: 114793.73, spa: 33353.2, totalRevenue: 2571625.17 },
   },
 };
-
 const A_FY = ["2023", "2024", "2025", "2026"];
 const A_FY_LABEL = { "2023": "22/23", "2024": "23/24", "2025": "24/25", "2026": "25/26" };
 const A_FY_COLOR = { "2023": "#B9AFA0", "2024": "#8C8271", "2025": "#A9673C", "2026": "#1E3229" };
@@ -1220,7 +1225,7 @@ function SummerPage() {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
         <div>
           <div style={{ fontFamily: "'Fraunces', serif", fontSize: 26, color: "#1E3229", fontWeight: 600 }}>Summer Season 2026</div>
-          <div style={{ fontSize: 13, color: "#8C8271", marginTop: 4 }}>Weeks 23–32 · early June – 8 August (season-to-date) · comparison 2023 → 2026</div>
+          <div style={{ fontSize: 13, color: "#8C8271", marginTop: 4 }}>Weeks 23–33 · early June – 15 August (season-to-date) · comparison 2023 → 2026</div>
         </div>
         <div style={{ textAlign: "right" }}>
           <div style={{ fontSize: 11, color: "#8C8271", textTransform: "uppercase", letterSpacing: "0.08em" }}>Rooms + Extra Revenue{period !== "all" ? ` (${period})` : ""}</div>
@@ -1270,7 +1275,7 @@ function SummerPage() {
               <li>Occupancy at {t26.occPct.toFixed(1)}% season-to-date, <strong>+{occDeltaVs25.toFixed(1)} points</strong> vs 2025 — the strongest summer start in three years, behind only 2023.</li>
               <li>ADR up to {fmtEUR(t26.adr)} (<Delta value={adrDeltaVs25} />).</li>
               <li>Extra revenue (F&B, parking, hotel) +{extraDeltaVs25.toFixed(1)}%, guests spending more on-site.</li>
-              <li>Beverage spend per adult is up sharply ({bevPaDelta.toFixed(0)}% vs 2025) — a week 28 spike (€12.11/adult vs €2.40 in 2025) is worth investigating for repeatability.</li>
+              <li>Beverage spend per adult is up {bevPaDelta.toFixed(0)}% vs 2025 and food per guest {foodPgDelta.toFixed(0)}% — on-site spend is growing faster than room nights.</li>
               <li>Strongest weeks vs 2025: {bestWeeks.map((w) => `W${w.week} (+${w.delta.toFixed(1)}pt)`).join(", ")}.</li>
             </ul>
           </div>
@@ -1278,8 +1283,8 @@ function SummerPage() {
             <div style={{ fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", color: "#B54B3A", fontWeight: 700 }}>⚠ Where To Focus Attention</div>
             <ul style={{ margin: "10px 0 0", paddingLeft: 18, fontSize: 14, lineHeight: 1.7, color: "#3A362E" }}>
               <li>Spa revenue down {Math.abs(spaDeltaVs25).toFixed(1)}% vs 2025, and down {Math.abs(spaPaDelta).toFixed(1)}% per-adult — the only revenue line in decline.</li>
-              <li>Week 24 (Jun 7-13) drops sharply vs 2025 — the weakest week of the comparison.</li>
-              <li>Week 25 (Jun 14-20) is also below 2025: the first two weeks of June remain the recurring soft spot.</li>
+              <li>Week 24 (Jun 7-13) drops sharply vs 2025 (-20.3 pt) — the weakest week of the comparison.</li>
+              <li>Week 25 (Jun 14-20) is also below 2025 (-3.7 pt): the first weeks of June remain the recurring soft spot.</li>
               <li>Guests in house grew only {guestsDeltaVs25.toFixed(1)}% while revenue grew {revDeltaVs25.toFixed(1)}%: strong for average spend, June carries the clearest volume upside.</li>
             </ul>
           </div>
@@ -1458,8 +1463,8 @@ function AnnualPage() {
   const revDeltaWinter = ((w26.totalRevenue / w25.totalRevenue) - 1) * 100;
   // Genuine YTD comparison, aligned by week number (not calendar date) since the resort's
   // reporting weeks always run Sunday-to-Sunday. 25/26 YTD = Winter 25/26 (complete) + Summer 2026
-  // weeks 23-32 (through 8 Aug 2026). 24/25 YTD-equivalent = Winter 24/25 (complete) + Summer 2025
-  // weeks 23-32 only (through the same week 32, ~9 Aug 2025) — NOT the full 2025 summer.
+  // weeks 23-33 (through 15 Aug 2026). 24/25 YTD-equivalent = Winter 24/25 (complete) + Summer 2025
+  // weeks 23-33 only (through the same week 33) — NOT the full 2025 summer.
   const s25ytd = S_RAW["2025"].reduce((acc, r) => ({
     total: acc.total + r.total_rev, pkg: acc.pkg + r.pkg_rev, extra: acc.extra + r.extra_rev,
     occ: acc.occ + r.occ_rooms, inv: acc.inv + r.inventory,
@@ -1559,12 +1564,12 @@ function AnnualPage() {
         <div style={{ textAlign: "right" }}>
           <div style={{ fontSize: 11, color: "#8C8271", textTransform: "uppercase", letterSpacing: "0.08em" }}>25/26 Total Revenue to Date</div>
           <div style={{ fontFamily: "'Fraunces', serif", fontSize: 22, color: "#1E3229", fontWeight: 600 }}>{fmtEUR(a26.totalRevenue)}</div>
-          <Delta value={ytdDeltaVs25} /><span style={{ fontSize: 12, color: "#B9AFA0", marginLeft: 6 }}>YTD vs 24/25 (1 Nov–8 Aug, both years)</span>
+          <Delta value={ytdDeltaVs25} /><span style={{ fontSize: 12, color: "#B9AFA0", marginLeft: 6 }}>YTD vs 24/25 (1 Nov–15 Aug, both years)</span>
         </div>
       </div>
 
       <div style={{ background: "#F3E4DC", border: "1px solid #E3C6B7", borderRadius: 10, padding: "14px 18px", marginBottom: 24, fontSize: 13, color: "#5A4436", lineHeight: 1.6 }}>
-        <strong>Year 25/26 is in progress.</strong> Winter 25/26 is complete and fully comparable year-on-year. Summer 2026 is season-to-date through 8 August and no autumn 2026 data is yet included. Treat 25/26 ANNUAL figures as a running total — the Winter-only figures below are the reliable like-for-like read.
+        <strong>Year 25/26 is in progress.</strong> Winter 25/26 is complete and fully comparable year-on-year. Summer 2026 is season-to-date through 15 August and no autumn 2026 data is yet included. Treat 25/26 ANNUAL figures as a running total — the Winter-only figures below are the reliable like-for-like read.
       </div>
 
       <div style={{ display: "flex", gap: 8, marginBottom: 28 }}>
@@ -1576,7 +1581,7 @@ function AnnualPage() {
         <div style={{ fontSize: 12, fontWeight: 700, color: "#A9673C", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 10 }}>25/26 Year-to-Date (Winter + Summer combined, in progress)</div>
         <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 16 }}>
           <KpiCard label="Occupancy % (avg)" value={`${a26.occPct.toFixed(1)}%`} sub="weighted across operating weeks to date" delta={a26.occPct - a25.occPct} deltaLabel="pt YTD vs 24/25" badge="Running" />
-          <KpiCard label="Total Revenue" value={fmtEUR(a26.totalRevenue)} sub="1 Nov 2025 – 8 Aug 2026" delta={ytdDeltaVs25} deltaLabel="YTD vs 24/25" lyValue={ytd2025Total} absDiff={a26.totalRevenue - ytd2025Total} badge="Running" />
+          <KpiCard label="Total Revenue" value={fmtEUR(a26.totalRevenue)} sub="1 Nov 2025 – 15 Aug 2026" delta={ytdDeltaVs25} deltaLabel="YTD vs 24/25" lyValue={ytd2025Total} absDiff={a26.totalRevenue - ytd2025Total} badge="Running" />
           <KpiCard label="PKG Revenue" value={fmtEUR(a26.totalRoomsPkg)} sub="rooms + board" delta={pkgTotalDeltaVs25} deltaLabel="YTD vs 24/25" lyValue={ytd2025Pkg} absDiff={a26.totalRoomsPkg - ytd2025Pkg} badge="Running" />
           <KpiCard label="Extra Revenue" value={fmtEUR(a26.extra)} sub="F&B, other depts., spa" delta={extraTotalDeltaVs25} deltaLabel="YTD vs 24/25" lyValue={ytd2025Extra} absDiff={a26.extra - ytd2025Extra} badge="Running" />
           <KpiCard label="TrevPAR" value={fmtEUR1(a26.trevpar)} sub="total revenue per available room" delta={trevparDeltaVs25} deltaLabel="YTD vs 24/25" lyValue={ytd2025Trevpar} absDiff={a26.trevpar - ytd2025Trevpar} fmt={fmtEUR1} badge="Running" />
@@ -1603,7 +1608,7 @@ function AnnualPage() {
               <li>Four-year occupancy trend is consistently positive: 22/23 62.8% → 23/24 62.0% → 24/25 63.7% → <strong>25/26 running at 66.7%</strong>.</li>
               <li>ADR has grown every year, holding 24/25's step-change in rate: €121.18 running (25/26).</li>
               <li>Winter 25/26 is unambiguously strong: occupancy {w26.occPct.toFixed(1)}% (<Delta value={occDeltaWinter} suffix=" pt" />), ADR {fmtEUR(w26.adr)} (<Delta value={adrDeltaWinter} />), RevPAR {fmtEUR(w26.revpar)} (<Delta value={revparDeltaWinter} />).</li>
-              <li>Year-to-date revenue (1 Nov 2025 – 8 Aug 2026) is <Delta value={ytdDeltaVs25} /> vs the same weeks last year (1 Nov 2024 – week 32 2025) — a genuine like-for-like comparison, not just partial-vs-full-year.</li>
+              <li>Year-to-date revenue (1 Nov 2025 – 15 Aug 2026) is <Delta value={ytdDeltaVs25} /> vs the same weeks last year (1 Nov 2024 – week 33 2025) — a genuine like-for-like comparison, not just partial-vs-full-year.</li>
             </ul>
           </div>
           <div style={{ background: "#F3E4DC", border: "1px solid #E3C6B7", borderRadius: 10, padding: "20px 22px" }}>
@@ -1779,7 +1784,7 @@ function SavoiaResortDashboard() {
         {section === "summer" && <SummerPage />}
 
         <div style={{ marginTop: 24, fontSize: 12, color: "#B9AFA0", textAlign: "center", lineHeight: 1.6 }}>
-          Data extracted from SALES_CMPRSN_summer_26_fino_al_8_aug.xlsx (sheets "KPI's", "winter 26", "summer 26"). Our year runs 1 November – 31 October.<br />
+          Data extracted from SALES_CMPRSN.xlsx (sheets "KPI's", "winter 26", "summer 26"), updated through week 33 (15 Aug 2026). Our year runs 1 November – 31 October.<br />
           "Food" and "Beverage" per-capita figures capture only à la carte / extra outlet revenue (Stellato + Volpe), not meals already included in the room+board package — verified directly against source cells.
         </div>
       </div>
